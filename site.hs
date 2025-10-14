@@ -4,6 +4,11 @@ import Data.Monoid (mappend)
 import Text.Pandoc
 import Hakyll
 
+config :: Configuration
+config = defaultConfiguration {
+    destinationDirectory = "docs"
+}
+
 myPandocCompiler :: Compiler (Item String)
 myPandocCompiler = pandocCompilerWith ropt wopt
   where ropt = defaultHakyllReaderOptions
@@ -13,7 +18,7 @@ myPandocCompiler = pandocCompilerWith ropt wopt
         }
 
 main :: IO ()
-main = hakyll $ do
+main = hakyllWith config $ do
     match "assets/**" $ do
         route   idRoute
         compile copyFileCompiler
