@@ -3,7 +3,7 @@ title: Monadic lenses are the optic for right monad modules II
 date: 24/06/2023
 ---
 
-This was originally intended to be a 2-part blog post, but a sideline into the interaction of monad modules and distributive laws turned into something of blog length, making this part 2 of 3. But it should be possible to read it independently of the [previous installment](https://julesh.com/2023/06/07/monadic-lenses-are-the-optic-for-right-monad-modules-i/).
+This was originally intended to be a 2-part blog post, but a sideline into the interaction of monad modules and distributive laws turned into something of blog length, making this part 2 of 3. But it should be possible to read it independently of the [previous installment](/posts/2023-06-07-monadic-lenses-optic-right-monad-modules-i.html).
 
 Previously we saw that monadic lenses (where the forwards part is pure, but the backwards part lives in a monad) can be defined in van Laarhoven style by quantifying over all functors which are right modules of the monad, that is, they have a natural transformation $f (m a) \to f a$ compatible with the structure of $m$.
 

@@ -3,11 +3,11 @@ title: Towards dependent optics
 date: 10/06/2020
 ---
 
-There are two different generalises of [lenses](https://julesh.com/2018/08/16/lenses-for-philosophers/) that are important in my research. One is [optics](https://arxiv.org/abs/1809.00738), which are a non-obvious generalisation of lenses that work over a monoidal category (whereas lenses only work over a finite product category). We use optics in [Bayesian open games](https://arxiv.org/abs/1910.03656), over the category of Markov kernels (kleisli category of probability). The other is dependent lenses, also known as containers and equivalent to polynomial functors. These haven't appeared in a game theory paper yet, but I use them privately to handle external choice of games better than lenses do.
+There are two different generalises of [lenses](/posts/2018-08-16-lenses-for-philosophers.html) that are important in my research. One is [optics](https://arxiv.org/abs/1809.00738), which are a non-obvious generalisation of lenses that work over a monoidal category (whereas lenses only work over a finite product category). We use optics in [Bayesian open games](https://arxiv.org/abs/1910.03656), over the category of Markov kernels (kleisli category of probability). The other is dependent lenses, also known as containers and equivalent to polynomial functors. These haven't appeared in a game theory paper yet, but I use them privately to handle external choice of games better than lenses do.
 
 An interesting and probably-hard question is to find a common generalisation of optics and dependent lenses.[^1] In this post I'll outline the problem and explain a (probable) partial solution that might be useful for somebody, but doesn't appear useful in game theory. This post will be heavy on category theory: I assume knowledge of fibred categories and the Grothendieck construction.
 
-[^1]: Editor's note: This is probably the greatest understatement of my career.
+[^1]: Editor's note: In retrospect this was probably the greatest understatement of my career.
 
 If $\mathcal C$ is a finite product category and $s$, $t$, $a$, $b$ are objects of $\mathcal C$, then a lens $(s, t) \to (a, b)$ is a pair of functions $v : s \to a$ and $u : s \times b \to t$. Lenses form a category $\mathbf{Lens} (\mathcal C)$. If $\mathcal C$ is only a monoidal category and we try to define a lens by $v : s \to a$ and $u : s \otimes b \to t$ then the composition fails to be associative, so they do not form a category.
 

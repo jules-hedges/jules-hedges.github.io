@@ -5,7 +5,7 @@ date: 05/09/2024
 
 ([X-posted on the CyberCat Institute blog](https://cybercat.institute/2024/09/05/bidirectional-programming-ii/))
 
-See [part I](https://cybercat.institute/2024/08/26/bidirectional-programming-i/) of this series
+See [part I](/posts/2024-08-26-bidirectional-programming-i.html) of this series
 
 In this post we'll begin designing a kernel language in which all programs are optics. What I mean by a "kernel language" is that it will serve as a compiler intermediate representation, with a surface language compiling down to it. I intend the surface language to be imperative style like the current Open Game Engine (with an approximately Python-like syntax), but the kernel language will reflect the category theory as closely as possible. I plan the kernel language to be well typed by construction, something that seems like overkill until I think about the problem of figuring out how pattern matching should work in a bidirectional language.
 
@@ -61,7 +61,7 @@ mutual
 
 Let's think through the consequences of these choices. We think of `Tensor` as linear conjunction, so its neutral element `Unit` is linear truth. The interpretation of `Unit` is the pair $(1, 1)$, and so `Not Unit` - which we would think of as linear falsity - has the same interpretation. So we have a linear logic where falsity and truth coincide semantically. Similarly, the de Morgan dual of `Tensor`, which we would call linear disjunction, coincides with it semantically. So we have an inconsistent interpretation of linear logic. This is nowhere near as bad as it sounds, since many reasonable semantic categories do the same, but we need to keep it in mind.
 
-Since `Tensor` is a perfectly cromulent symmetric monoidal product, its introduction and elimination rules will be exactly the same as the ones in my [previous post](https://cybercat.institute/2024/08/26/bidirectional-programming-i/). But the negation rules are going to be quite a puzzle.
+Since `Tensor` is a perfectly cromulent symmetric monoidal product, its introduction and elimination rules will be exactly the same as the ones in my [previous post](/posts/2024-08-26-bidirectional-programming-i.html). But the negation rules are going to be quite a puzzle.
 
 Our interpretation of negation is strictly involutive - swapping twice is a no-op - something we can call a *classical* linear negation. This means our semantics validates the principles of double negation introduction and double negation elimination: both of them are interpreted as an identity lens.
 
@@ -119,7 +119,7 @@ data Term : List Ty -> List Ty -> Type where
           -> Term xs1 (y :: ys1) -> Term xs2 (Not y :: ys2) -> Term xs3 ys3
 ```
 
-`Symmetric` is the structure for permutations that I introduced in the [previous post](https://cybercat.institute/2024/08/26/bidirectional-programming-i/).
+`Symmetric` is the structure for permutations that I introduced in the [previous post](/posts/2024-08-26-bidirectional-programming-i.html).
 
 Here are what our principles look like, together with some non-proofs that are ruled out by the restrictions on right-introduction and left-elimination:
 ```haskell

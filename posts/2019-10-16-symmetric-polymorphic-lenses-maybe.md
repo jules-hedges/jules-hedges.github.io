@@ -7,7 +7,7 @@ Whereas ordinary directed lenses go from a source to a view, [symmetric lenses](
 
 Normally when I'm playing with an idea like this I mock it up in Haskell and play around with it to check it works, before committing to too much hard work on the proofs. But this would be very difficult (and maybe impossible) to write in Haskell, so the idea of this post is to give enough detail that some folks could try it in Agda or Idris, and give me feedback on whether it feels like something useful. (In the meantime, I will try an extremely fast and loose Haskell version by pretending that pullbacks and pushouts are products and coproducts, and see what happens.)
 
-What I'll write about here is actually symmetric [bimorphic lenses](https://julesh.com/2018/08/16/lenses-for-philosophers/), the word I made up for when the lens laws don't even typecheck. In what is now a fine tradition, I'll figure out how the lens laws come into it later. (I have a nasty feeling that the lens laws might be what kills this idea.)
+What I'll write about here is actually symmetric [bimorphic lenses](/posts/2018-08-16-lenses-for-philosophers.html), the word I made up for when the lens laws don't even typecheck. In what is now a fine tradition, I'll figure out how the lens laws come into it later. (I have a nasty feeling that the lens laws might be what kills this idea.)
 
 Rather than starting from the original concrete definition of symmetric lenses, I'm starting from their characterisation as [spans of directed lenses](https://web.science.mq.edu.au/~mike/papers/78.pdf) (modulo a hack, because the category of lenses doesn't quite have pullbacks).
 

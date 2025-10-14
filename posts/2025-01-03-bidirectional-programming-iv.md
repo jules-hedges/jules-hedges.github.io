@@ -5,11 +5,11 @@ date: 03/01/2025
 
 ([X-posted on the CyberCat Institute blog](https://cybercat.institute/2025/01/03/bidirectional-programming-iv/))
 
-See parts [I](https://cybercat.institute/2024/08/26/bidirectional-programming-i/), [II](https://cybercat.institute/2024/09/05/bidirectional-programming-ii/) and [III](https://cybercat.institute/2024/09/12/bidirectional-programming-iii/)
+See parts [I](/posts/2024-08-26-bidirectional-programming-i.html), [II](/posts/2024-09-05-bidirectional-programming-ii.html) and [III](/posts/2024-09-12-bidirectional-programming-iii.html)
 
 We are now at the point where we can write an interpreter to run some programs. To be clear, this is mainly for demonstration and debugging purposes, and the eventual goal is to write an optimising compiler. By the end of this post we will be able to demonstrate interpreting some very simple straight-line differentiable programs, and also demonstrate just how horrendous it is to actually write programs in our kernel syntax. This will motivate several follow-up posts where we slowly work upwards towards a human-usable surface language.
 
-Continuing our well-typed-by-construction methodology we will build a *well typed interpreter*. This means that we first interpret types of our language into Idris types, and then these give the type of the corresponding interpreted program. For languages less weird than ours, such as one of the example languages from the [first post](https://cybercat.institute/2024/08/26/bidirectional-programming-i/), we would interpret terms as Idris functions, resulting in signatures like this:
+Continuing our well-typed-by-construction methodology we will build a *well typed interpreter*. This means that we first interpret types of our language into Idris types, and then these give the type of the corresponding interpreted program. For languages less weird than ours, such as one of the example languages from the [first post](/posts/2024-08-26-bidirectional-programming-i.html), we would interpret terms as Idris functions, resulting in signatures like this:
 
 ```haskell
 EvalType : Ty -> Type

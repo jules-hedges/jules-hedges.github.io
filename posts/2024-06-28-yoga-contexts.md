@@ -7,7 +7,7 @@ date: 28/06/2024
 
 Suppose we have some category $\mathcal C$, whose morphisms are some kind of *processes* or *systems* that we care about. We would like to be able to talk about *contexts* (or *environments*) in which these processes or systems can be located.
 
-This post is to finally write part of the lore of categorical cybernetics that I've been working out on the backburner for a few years, and I've talked about in front of various audiences a few times. I never thought it was quite compelling enough to write a paper about it, but it's been part of my bag of tricks for a while, for example playing a central role in my [lecture series on compositional game theory](https://julesh.com/videos/). In the meantime, similar ideas have been invented a few times in applied category theory, most notably being taken further for talking about [quantum supermaps](https://arxiv.org/abs/2402.02997).
+This post is to finally write part of the lore of categorical cybernetics that I've been working out on the backburner for a few years, and I've talked about in front of various audiences a few times. I never thought it was quite compelling enough to write a paper about it, but it's been part of my bag of tricks for a while, for example playing a central role in my [lecture series on compositional game theory](https://julesh.com/links.html). In the meantime, similar ideas have been invented a few times in applied category theory, most notably being taken further for talking about [quantum supermaps](https://arxiv.org/abs/2402.02997).
 
 ## Contexts in a category
 
@@ -69,7 +69,7 @@ So now we have 2 different definitions of a system of contexts: as a lax monoida
 
 As a personal anecdote, at different points I've convinced myself that both of these definitions were the correct definition of "system of contexts", before realising that they were equivalent by the profunctor representation theorem - this led to me getting some quite good, graphical intuition for this otherwise notoriously abstract theorem.
 
-Some time after working out the last part of this, I learned about the existence of [this paper](https://www.sciencedirect.com/science/article/pii/S0304397512000163) by Hermida and Tennent, which finally backed up my intuition behind my definition of generalised states by formulating a universal construction forcing them to become actual states. Incredibly this construction itself also falls squarely in the small cluster of methods we call categorical cybernetics, which caps off the whole thing very nicely. I touched on this construction in [this blog post](https://cybercat.institute/2024/02/22/iteration-optics/), and perhaps I'll have more to say about it later too.
+Some time after working out the last part of this, I learned about the existence of [this paper](https://www.sciencedirect.com/science/article/pii/S0304397512000163) by Hermida and Tennent, which finally backed up my intuition behind my definition of generalised states by formulating a universal construction forcing them to become actual states. Incredibly this construction itself also falls squarely in the small cluster of methods we call categorical cybernetics, which caps off the whole thing very nicely. I touched on this construction in [this blog post](/posts/2024-02-22-iteration-optics.html), and perhaps I'll have more to say about it later too.
 
 ## Conclusion
 
@@ -89,6 +89,6 @@ or as 3-hole combs:
 
 Moving back and forth between these equivalent views of the iterated optic construction is a key part of the yoga of contexts as it applies to categorical cybernetics.
 
-An example of a non-representable system of contexts is the "iteration functor" I talked about in [this post](https://cybercat.institute/2024/02/22/iteration-optics/). It's closely related to the *algebra of Moore machines* which plays a major role in David Jaz Myers' book on [categorical systems theory](http://davidjaz.com/Papers/DynamicalBook.pdf).
+An example of a non-representable system of contexts is the "iteration functor" I talked about in [this post](/posts/2024-02-22-iteration-optics.html). It's closely related to the *algebra of Moore machines* which plays a major role in David Jaz Myers' book on [categorical systems theory](http://davidjaz.com/Papers/DynamicalBook.pdf).
 
 But, the actual reason this is a blog post and not a paper is that I don't have any really compelling examples outside of categorical cybernetics. But I'll talk more about my struggles with that in part II, where I'll build a category of "behaviours in context" given a system of contexts, generalising the construction of open games.

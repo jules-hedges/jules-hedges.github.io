@@ -5,7 +5,7 @@ date: 12/09/2024
 
 ([X-posted on the CyberCat Institute blog](https://cybercat.institute/2024/09/12/bidirectional-programming-iii/))
 
-See parts [I](https://cybercat.institute/2024/08/26/bidirectional-programming-i/) and [II](https://cybercat.institute/2024/09/05/bidirectional-programming-ii/) of this series. There is also now a [source repo](https://github.com/CyberCat-Institute/Aptwe)!
+See parts [I](/posts/2024-08-26-bidirectional-programming-i.html) and [II](/posts/2024-09-05-bidirectional-programming-ii.html) of this series. There is also now a [source repo](https://github.com/CyberCat-Institute/Aptwe)!
 
 In this post we will make probably the single most important step from a generic type theory to one specialised to bidirecional programming.
 
@@ -13,9 +13,9 @@ In a bidirectional language there are 2 kinds of variables: ones travelling forw
 
 Variables of *cocartesian* type are the weird ones. They can also be implicitly copied and deleted, but because they are going backwards, from the forwards perspective it looks like they can be implicitly *merged* and *spawned*. By *spawned* I mean they can be bound zero times and still referred to; and by *merged* I mean they can be bound twice without the later binding shadowing the earlier binding. On the other hand they can *not* be implicitly copied or deleted. Their scoping rules are *cocartesian*.
 
-I can now reveal that my *party trick* in the last section of my [first post](https://cybercat.institute/2024/08/26/bidirectional-programming-i/) where I built a cocartesian language was secretly not in fact a party trick after all, but was all along in preparation for this exact moment.
+I can now reveal that my *party trick* in the last section of my [first post](/posts/2024-08-26-bidirectional-programming-i.html) where I built a cocartesian language was secretly not in fact a party trick after all, but was all along in preparation for this exact moment.
 
-Now suppose we take a tensor product of a covariant type and a contravariant type. Now we have a variable referring to a bundle of a cartesian value, which can be deleted and copied but not spawned or merged, and a cocartesian value, which can be spawned and merged but not deleted or copied. Since doing any of these operations to a pair means doing it to both, our variable cannot be deleted or copied or spawned or merged, which means it is a *linear* variable. I will refer to such a tensor product type as *invariant*. Secretly, all of the types in my [second post](https://cybercat.institute/2024/09/05/bidirectional-programming-ii/) were invariant, since that language was linear.
+Now suppose we take a tensor product of a covariant type and a contravariant type. Now we have a variable referring to a bundle of a cartesian value, which can be deleted and copied but not spawned or merged, and a cocartesian value, which can be spawned and merged but not deleted or copied. Since doing any of these operations to a pair means doing it to both, our variable cannot be deleted or copied or spawned or merged, which means it is a *linear* variable. I will refer to such a tensor product type as *invariant*. Secretly, all of the types in my [second post](/posts/2024-09-05-bidirectional-programming-ii.html) were invariant, since that language was linear.
 
 There is a secret fourth thing, which is variables with *bicartesian* scoping rules, so they can be deleted and copied and spawned and merged. I will refer to these types as *bivariant*. It would be entirely reasonable to not include these, but I have a secret plan for them that will be revealed in the next post. For now, the only bivariant type will be the monoidal unit.
 
@@ -46,7 +46,7 @@ Now we come to the hard part: tensor products. A tensor product is covariant if 
         -> Ty (covx && covy, conx && cony)
 ```
 
-But we already know how to handle this situation, it's the same idea as for list concatenation in the [first post](https://cybercat.institute/2024/08/26/bidirectional-programming-i/). We define the relation corresponding to the boolean conjunction function, and a section of it:
+But we already know how to handle this situation, it's the same idea as for list concatenation in the [first post](/posts/2024-08-26-bidirectional-programming-i.html). We define the relation corresponding to the boolean conjunction function, and a section of it:
 
 ```haskell
 data And : Bool -> Bool -> Bool -> Type where
@@ -70,7 +70,7 @@ Now we can write the actual definition of tensor products, which is much more co
 
 ## The scoping rules
 
-Now we come to the main topic of this post: how kinds influence scoping rules. In the [first post](https://cybercat.institute/2024/08/26/bidirectional-programming-i/) we saw how to implement context morphisms for planar, linear, cartesian and cocartesian languages. Those definitions were all polymorphic over arbitrary lists. Then in the [second post](https://cybercat.institute/2024/09/05/bidirectional-programming-ii/) we defined context morphisms that could introduce and elimination double negations, which was no longer polymorphic but specialised to a particular language of types, and this will continue.
+Now we come to the main topic of this post: how kinds influence scoping rules. In the [first post](/posts/2024-08-26-bidirectional-programming-i.html) we saw how to implement context morphisms for planar, linear, cartesian and cocartesian languages. Those definitions were all polymorphic over arbitrary lists. Then in the [second post](/posts/2024-09-05-bidirectional-programming-ii.html) we defined context morphisms that could introduce and elimination double negations, which was no longer polymorphic but specialised to a particular language of types, and this will continue.
 
 Now that types are indexed by kinds, everything else becomes more complicated: everything we do from now on becomes additionally indexed by kinds, starting with this.
 
@@ -170,7 +170,7 @@ ixSimplex {xs = x :: xs} (a :: as) {ys} bs
      in (x :: zs ** a :: cs ** S n)
 ```
 
-Now we come to the negation rules, and the final twist of this post. In the language we reached at the end of the [previous post](https://cybercat.institute/2024/09/05/bidirectional-programming-ii/), which amounts to the fragment of this language for only invariant types, there was no not-introduction rule - correctly so. As I speculated there, there are indeed some valid instances of not-introduction, but they are not sufficient to prove general double negation introduction or elimination - and they can't even be expressed without the kind system we developed in this post.
+Now we come to the negation rules, and the final twist of this post. In the language we reached at the end of the [previous post](/posts/2024-09-05-bidirectional-programming-ii.html), which amounts to the fragment of this language for only invariant types, there was no not-introduction rule - correctly so. As I speculated there, there are indeed some valid instances of not-introduction, but they are not sufficient to prove general double negation introduction or elimination - and they can't even be expressed without the kind system we developed in this post.
 
 It turns out that we have two not-introduction rules, one that is valid for covariant types and one that is valid for contravariant types. This introduces a sort of incompatibility between negation and tensor, since the tensor product of two variables with a valid not-introduction rule can fail to have one.
 

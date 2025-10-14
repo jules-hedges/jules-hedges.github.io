@@ -142,7 +142,7 @@ In *Practical Aspects of Declarative Languages (PADL) 2017*, *Lecture Notes in C
 
 PhD thesis, Queen Mary University of London, 2016
 
-[[pdf](https://www.cs.ox.ac.uk/people/julian.hedges/papers/Thesis.pdf)] ([Discussion](https://julesh.com/2018/01/16/towards-compositional-game-theory/))
+[[pdf](https://www.cs.ox.ac.uk/people/julian.hedges/papers/Thesis.pdf)] ([Discussion](/posts/2018-01-16-towards-compositional-game-theory.html))
 
 ---
 
@@ -166,7 +166,7 @@ In *Mathematically Structured Functional Programming (MSFP) 2014*, *Electronic P
 
 *Proceedings of the Royal Society A*, 2013
 
-[[link](https://royalsocietypublishing.org/doi/10.1098/rspa.2013.0041)] ([Discussion](https://julesh.com/2017/06/01/a-generalisation-of-nashs-theorem-with-higher-order-functionals/))
+[[link](https://royalsocietypublishing.org/doi/10.1098/rspa.2013.0041)] ([Discussion](/posts/2017-06-01-generalisation-nashs-theorem.html))
 
 ---
 
@@ -174,7 +174,7 @@ In *Mathematically Structured Functional Programming (MSFP) 2014*, *Electronic P
 
 - **Fibre optics** (with Dylan Braithwaite, Matteo Capucci, Bruno Gavranović and Eigil Fjeldgren Rischel), 2021 [[arXiv](https://arxiv.org/abs/2112.11145)]
 - **Sheet diagrams for bimonoidal categories** (with Cole Comfort and Antonin Delpeuch), 2020 [[arXiv](https://arxiv.org/abs/2010.13361)]
-- **Non-compositionality in categorical systems theory**, 2020 [[pdf](https://julesh.com/wp-content/uploads/2020/05/categorical-systems-theory-3.pdf)]
+- **Non-compositionality in categorical systems theory**, 2020 [[pdf](https://obsoletewallstreet.wordpress.com/wp-content/uploads/2020/05/categorical-systems-theory-3.pdf)]
 - **Foundations of brick diagrams** (with Jelle Herold), 2019 [[arXiv](https://arxiv.org/abs/1908.10660)]
 - **Sequential games and nondeterministic selection functions** (with Joe Bolt and Philipp Zahn), 2019 [arXiv](https://arxiv.org/abs/1811.06810)
 - **From open learners to open games**, 2019 [[arXiv](https://arxiv.org/abs/1902.08666)]
