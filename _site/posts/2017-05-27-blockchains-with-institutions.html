@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>My Hakyll Blog - Blockchains with institutions</title>
+        <link rel="stylesheet" href="../css/default.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">Jules Hedges</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../papers.html">Papers</a>
+                <a href="../links.html">Links</a>
+                <a href="../archive.html">Archive</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>Blockchains with institutions</h1>
+            <article>
+    <section class="header">
+        Posted on May 27, 2017
+        
+    </section>
+    <section>
+        <p>This is the first in a series about social aspects of <a href="https://en.wikipedia.org/wiki/Blockchain">blockchains</a>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> I began writing an article that launched straight into an application, but it was too confusing without first laying some general groundwork on ‘blockchains with institutions’, the subject of this article. As a teaser, the article I had begun was discussing a design for a democracy that is significantly harder to overthrow than existing designs, by making democratic institutions inseparable from a nation’s currency.</p>
+<p>I strongly feel that the surprising <a href="https://ethereum.org/en/whitepaper/">discovery</a> of Turing-complete blockchain computation by Vitalik Buterin in 2013 is a huge and completely unforeseen game-changer in social philosophy, and that there is far too little awareness of its implications among philosophers, economists and other social theorists.</p>
+<p>I am assuming knowledge of the basic principles of blockchain computation, with <a href="https://ethereum.org/en/">Ethereum</a> as a prototype.</p>
+<p>I will be using the following technical term: a <strong>contract complex</strong> is a collection of contracts are co-designed to achieve a common goal. It is somewhat like a multi-threaded application, in that each contract is not really meaningful in isolation. A contract complex could consist of only a few contracts, or it could be large and complex, such as a <a href="https://en.wikipedia.org/wiki/Decentralized_autonomous_organization">DAO</a>.</p>
+<p>In ordinary usage, <a href="https://plato.stanford.edu/entries/social-institutions/">institutions</a> are complicated to define so I will cheat and leave it to the reader’s common sense. As an under-definition, every institution is a <a href="https://plato.stanford.edu/entries/evolution-cultural/">meme</a>, and so in particular is defined by an <a href="https://en.wikipedia.org/wiki/Evolutionarily_stable_strategy">evolutionarily stable strategy</a>. Important examples of institutions are <a href="https://en.wikipedia.org/wiki/Currency">currencies</a>, <a href="https://en.wikipedia.org/wiki/Law">legal systems</a> and <a href="https://en.wikipedia.org/wiki/Democracy">democratic systems</a>.</p>
+<p>I define a <strong>directly institutional contract</strong> of a blockchain to be any contract that is treated in a distinguished way by the blockchain protocol. An <strong>indirectly institutional contract</strong> is a contract that is treated in a distinguished way by another directly or indirectly institutional contract. An <strong>institution</strong> of a blockchain is a contract complex containing institutional contracts. Note that this does not coincide exactly with the usual notion of institution: for example, with its natural usage a currency is an institution, but the currency defined by a blockchain is not an example of an institution in the sense I have defined it, because it is defined by the protocol and not by contracts.</p>
+<p>I will begin by discussing one example of an institution: a <a href="https://www.ecb.europa.eu/ecb-and-you/explainers/tell-me/html/what-is-a-central-bank.en.html">central bank</a>. Although real central banks play many roles, many of them are aspects of one key role: a central bank has distinguished control over a currency in a way that users of the currency (including government treasuries) do not. They do this by controlling certain parameters, such as the interest rate. I will focus on only one method of control: the <a href="https://en.wikipedia.org/wiki/Monetary_policy">rate of creation of money</a>. In standard usage this should not be confused with the rate of <a href="https://en.wikipedia.org/wiki/Mint_(facility)">minting</a>, the physical creation of coins and notes, but for blockchains they coincide.</p>
+<p>The best-known blockchains have very simple monetary policies, which are fixed for all time when the blockchain is created, and are baked into the protocol itself. The best-known example is Bitcoin which has a <a href="https://en.bitcoin.it/wiki/Controlled_supply">policy of deflation</a>, where the rate of minting decreases over time until a certain amount (approximately 21 million bitcoin) is reached, after which no new bitcoins will be minted. <a href="https://blog.ethereum.org/2014/04/10/the-issuance-model-in-ethereum">Ethereum</a> uses essentially the same policy.</p>
+<p>As a side remark, this feature of blockchains is tied up with a stereotype of blockchain hackers, namely that they are they are <a href="https://en.wikipedia.org/wiki/Anarcho-capitalism">anarcho-capitalists</a> (a sort of cross between <a href="https://en.wikipedia.org/wiki/Crypto-anarchy">crypto-anarchists</a> and <a href="https://en.wikipedia.org/wiki/Neoliberalism">neo-liberals</a>) who live at the bottom-right of the <a href="https://www.politicalcompass.org/">political compass</a>, on the far left socially but the far right economically. Blockchains do strongly support this viewpoint by providing a currency which it is impossible for a central bank to control. However, let’s assume that common sense [<a href="https://xkcd.com/285/">citation needed</a>] and <a href="https://en.wikipedia.org/wiki/Mainstream_economics">mainstream economics</a> are correct in that central banks serve a socially useful purpose, and in particular can partially cushion a currency against the <a href="https://bitcoinmagazine.com/markets/bitcoin-volatility-analysis-1377627247">volatility</a> that bitcoin is notorious for.</p>
+<p>A <strong>blockchain with a central bank</strong> is a blockchain with a directly institutional contract <strong>B</strong>, with the following property: when the blockchain protocol wants to know the rate of minting (for example, the reward to assign to the miner of a block), it sends a message to <strong>B</strong>, and uses the returned value. The central bank is a contract complex containing <strong>B</strong>. There are several possibilities for the design of the central bank. As the simplest case, <strong>B</strong> could be a very simple contract that implements a policy of deflation, which leads to a blockchain that behaves like Bitcoin or Ethereum.</p>
+<p>Perhaps B works by having one or several distinguished human users who decide the inflation rate, with their public keys hard-coded into <strong>B</strong>. This corresponds fairly closely to how existing central banks work, and is an obvious choice for small in-house networks. For example, for a blockchain-based clearing system shared between several commercial banks, each participant bank could be granted one ‘vote’ on the minting rate. For general-use networks this has the obvious drawback that the distinguished humans (who are indirectly part of the institution) are fixed for all time.</p>
+<p>A refinement of this is to allow the distinguished humans to be elected by some form of on-chain democratic vote. I’m getting far ahead of myself, but this would lead to <strong>B</strong> being part of the same contract complex as other institutions (in the technical sense) which are democratic institutions (in the ordinary sense). A limit of this (and likely not a desirable limit) would be to have a central bank that decides the rate of minting by a rolling referendum. (My gut feeling is that this would be a disaster economically, amplifying the instability of uncontrolled currencies rather than cushioning them.)</p>
+<p>A completely different possibility is to make <strong>B</strong> an algorithmic central bank, implementing a complicated set of heuristics reflecting the current state-of-the-art in how central banks can protect against currency instability. A subtlety is that this relies the central bank knowing the exchange rate between the blockchain currency and off-chain currencies such as dollars, or its value against tangible off-chain goods such as <a href="https://en.wikipedia.org/wiki/Big_Mac_Index">big macs</a>. The solution to this is to use <a href="https://augur.net/">prediction</a> <a href="https://www.gnosis.io/">markets</a> to estimate the off-chain values on-chain. Since a particular prediction market is distinguished by the central bank as its data source, that prediction market becomes an institution.</p>
+<p>This has a similar disadvantage to distinguished humans, that the heuristics are fixed for all time. It can be solved in a similar way, by holding on-chain elections for a new central bank, or for parts of it. For example, the central bank could consist of a certain number of ‘members’ who vote on the rate of minting, with the fixed contract <strong>B</strong> aggregating the votes. Each of these ‘members’ is a contract, which can be elected via on-chain democratic institutions that are part of the same contract complex as the central bank. Each of these members can implement its own minting policy entirely independently. Some members could be algorithmic heuristics; some could decide by referendum; some could defer the decision to a distinguished human or group of humans (which amounts to those humans ‘running for election’ to the central bank on-chain).</p>
+<p>Future topics: blockchains with democratic institutions, blockchains with constitutions, blockchains with treasuries and taxation.</p>
+<p>One final note: After writing this I came across the blockchain <a href="https://bitcoinmagazine.com/articles/qtums-block-size-limit-will-be-governed-smart-contracts-heres-how/">Qtum</a>, which appears to implement a lot of these ideas, including an on-chain constitution of the sort I had in mind.</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Editor’s note: I never wrote any more.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </footer>
+    </body>
+</html>

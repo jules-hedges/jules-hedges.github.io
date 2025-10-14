@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>My Hakyll Blog - Symmetric polymorphic lenses (maybe)</title>
+        <link rel="stylesheet" href="../css/default.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">Jules Hedges</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../papers.html">Papers</a>
+                <a href="../links.html">Links</a>
+                <a href="../archive.html">Archive</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>Symmetric polymorphic lenses (maybe)</h1>
+            <article>
+    <section class="header">
+        Posted on October 16, 2019
+        
+    </section>
+    <section>
+        <p>Whereas ordinary directed lenses go from a source to a view, <a href="https://www.cis.upenn.edu/~bcpierce/papers/symmetric.pdf">symmetric lenses</a> relate two different views of an internal source. I’ve been thinking about how to smoosh together symmetric lenses with <a href="http://comonad.com/reader/2012/mirrored-lenses/">polymorphic lenses</a>, which are the sort used in functional programming. My actual goal is to invent “symmetric open games” (without relying on non-well-founded recursion like I did in <a href="https://arxiv.org/abs/1904.11287">this paper</a>). But with the right definition, I think symmetric polymorphic lenses could be a useful tool to programmers as well.</p>
+<p>Normally when I’m playing with an idea like this I mock it up in Haskell and play around with it to check it works, before committing to too much hard work on the proofs. But this would be very difficult (and maybe impossible) to write in Haskell, so the idea of this post is to give enough detail that some folks could try it in Agda or Idris, and give me feedback on whether it feels like something useful. (In the meantime, I will try an extremely fast and loose Haskell version by pretending that pullbacks and pushouts are products and coproducts, and see what happens.)</p>
+<p>What I’ll write about here is actually symmetric <a href="https://julesh.com/2018/08/16/lenses-for-philosophers/">bimorphic lenses</a>, the word I made up for when the lens laws don’t even typecheck. In what is now a fine tradition, I’ll figure out how the lens laws come into it later. (I have a nasty feeling that the lens laws might be what kills this idea.)</p>
+<p>Rather than starting from the original concrete definition of symmetric lenses, I’m starting from their characterisation as <a href="https://web.science.mq.edu.au/~mike/papers/78.pdf">spans of directed lenses</a> (modulo a hack, because the category of lenses doesn’t quite have pullbacks).</p>
+<p>The other ingredient is the fact that the category of bimorphic lenses embeds canonically into the <a href="https://people.cs.nott.ac.uk/psztxa/publ/fossacs03.pdf">category of containers</a>. (This was first pointed out to me by <a href="https://personal.cis.strath.ac.uk/fredrik.nordvall-forsberg/">Fred Nordvall Forsberg</a>.) Morphisms of containers can be viewed as dependently typed lenses, as in <a href="https://arxiv.org/abs/1908.02202">this paper</a>. The category of containers has extremely nice properties: it is complete, cocomplete and locally cartesian closed, making it a model of a big chunk of type theory.</p>
+<p>With this, I can give my proposed definition in a maximally slick way: a symmetric bimorphic lens is a span of container morphisms whose feet are in the image of the category of lenses (or equivalently: whose feet have only constant type dependence).</p>
+<p>Here’s an unpacked definition. A symmetric bimorphic lens between <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>,</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(S, T)</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(A, B)</annotation></semantics></math> consists of 6 things:</p>
+<ul>
+<li>A type <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> (thought of as the type of initial sources)</li>
+<li>A type <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math> dependent on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> (thought of as the types of updated sources)</li>
+<li>Left-view and right-view functions <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>→</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">X \to S</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>→</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">X \to A</annotation></semantics></math></li>
+<li>Left-update and right-update functions <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>:</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mi>T</mi><mo>→</mo><mi>Y</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x : X) \to T \to Y (x)</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>:</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mi>B</mi><mo>→</mo><mi>Y</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(x : X) \to B \to Y (x)</annotation></semantics></math></li>
+</ul>
+<p>I think that the types really should be bound by an existential quantifier, and not by a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math> — in category theory I think of them as bound by a coend. But probably nothing will go seriously wrong if it’s implemented as a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math> type.</p>
+<p>The remaining thing is how to compose them. Suppose we have symmetric lenses between <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo>,</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(S, T)</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(A, B)</annotation></semantics></math> with internal state <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo>,</mo><mi>Y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(X, Y)</annotation></semantics></math>, and another between <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(A, B)</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>P</mi><mo>,</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(P, Q)</annotation></semantics></math> with internal state <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>V</mi><mo>,</mo><mi>W</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(V, W)</annotation></semantics></math>. Then:</p>
+<ul>
+<li>The type of initial sources is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><msub><mo>×</mo><mi>A</mi></msub><mi>V</mi></mrow><annotation encoding="application/x-tex">X \times_A V</annotation></semantics></math>, in other words, the pairs of initial sources which agree on their common view</li>
+<li>The updated sources indexed by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>,</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mi>X</mi><msub><mo>×</mo><mi>A</mi></msub><mi>V</mi></mrow><annotation encoding="application/x-tex">(x, v) : X \times_A V</annotation></semantics></math> is the pushout <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Y</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><msub><mo>+</mo><mi>B</mi></msub><mi>W</mi><mo stretchy="false" form="prefix">(</mo><mi>v</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Y (x) +_B W (v)</annotation></semantics></math></li>
+</ul>
+<p>I could try to write down the new view and update maps, but if you’re hacking this up I expect it’s easier to just follow the types.</p>
+<p><strong>Update</strong>: After writing a simple Haskell implementation (see <a href="https://twitter.com/_julesh_/status/1184569609300664320">this thread</a>), I spotted the fairly big problem with existential quantification: Since you can’t get at the type of initial states, you can never actually make the lens do anything. So, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">Σ</mi><annotation encoding="application/x-tex">\Sigma</annotation></semantics></math> types it probably is then.</p>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </footer>
+    </body>
+</html>

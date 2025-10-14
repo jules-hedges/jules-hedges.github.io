@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>My Hakyll Blog - Are open games useful for my problem?</title>
+        <link rel="stylesheet" href="../css/default.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">Jules Hedges</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../papers.html">Papers</a>
+                <a href="../links.html">Links</a>
+                <a href="../archive.html">Archive</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>Are open games useful for my problem?</h1>
+            <article>
+    <section class="header">
+        Posted on October 13, 2019
+        
+    </section>
+    <section>
+        <p>Recently open games have reached a state where they realistically might start becoming useful to some people (see <a href="https://www.youtube.com/watch?v=4Ln4FukIFO0">this demo</a>). I want to write down the current state of the art, what I believe is possible and what I believe are the limitations of compositional methods. This guides which sorts of situations I believe open games will be applicable to.</p>
+<p>First I will say what open games can already do (at least in theory). Then I will say what is awkward and what I think is probably possible with future work, and finally when I think you shouldn’t use open games. This post is written for a hypothetical reader who wants to use game theory as a modelling paradigm.</p>
+<h1 id="what-open-games-can-already-do">What open games can already do</h1>
+<ul>
+<li>Open games are compositional – that’s the point. If you are studying different situations that contain some “common sub-systems” (for example institutions) then open games might be useful to you.</li>
+<li>Open games support a graphical notation (string diagrams) that’s very intuitive. It’s exponentially more compact than extensive form trees, it displays the structure and information flow of the game, but omits most of the details. I expect end-users to mainly work at this level, with software handling everything under the hood.</li>
+<li>Real numbers and maximisation are not essential. Players in open games can have goals defined by any <a href="https://www.cs.ox.ac.uk/people/julian.hedges/papers/decision.pdf">selection function</a>, a big design space that is still mostly unexplored. Satisficing, for example, can be expressed easily.</li>
+<li>(Weak) Bayesian Nash equilibria of open games are understood — see <a href="https://arxiv.org/abs/1910.03656">this paper</a>. This is quite an expressive class of games that can exhibit some subtle behaviours such as signalling. The theory is involved, but it can be very neatly encapsulated in Haskell (or any language with type quantification) and hidden from end users.</li>
+<li>Repeated games can be handled neatly — see <a href="https://arxiv.org/abs/1711.07968">this paper</a>. (I believe that it is better to handle discounting of payoffs stage-wise using <a href="https://arxiv.org/abs/0908.2793">metric coinduction</a>, which is only a small modification to their construction.)</li>
+<li>Related to the previous point, based on unpublished notes I believe that open games are deeply ‘compatible’ with dynamic programming and the Bellman equation.</li>
+</ul>
+<h1 id="what-is-awkward">What is awkward</h1>
+<ul>
+<li>Open games work the most cleanly in situations where the ‘protocol’ (order of play, sets of choices, etc.) do not depend on previous choices (equivalently, when the extensive-form tree would be perfectly balanced). When this is not the case the diagrams become more complicated (a collection of 2-dimensional diagrams glued together in a 3-dimensional way) and the theory becomes more difficult.</li>
+<li>Open games say nothing about the (infamous) problems of equilibrium-based modelling. I expect that standard ‘fixes’ such as bounded rationality and universal type spaces can be incorporated, but that is future work.</li>
+<li>Explicit representations of beliefs and belief updating (as in strong Bayesian Nash equilibrium) can probably be incorporated, but it is future work.</li>
+<li>I believe that games on networks can be handled nicely, by combining with category-theoretic approaches to network theory (for example <a href="https://arxiv.org/abs/1502.00872">decorated cospans</a>), but this is future work.</li>
+<li>Cooperative/coalitional game theory might be possible or not — I have no idea yet.</li>
+</ul>
+<h1 id="when-not-to-use-open-games">When not to use open games</h1>
+<ul>
+<li>I expect open games to work best at intermediate-scale (though I’m not certain what that means in practice). If your problem is small, traditional game theory is probably better. If your problem is very large but has symmetries you can exploit (for example a large population of agents with varying parameters) traditional game theory might be better too. (For example, many people have asked me about consensus in blockchains, which I believe is an example of the second case.)</li>
+<li>Open games are equilibrium-based. If you only care about simulation then agent-based modelling techniques are far more flexible and also compositional.</li>
+<li>Open games say nothing about the problem of algorithmically computing equilibria. If I am optimistic, they might have a role to play in cases where one wants to find solutions compatible with some data about sub-systems. On the plus side, it should be possible to make open games software interoperable with <a href="http://www.gambit-project.org">Gambit</a> or other tools.</li>
+</ul>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </footer>
+    </body>
+</html>

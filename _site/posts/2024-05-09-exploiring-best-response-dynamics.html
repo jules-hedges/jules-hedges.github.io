@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>My Hakyll Blog - Exploring best response dynamics</title>
+        <link rel="stylesheet" href="../css/default.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">Jules Hedges</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../papers.html">Papers</a>
+                <a href="../links.html">Links</a>
+                <a href="../archive.html">Archive</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>Exploring best response dynamics</h1>
+            <article>
+    <section class="header">
+        Posted on May  9, 2024
+        
+    </section>
+    <section>
+        <p>(<a href="https://cybercat.institute/2024/05/09/exploiring-best-response-dynamics/">X-posted on the CyberCat Institute blog</a>)</p>
+<p>I have been playing around with Nash equilibrium search in random normal form games by following best response dynamics - partly because I was curious, and partly as a learning exercise in NumPy.</p>
+<p>Here are my preliminary conclusions:</p>
+<ul>
+<li>The key to success is replacing argmax with softmax for a sufficiently high temperature. For low temperatures, nothing I could do would make it converge.</li>
+<li>Provided the temperature is high enough, the learning rate is irrelevant, with a learning rate of 1 (ie. literally overriding each strategy with its softmax best response every stage) converging in just a few steps.</li>
+<li>Normal form games are big. Like, really big. For 9 players and 9 moves, the payoff matrix no longer fits in my VRAM. For 10 players and 10 moves (which I still consider absolutely tiny) the payoff matrix contains exactly 10<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mrow></mrow><mn>11</mn></msup><annotation encoding="application/x-tex">{}^{11}</annotation></semantics></math> = 100 billion parameters, making it large by the standards of an LLM at the time of writing.</li>
+</ul>
+<p>My understanding of the theory is that this type of iterative method will not in general converge to a Nash equilibrium, but it will converge to an <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>-equilibrium for <em>some</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>. What I don’t know is how the error <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math> can depend on the game and the learning algorithm. That’s something I’ll look into in some follow-up work, presumably by comparing my results to what <a href="https://nashpy.readthedocs.io/en/stable/">NashPy</a> finds.</p>
+<h2 id="payoff-tensors">Payoff tensors</h2>
+<p>For a normal form game with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> players and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> moves, the payoff matrix is an <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>M</mi><mi>N</mi></msup><mo>×</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">M^N \times N</annotation></semantics></math> tensor, of rank <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N + 1</annotation></semantics></math>. Each player gets one tensor rank of dimension <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> for their move, and then there is one more rank of dimension <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> to assign a payoff to each player.</p>
+<p>Here is my incantation for initialising a random payoff tensor, with payoffs drawn uniformly between 0 and 1:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>gen <span class="op">=</span> np.random.default_rng()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>shape <span class="op">=</span> <span class="bu">tuple</span>(numMoves <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(numPlayers)) <span class="op">+</span> (numPlayers,)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>payoffMatrix <span class="op">=</span> gen.random(shape)</span></code></pre></div>
+<p>It turns out that with this distribution of payoffs, the law of large numbers kicks in and payoffs for any mixed strategy profile are extremely close to 0.5, and the more players there are the closer to 0.5 they are. Normal form games are defined up to arbitrary positive affine transformations of the payoffs, so I ended up going with a sort-of exponential distribution of payoffs, so that much higher payoffs could sometimes happen. This made very little difference but made me feel happier:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>payoffMatrix <span class="op">=</span> gen.exponential(<span class="dv">1</span>, shape) <span class="op">*</span> gen.choice((<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>), shape)</span></code></pre></div>
+<h2 id="computing-payoffs">Computing payoffs</h2>
+<p>A mixed strategy profile is an <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>×</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">M \times N</annotation></semantics></math> stochstic matrix:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>strategies <span class="op">=</span> gen.random((numPlayers, numMoves))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(numPlayers):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    strategies[i] <span class="op">=</span> strategies[i] <span class="op">/</span> <span class="bu">sum</span>(strategies[i])</span></code></pre></div>
+<p>Here is the best incantation I could come up with for computing the resulting payoffs:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>payoffs <span class="op">=</span> payoffMatrix</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> player <span class="kw">in</span> <span class="bu">range</span>(numPlayers):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    payoffs <span class="op">=</span> np.tensordot(strategies[player], payoffs, (<span class="dv">0</span>, <span class="dv">0</span>))</span></code></pre></div>
+<p>(For 9 players this is already too much for my poor laptop.)</p>
+<p>I wish I could find a more declarative way to do this. For small and fixed number of players, this kind of thing works, but I didn’t want to mess with the stringly-typed incantation that would be necessary to do it for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> players:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>payoffs <span class="op">=</span> np.einsum(<span class="st">'abcu,a,b,c'</span>, payoffMatrix, strategies[<span class="dv">0</span>], strategies[<span class="dv">1</span>], strategies[<span class="dv">2</span>])</span></code></pre></div>
+<h2 id="deviations">Deviations</h2>
+<p>For best response dynamics, the key step is: for each player, compute the payoffs that player can obtain by a unilateral deviation to each of their moves.</p>
+<p>Here is the very unpleasant incantation I came up with to do this:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>deviations <span class="op">=</span> payoffMatrix[..., player]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> opponent <span class="kw">in</span> <span class="bu">range</span>(player):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    deviations <span class="op">=</span> np.tensordot(strategies[opponent], deviations, (<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> opponent <span class="kw">in</span> <span class="bu">range</span>(player <span class="op">+</span> <span class="dv">1</span>, numPlayers):</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    deviations <span class="op">=</span> np.tensordot(strategies[opponent], deviations, (<span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p>First we slice the payoff tensor so we only have the payoffs for the player in question. Then for opponents of index lower than the player, we contract their strategy against the lowest tensor dimension. After that loop, the lowest tensor dimension corresponds to the current player’s move. Then for opponents of index higher than the player, we contract their strategy but skipping the first tensor dimension. At the end we’re left with just a vector, giving the payoff of each of the player’s moves when each opponent plays their current strategy.</p>
+<p>As a functional programmer, I find all of this in very bad taste.</p>
+<h2 id="learning">Learning</h2>
+<p>The rest is the easy part. We can use softmax:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> softmax(x, temperature):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    exps <span class="op">=</span> np.exp(x <span class="op">/</span> temperature)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> exps <span class="op">/</span> <span class="bu">sum</span>(exps)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>newStrategy <span class="op">=</span> softmax(deviations, temperature)</span></code></pre></div>
+<p>or, in the zero-temperature limit, take a Dirac distribution at the argmax using this little incantation:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>newStrategy <span class="op">=</span> np.identity(numPlayers)[np.argmax(deviations)]</span></code></pre></div>
+<p>Then apply the learning rate:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>delta <span class="op">=</span> newStrategy <span class="op">-</span> strategies[player]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>strategies[player] <span class="op">=</span> strategies[player] <span class="op">+</span> learningRate<span class="op">*</span>delta</span></code></pre></div>
+<p>All of this is looped over each player, and then over a number of learning stages, plus logging each player’s payoff and the maximum delta:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> stage <span class="kw">in</span> <span class="bu">range</span>(numStages):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute expected payoffs</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    tempPayoffs <span class="op">=</span> payoffMatrix</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> player <span class="kw">in</span> <span class="bu">range</span>(numPlayers):</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        tempPayoffs <span class="op">=</span> np.tensordot(strategies[player], tempPayoffs, (<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    payoffs[stage] <span class="op">=</span> tempPayoffs</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> player <span class="kw">in</span> <span class="bu">range</span>(numPlayers):</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Compute deviation payoffs</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        deviations <span class="op">=</span> payoffMatrix[..., player]</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> opponent <span class="kw">in</span> <span class="bu">range</span>(player):</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>            deviations <span class="op">=</span> np.tensordot(strategies[opponent], deviations, (<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> opponent <span class="kw">in</span> <span class="bu">range</span>(player <span class="op">+</span> <span class="dv">1</span>, numPlayers):</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>            deviations <span class="op">=</span> np.tensordot(strategies[opponent], deviations, (<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Update strategy</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        newStrategy <span class="op">=</span> softmax(deviations, temperature)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        delta <span class="op">=</span> newStrategy <span class="op">-</span> strategies[player]</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        strategies[player] <span class="op">=</span> strategies[player] <span class="op">+</span> learningRate<span class="op">*</span>delta</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Log errors</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        errors[stage] <span class="op">=</span> <span class="bu">max</span>(errors[stage], <span class="bu">max</span>(delta))</span></code></pre></div>
+<h2 id="results">Results</h2>
+<p>Everything in this section is for 8 players and 8 moves, which is the largest that my laptop can handle.</p>
+<p>Here is a typical plot of each player’s payoff over 100 stages of learning, with a temperature of 0.01 and a learning rate of 0.1:</p>
+<p><img src="../assets/posts/2024-05-09-exploring-best-response-dynamics/img1.png" /></p>
+<p>With this temperature, the learning rate can be increased all the way to 1, and the dynamics visibly converges in just a few stages:</p>
+<p><img src="../assets/posts/2024-05-09-exploring-best-response-dynamics/img2.png" /></p>
+<p>In fact, this is so robust that it makes me wonder whether there could be a good proof of the constructive Brouwer theorem using statistical physics methods.</p>
+<p>If the temperature is decreased further to 0.001, we lose convergence:</p>
+<p><img src="../assets/posts/2024-05-09-exploring-best-response-dynamics/img3.png" /></p>
+<p>Although I haven’t confirmed it, my assumption is that lower temperature will converge to an <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>-equilibrium for smaller <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>, so we want it to be as low as possible while still converging.</p>
+<p>Worst of all, if we decrease the learning rate to compensate we can get a sudden destabilisation after hundreds of stages:</p>
+<p><img src="../assets/posts/2024-05-09-exploring-best-response-dynamics/img4.png" /></p>
+<p>That’s all for now. I’ll come back to this one I’ve figured out how to calculate the Nash error, which is the next thing I’m interested in finding out.</p>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </footer>
+    </body>
+</html>

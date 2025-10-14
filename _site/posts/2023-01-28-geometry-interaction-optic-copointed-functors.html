@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>My Hakyll Blog - Geometry of interaction is the optic for copointed functors</title>
+        <link rel="stylesheet" href="../css/default.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">Jules Hedges</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../papers.html">Papers</a>
+                <a href="../links.html">Links</a>
+                <a href="../archive.html">Archive</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>Geometry of interaction is the optic for copointed functors</h1>
+            <article>
+    <section class="header">
+        Posted on January 28, 2023
+        
+    </section>
+    <section>
+        <p><a href="https://en.wikipedia.org/wiki/Geometry_of_interaction">Geometry of Interaction</a> (also known as the <a href="https://www.irif.fr/~mellies/mpri/mpri-ens/articles/joyal-street-verity-traced-monoidal-categories.pdf">Int-construction</a>) is an important construction in category theory that shows up the semantics of concurrency. It’s also a contender for my favourite thing in category theory. It’s one member of a whole zoo of things that look kinda like lenses but are a bit different. Back around 2017 when I was writing <a href="https://arxiv.org/abs/1904.11287">The game semantics of game theory</a> I asked myself whether Int was an optic, and concluded it probably wasn’t, but recently I was thinking about the question with my PhD student Riu Rodríguez Sakamoto and we realised that it actually is. In this post I’ll sketch the construction in the terms of Haskell’s Lens library. None of the proofs are done yet, and all of this ought to work in a general categorical setting, but what I wrote here demonstrably works by testing. The source code can be found <a href="https://github.com/CyberCat-Institute/cybercat-core/blob/master/src/Cybercat/Sketches/IntLens.hs">here</a>.</p>
+<p>In Haskell, Int-morphisms are concretely given by</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">ConcreteInt</span> s t a b <span class="ot">=</span> (s, b) <span class="ot">-&gt;</span> (a, t)</span></code></pre></div>
+<p>or equivalently as a pair of functions <code>s -&gt; b -&gt; a</code> and <code>s -&gt; b -&gt; t</code>. That is, it’s like a lens except that the getter has an extra input. This “breaks causality”, and composing Int-morphisms requires using non-well-founded recursion to cut the knot:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ot">(&gt;&gt;&gt;) ::</span> <span class="dt">ConcreteInt</span> s t a b <span class="ot">-&gt;</span> <span class="dt">ConcreteInt</span> a b p q <span class="ot">-&gt;</span> <span class="dt">ConcreteInt</span> s t p q</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>(f <span class="op">&gt;&gt;&gt;</span> g) (s, q) <span class="ot">=</span> <span class="kw">let</span> (a, t) <span class="ot">=</span> f (s, b)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                       (p, b) <span class="ot">=</span> g (a, q)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">in</span> (p, t)</span></code></pre></div>
+<p>There’s an easy embedding of lenses into Int, namely by having the getter just ignore its extra input. In <a href="https://arxiv.org/abs/1904.11287">The game semantics of game theory</a> I proved this embedding is functorial: composing 2 lenses and then embedding into Int is the same as embedding both into Int and then composing them there. In that case the non-well-founded recursion short-circuits and everything terminates.</p>
+<p>(It’s worth mentioning that the definition of Int works for any traced monoidal category, where it satisfies the universal property of being the free compact closed category. In the monoidal case lenses turn into coend optics, and <a href="https://raw.githubusercontent.com/mroman42/optic-int-construction/master/opticint.pdf">it was proven</a> by Elena di Lavore and Mario Román that this functoriality property holds in this fully general setting. But Haskell types are nonlinear, so I’ll stick to the easier more specific case in this post.)</p>
+<p>If you have a van Laarhoven-encoded lens, of type <code>forall f. (Functor f) =&gt; (a -&gt; f b) -&gt; (s -&gt; f t)</code>, the way you get the getter is by instantiating with the functor <code>Const a</code> to get <code>(a -&gt; a) -&gt; (s -&gt; a)</code>, while the way you get the setter is to instantiate with the functor <code>Identity</code> to get <code>(a -&gt; b) -&gt; (s -&gt; t)</code>. We want to rule out the former, so we need some additional constraint on top of <code>Functor</code> that is not satisfied by <code>Const a</code>. I had the idea to use copointed functors:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> (<span class="dt">Functor</span> f) <span class="ot">=&gt;</span> <span class="dt">Copointed</span> f <span class="kw">where</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ot">    extract ::</span> f a <span class="ot">-&gt;</span> a</span></code></pre></div>
+<p>(This looks like a lot like the definition of a functor algebra, the difference is that here <code>a</code> is a type variable ranging over all types rather than a specific type. It also looks a lot like the <code>Foldable</code> class, in which <code>a</code> ranges only over monoids.)</p>
+<p>The conjecture is that the Int-construction is the optic for <code>Copointed</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Int</span> s t a b <span class="ot">=</span> <span class="kw">forall</span> f<span class="op">.</span> (<span class="dt">Copointed</span> f) <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f b) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> f t)</span></code></pre></div>
+<p>The identity functor is of course copointed:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Copointed</span> <span class="dt">Identity</span> <span class="kw">where</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    extract <span class="ot">=</span> runIdentity</span></code></pre></div>
+<p>But <code>Const a</code> is not, since you can’t write a function <code>Const a b -&gt; b</code>. The functor we’re going to use instead is the state monad, given by</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">State</span> s a <span class="ot">=</span> <span class="dt">State</span> {<span class="ot">runState ::</span> s <span class="ot">-&gt;</span> (a, s)}</span></code></pre></div>
+<p>It turns out that <code>State s</code> is <code>Copointed</code>, but only if you allow non-well-founded recursion to trace out <code>s</code>. This is good, since if we’re implementing Int we must have to use non-well-founded recursion somewhere.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Copointed</span> (<span class="dt">State</span> s) <span class="kw">where</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    extract f <span class="ot">=</span> <span class="kw">let</span> (a, s) <span class="ot">=</span> runState f s <span class="kw">in</span> a</span></code></pre></div>
+<p>We’re going to get the putter in exactly the same way we do with lenses, by instiantiating with <code>Identity</code>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ot">intPut ::</span> <span class="dt">Int</span> s t a b <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> t</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>intPut f s b <span class="ot">=</span> runIdentity (f (<span class="fu">const</span> (<span class="dt">Identity</span> b)) s)</span></code></pre></div>
+<p>To get the getter, we’re going to instead instantiate with <code>State a</code>. I was surprised when the thing that ended up working also used non-well-founded recursion here:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ot">intGet ::</span> <span class="dt">Int</span> s t a b <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> a</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>intGet f s b <span class="ot">=</span> <span class="kw">let</span> (_, a) <span class="ot">=</span> runState (f (<span class="dt">State</span> <span class="op">.</span> <span class="fu">const</span> <span class="op">.</span> (b,)) s) a</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                <span class="kw">in</span> a</span></code></pre></div>
+<p>We’d also better be able to embed concrete Int-morphisms (as the lens function does for concrete lenses), and I was even more surprised when this ended up using non-well-founded recursion too:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ot">int ::</span> (s <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> t) <span class="ot">-&gt;</span> <span class="dt">Int</span> s t a b</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>int f g k s <span class="ot">=</span> <span class="kw">let</span> a <span class="ot">=</span> f s (extract (k a)) </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>               <span class="kw">in</span> <span class="fu">fmap</span> (g s) (k a)</span></code></pre></div>
+<p>And that’s it. The previous 2 functions I wrote by type directed programming and I didn’t expect it to work, because I was expecting to need to use non-well-founded recursion in 1 place and not 3 places. So I was extremely surprised when I encoded a pair of basic lenses, composed them and found that the result terminates with the correct answer:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>g1 (x, y, z) _ <span class="ot">=</span> (x, y)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>p1 (x, y, z) (x', y') <span class="ot">=</span> (x', y', z)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>g2 (x, y) _ <span class="ot">=</span> x</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>p2 (x, y) x' <span class="ot">=</span> (x', y)</span></code></pre></div>
+<p>(It turns out that the wildcard patterns in the getters are crucial: if you force it to match a pair, everything goes horribly wrong. This sentence is brought to you by a major panic while finishing up this post.)</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> intGet (int g1 p1 <span class="op">.</span> int g2 p2) (<span class="dv">69</span>, <span class="dv">420</span>, <span class="st">&quot;nice&quot;</span>) <span class="fu">undefined</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="dv">69</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> intPut (int g1 p1 <span class="op">.</span> int g2 p2) (<span class="dv">69</span>, <span class="dv">420</span>, <span class="st">&quot;nice&quot;</span>) <span class="st">&quot;blaze it&quot;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>(<span class="st">&quot;blaze it&quot;</span>,<span class="dv">420</span>,<span class="st">&quot;nice&quot;</span>)</span></code></pre></div>
+<p>Perhaps I’ll write a followup post exploring the kinds of shenanigans you can get up to using the Int-construction, like building optics that behave like concurrent processes that can fail to terminate by deadlocking.</p>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </footer>
+    </body>
+</html>

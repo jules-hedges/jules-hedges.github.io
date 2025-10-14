@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>My Hakyll Blog - Monadic lenses are the optic for right monad modules II</title>
+        <link rel="stylesheet" href="../css/default.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">Jules Hedges</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../papers.html">Papers</a>
+                <a href="../links.html">Links</a>
+                <a href="../archive.html">Archive</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>Monadic lenses are the optic for right monad modules II</h1>
+            <article>
+    <section class="header">
+        Posted on June 24, 2023
+        
+    </section>
+    <section>
+        <p>This was originally intended to be a 2-part blog post, but a sideline into the interaction of monad modules and distributive laws turned into something of blog length, making this part 2 of 3. But it should be possible to read it independently of the <a href="https://julesh.com/2023/06/07/monadic-lenses-are-the-optic-for-right-monad-modules-i/">previous installment</a>.</p>
+<p>Previously we saw that monadic lenses (where the forwards part is pure, but the backwards part lives in a monad) can be defined in van Laarhoven style by quantifying over all functors which are right modules of the monad, that is, they have a natural transformation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>→</mo><mi>f</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">f (m a) \to f a</annotation></semantics></math> compatible with the structure of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>.</p>
+<p>If we want to also have the monad on the forwards pass then the concrete get/put definition of lenses is no longer possible, and the fundamental definition is kleisli optics, which involve an existential type. Their van Laarhoven encoding, which will be the topic of part 3, is functors which are both a right module and also which the monad distributes over. The topic of this post is exploring what this means and how these two structures interact. This is a currently half-baked theory of “distributive bimodules”.</p>
+<p>Like we did for monadic lenses, we’re going to be instantiating <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math> to be <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>. This should ring alarm bells because it looks like we need <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> to distribute over itself. But it’s subtly different: we need <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> to distribute not over itself but over <em>its underlying functor</em>. In Haskell you can’t tell the difference except by which letters we choose:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> <span class="dt">Distributive</span> m f <span class="kw">where</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ot">    distribute ::</span> m (f a) <span class="ot">-&gt;</span> f (m a)</span></code></pre></div>
+<p>A distributive law of a monad <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> over a functor <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math> needs to satisfy two equations:
+<img src="../assets/posts/2023-06-24-monadic-lenses-optic-right-monad-modules-ii/img1.png" />
+<img src="../assets/posts/2023-06-24-monadic-lenses-optic-right-monad-modules-ii/img2.png" /></p>
+<p>These are string diagrams in the monoidal category of endofunctors with functor composition (in algebraic order), where the monad <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> is just a monoid, what’s the problem? I learned about this class of string diagrams from Dan Marsden, and a lot more information about it can be found in the paper <a href="https://www.sciencedirect.com/science/article/pii/S2352220815001509">Equational reasoning with lollipops, forks, cups, caps, snakes, and speedometers</a> by Hinze and Marsden.</p>
+<p>It turns out that this definition – a monad distributing over a mere functor – is <a href="https://ncatlab.org/nlab/show/distributive+law#explicit_definition">the definition</a> that the nLab takes as primary. A distributive law of monads is one of these plus 2 extra axioms for compatibility with the other monad’s structure.</p>
+<p>It turns out that every monad distributes over its underlying functor like this:
+<img src="../assets/posts/2023-06-24-monadic-lenses-optic-right-monad-modules-ii/img3.jpg" />
+which in Haskell is written like this:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> (<span class="dt">Monad</span> m) <span class="ot">=&gt;</span> <span class="dt">Distributive</span> m m <span class="kw">where</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    distribute <span class="ot">=</span> <span class="fu">fmap</span> <span class="fu">pure</span> <span class="op">.</span> join</span></code></pre></div>
+<p>This definition looks very strange because it doesn’t preserve connectivity of the string diagram – but it does work. The first axiom is verified like this:
+<img src="../assets/posts/2023-06-24-monadic-lenses-optic-right-monad-modules-ii/img4.jpg" />
+and the second axiom like this, where I’ve highlighted the appearances of the distributive law to make it clear what’s happening:
+<img src="../assets/posts/2023-06-24-monadic-lenses-optic-right-monad-modules-ii/img5.png" /></p>
+<p>Now, suppose we have a functor that’s both a right module of our monad and which the monad also distributes over. Given these two structures, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math> additionally becomes a left module of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> with the left action given by
+<img src="../assets/posts/2023-06-24-monadic-lenses-optic-right-monad-modules-ii/img6.jpg" /></p>
+<p>It’s easy to verify the 2 axioms of a left action using the axioms for a right action and a distributive law.</p>
+<p>There’s an interesting question of whether this is automatically a bimodule, which is a functor which with both a left and a right action which commute with each other:
+<img src="../assets/posts/2023-06-24-monadic-lenses-optic-right-monad-modules-ii/img7.jpg" /></p>
+<p>If we only assume what we have so far, this doesn’t seem to follow, so we need some other condition for how the right action and distributive law interact. The obvious-looking axiom for a right action and a distributive law to cohere is
+<img src="../assets/posts/2023-06-24-monadic-lenses-optic-right-monad-modules-ii/img8.jpg" /></p>
+<p>But this is secretly using distributivity of the monad over its underlying functor, so this axiom becomes the much more questionable-looking
+<img src="../assets/posts/2023-06-24-monadic-lenses-optic-right-monad-modules-ii/img9.jpg" /></p>
+<p>This is, notably, different to the definition of a distributive law of a monad over a right module (definition 13) in the paper <a href="https://drops.dagstuhl.de/storage/00lipics/lipics-vol035-calco2015/LIPIcs.CALCO.2015.290/LIPIcs.CALCO.2015.290.pdf">Modules over monads and their algebras</a> by Piróg, Wu and Gibbons, which requres a distributive law of the monad over itself <em>as a monad</em>. Under their definition, most monads of interest can never distribute over any of their right modules, since they don’t distribute over themselves.</p>
+<p>If we assume our axiom then we do indeed have a bimodule:
+<img src="../assets/posts/2023-06-24-monadic-lenses-optic-right-monad-modules-ii/img10.png" /></p>
+<p>I also <em>think</em> that all of the examples we need satisfy this axiom. Since it looks so questionable I’m not confident that this structure is a good idea, but provisionally I’m going to name it – a functor that is a right module of a monad, which the monad distributes over and satisfying this axiom – a <strong>distributive bimodule</strong>. Since the coherence axiom is important, I’ll also write it the old fashioned way:
+<img src="../assets/posts/2023-06-24-monadic-lenses-optic-right-monad-modules-ii/img11.png" /></p>
+<p>And finally, in Haskell, the same axiom is written</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>distribute <span class="op">.</span> <span class="fu">fmap</span> act <span class="ot">=</span> <span class="fu">fmap</span> <span class="fu">pure</span> <span class="op">.</span> act <span class="op">.</span> <span class="fu">fmap</span> join <span class="op">.</span> distribute</span></code></pre></div>
+<p>Anyway, this entire post was a big and not entirely necessary sideline. I don’t know whether this axiom ought to be required or not, but the code works the same either way. Speaking of which, we’ll pick up the code again in the next installment.</p>
+<p>Thanks to Dan Marsden and Zanzi for helping me out with working all this out!</p>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </footer>
+    </body>
+</html>

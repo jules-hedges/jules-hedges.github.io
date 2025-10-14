@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>My Hakyll Blog - Making Haskell lenses less pointless</title>
+        <link rel="stylesheet" href="../css/default.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">Jules Hedges</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../papers.html">Papers</a>
+                <a href="../links.html">Links</a>
+                <a href="../archive.html">Archive</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>Making Haskell lenses less pointless</h1>
+            <article>
+    <section class="header">
+        Posted on January 14, 2023
+        
+    </section>
+    <section>
+        <p>Fair warning: this post assumes some familiarity with Haskell’s <code>Control.Lens</code> library. Source code for this post can be found <a href="https://github.com/CyberCat-Institute/cybercat-core/blob/master/src/Cybercat/Sketches/LensValues.hs">here</a>.</p>
+<p>Recently I’ve been working on a major rewrite of the <a href="https://github.com/CyberCat-Institute/open-game-engine">open game engine</a>, based on some newer theoretical ideas such as <a href="https://arxiv.org/abs/2206.12338">this paper</a>. A major objective is to no longer require a custom DSL, removing the dependency on Template Haskell and especially the need to maintain a parser. For reasons that are brutally obvious to anyone who’s ever programmed with open games, it’s a hard requirement to have a syntax based on name-binding: working with point-free combinators is not humanly possible at this scale. This post is a spin-off from that work, explaining how to use Haskell’s <a href="https://hackage.haskell.org/package/lens-5.2">Lens library</a> in a name-binding rather than point-free style.</p>
+<p>The key idea is that if you have a lens of type <code>Lens s t a b</code>, and you want to treat it as though it’s a function, then the corresponding notion of “value” is something of type <code>(s, t -&gt; r)</code>. That is, it’s an input for the lens’ getter, together with a continuation from the output of the setter. Given a lens and such a value-continuation pair, you can get an “output value” of type <code>(a, b -&gt; r)</code>.</p>
+<p>It turns out that this type is already exported by <code>Control.Lens</code>, where it’s called</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="dt">Context</span> s t r <span class="ot">=</span> <span class="dt">Context</span> (t <span class="ot">-&gt;</span> r) s</span></code></pre></div>
+<p>But it will be convenient to rewrite this in an isomorphic van Laarhoven style, in order that we get “lens application” for free. Here’s the key definition of this post:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> <span class="dt">Value</span> f s t r <span class="ot">=</span> (s <span class="ot">-&gt;</span> f t) <span class="ot">-&gt;</span> f r</span></code></pre></div>
+<p>Now we have a type isomorphism</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(s, t <span class="ot">-&gt;</span> r) <span class="op">===</span> <span class="kw">forall</span> f<span class="op">.</span> (<span class="dt">Functor</span> f) <span class="ot">=&gt;</span> <span class="dt">Value</span> f s t r</span></code></pre></div>
+<p>and we can also compose a <code>Value</code> with a <code>Lens</code>, using ordinary function application, to get a new <code>Value</code>.</p>
+<p>(It transpires that putting off the quantification over <code>f</code> until later works much better, for the same reason that <code>Lens</code> is defined in terms of <code>LensLike</code>.)</p>
+<p>Now a lens is equivalently a function that returns a <code>Value</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">Lens</span> s t a b <span class="op">===</span> <span class="kw">forall</span> f<span class="op">.</span> (<span class="dt">Functor</span> f) <span class="ot">=&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Value</span> f a b t</span></code></pre></div>
+<p>We’re going to build things like the right hand side with our name-binding style, so it’s most useful to be able to go from right to left:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ot">buildLens ::</span> (s <span class="ot">-&gt;</span> <span class="dt">Value</span> f a b t) <span class="ot">-&gt;</span> <span class="dt">LensLike</span> f s t a b</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>buildLens f k s <span class="ot">=</span> f s k</span></code></pre></div>
+<p>If we have an ordinary value, we can upgrade it to a <code>Value</code> that has the identity function for its continuation:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ot">value ::</span> s <span class="ot">-&gt;</span> <span class="dt">Value</span> f s t t</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>value s k <span class="ot">=</span> k s</span></code></pre></div>
+<p>And that’s all we need! Let’s test it out by importing <a href="https://hackage.haskell.org/package/lens-tutorial-1.0.4/docs/Control-Lens-Tutorial.html"><code>Control.Lens.Tutorial</code></a> to get some examples to play with. A recurring example in that tutorial is</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ot">atpx ::</span> <span class="dt">Traversal'</span> <span class="dt">Atom</span> <span class="dt">Double</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>atpx <span class="ot">=</span> atoms <span class="op">.</span> <span class="fu">traverse</span> <span class="op">.</span> point <span class="op">.</span> x</span></code></pre></div>
+<p>Let’s rewrite it in a name-binding style:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ot">atpx ::</span> <span class="dt">Traversal'</span> <span class="dt">Molecule</span> <span class="dt">Double</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>atpx <span class="ot">=</span> buildLens <span class="op">$</span> \molecule <span class="ot">-&gt;</span> <span class="kw">let</span> atom <span class="ot">=</span> value molecule <span class="op">.</span> atoms</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                                    traversal <span class="ot">=</span> atom <span class="op">.</span> <span class="fu">traverse</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                    xy <span class="ot">=</span> traversal <span class="op">.</span> point</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="kw">in</span> xy <span class="op">.</span> x</span></code></pre></div>
+<p>Here you can see all the pieces in use. We lambda-abstract to bring a <code>Molecule</code> into scope, which we then need to turn into a <code>Value</code> using our value function. Now we can apply lenses to it using function application. Because of how we postponed the quantification over <code>f</code>, by van Laarhoven magic it works for everything in the <code>Lens</code> type hierarchy, demonstrated here with <code>Traversal</code>s.</p>
+<p>One additional upside of this style is we can write local type signatures, although we need <code>PartialTypeSignatures</code> because the quantification over <code>f</code> can’t be locally solved, and then by default ghc spams us with its solutions for the holes:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ot">atpx ::</span> <span class="dt">Traversal'</span> <span class="dt">Molecule</span> <span class="dt">Double</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>atpx <span class="ot">=</span> buildLens <span class="op">$</span> \molecule <span class="ot">-&gt;</span> <span class="kw">let</span><span class="ot"> atom ::</span> <span class="dt">Value</span> _ [<span class="dt">Atom</span>] [<span class="dt">Atom</span>] <span class="dt">Molecule</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                                    atom <span class="ot">=</span> value molecule <span class="op">.</span> atoms</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ot">                                    traversal ::</span> <span class="dt">Value</span> _ <span class="dt">Atom</span> <span class="dt">Atom</span> <span class="dt">Molecule</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                                    traversal <span class="ot">=</span> atom <span class="op">.</span> <span class="fu">traverse</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="ot">                                    xy ::</span> <span class="dt">Value</span> _ <span class="dt">Point</span> <span class="dt">Point</span> <span class="dt">Molecule</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                                    xy <span class="ot">=</span> traversal <span class="op">.</span> point</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                                 <span class="kw">in</span> xy <span class="op">.</span> x</span></code></pre></div>
+<p>I doubt I’m going to convince anyone to use this style to replace such a simple “linear pipeline” of lenses, but when it comes into its own is when the pipeline splits and merges, something that’s ubiquitous in my research. To demonstrate this, let’s write a lens that computes the average of two <code>Double</code>s, and if the average is updated then it modifies both values by an equal amount in order to get the desired average:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ot">average ::</span> <span class="dt">Lens'</span> (<span class="dt">Double</span>, <span class="dt">Double</span>) <span class="dt">Double</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>average <span class="ot">=</span> lens (\(x, y) <span class="ot">-&gt;</span> f x y) </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>               (\(x, y) a <span class="ot">-&gt;</span> <span class="kw">let</span> a' <span class="ot">=</span> f x y</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                              <span class="kw">in</span> (x <span class="op">-</span> a' <span class="op">+</span> a, y <span class="op">-</span> a' <span class="op">+</span> a))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span> f x y <span class="ot">=</span> (x <span class="op">+</span> y)<span class="op">/</span><span class="dv">2</span></span></code></pre></div>
+<p>Now if we have a pair of <code>Atom</code>s, we can write a lens to their average x-coordinate like this:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ot">averageX ::</span> <span class="dt">Lens'</span> (<span class="dt">Atom</span>, <span class="dt">Atom</span>) <span class="dt">Double</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>averageX <span class="ot">=</span> ((point <span class="op">.</span> x) <span class="ot">`alongside`</span> (point <span class="op">.</span> x)) <span class="op">.</span> average</span></code></pre></div>
+<p>The <code>alongside</code> operator, exported by <code>Control.Lens</code>, implements the tensor product of lenses, focussing onto two things at once. This is still feasible to write point-free, but it becomes humanly impossible surprisingly quickly on bigger examples.</p>
+<p>In order to write this with name-binding we need one more thing for our library: a way of turning a pair of <code>Value</code>s into a <code>Value</code> of pairs. Its implementation is pretty mysterious and almost exactly the same as the implementation of <code>alongside</code>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(<span class="op">/</span>\)<span class="ot"> ::</span> <span class="dt">Value</span> (<span class="dt">AlongsideLeft</span> f b') a b t </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>     <span class="ot">-&gt;</span> <span class="dt">Value</span> (<span class="dt">AlongsideRight</span> f t) a' b' t' </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>     <span class="ot">-&gt;</span> <span class="dt">Value</span> f (a, a') (b, b') (t, t')</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>(l <span class="op">/</span>\ m) k <span class="ot">=</span> getAlongsideRight (m (\a' <span class="ot">-&gt;</span> <span class="dt">AlongsideRight</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>             (getAlongsideLeft (l (\a <span class="ot">-&gt;</span> <span class="dt">AlongsideLeft</span> (k (a, a')))))))</span></code></pre></div>
+<p>Here <code>AlongsideLeft</code> and <code>AlongsideRight</code> are helper functors which are exported from <code>Control.Lens.Internal.Getter</code>. Fortunately you can cheerfully use this operator without understanding its type or implementation. (<code>Control.Lens</code> exports so many infix operators, I had to get slightly creative thinking of a name for this one.)</p>
+<p>Armed with this operator, we can rewrite <code>averageX</code> in name-binding style:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ot">averageX ::</span> <span class="dt">Lens'</span> (<span class="dt">Atom</span>, <span class="dt">Atom</span>) <span class="dt">Double</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>averageX <span class="ot">=</span> buildLens <span class="op">$</span> \(a1, a2) <span class="ot">-&gt;</span> <span class="kw">let</span> pos1 <span class="ot">=</span> value a1 <span class="op">.</span> point</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                                        pos2 <span class="ot">=</span> value a2 <span class="op">.</span> point</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                                        x1 <span class="ot">=</span> pos1 <span class="op">.</span> x</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                                        x2 <span class="ot">=</span> pos2 <span class="op">.</span> x</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                                     <span class="kw">in</span> (x1 <span class="op">/</span>\ x2) <span class="op">.</span> average</span></code></pre></div>
+<p>(Who thought it was a good idea to give <code>(.)</code> the highest possible operator precedence in Prelude?)</p>
+<p>And that’s all I’ve got. I’m still on the fence about whether to build <code>cybercat-core</code> on top of <code>Control.Lens</code> or on top of linear lenses <code>s -&gt; (a, b -&gt; t)</code>: the former allows van Laarhoven subtyping magic but it’s not clear whether I actually need that for my purposes, while the latter gives much easier type errors and is generally much easier to work with.</p>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </footer>
+    </body>
+</html>

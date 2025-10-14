@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>My Hakyll Blog - The rising sea in applied mathematics</title>
+        <link rel="stylesheet" href="../css/default.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">Jules Hedges</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../papers.html">Papers</a>
+                <a href="../links.html">Links</a>
+                <a href="../archive.html">Archive</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>The rising sea in applied mathematics</h1>
+            <article>
+    <section class="header">
+        Posted on February 27, 2018
+        
+    </section>
+    <section>
+        <p><em>The rising sea</em> refers to a particular approach to mathematical problem-solving, in which many small, apparently trivial steps are taken until the solution of a problem becomes itself trivial. It was poetically introduced by Alexander Grothendieck in his beautiful, auto-psychoanalytic <a href="https://uberty.org/wp-content/uploads/2015/12/RS-grothendeick1.pdf"><em>Récoltes et Samailles</em></a>, in which he imagines the mathematical problem as a landmass being swallowed as “the sea advances insensibly in silence”. This makes me think of <a href="https://en.wikipedia.org/wiki/Xerxes%27_pontoon_bridges">Xerxes</a>, all-powerful over humans, helpless against the power of the sea. Grothendieck views the mathematician and the problem as complimenting each other, the mathematician using the problem’s natural structure in its solution, rather than striking it with a foreign, invasive method.</p>
+<p>(Sadly I’ve only read the small part of Récoltes et Samailles that is translated to English, and that is hard to find. The version which I originally read has disappeared from the internet, and I expect this link to become dead too, so now I’ve kept an offline version to be safe.)</p>
+<p><em>The rising sea</em> is also strongly associated with the power of abstraction in pure mathematics, whose most famous wielder was Grothendieck himself. His style when faced with a problem has been described as constructing an entire universe of mathematics (a topos) in which the solution is easier. To study a differential equation, you study a topos of sheaves of differentiable functions on its solution manifold. As Colin McLarty wrote in <a href="https://www.landsburg.com/grothendieck/mclarty1.pdf"><em>The rising sea</em></a>: “All is building worlds.”</p>
+<p>All of this is old news in pure mathematics. From Grothendieck’s work to the subsequent solution of the Weil conjectures, Wiles’ proof of Fermat’s Last Theorem, Voevodsky’s motivic homotopy, and possibly Mochizuki’s inter-universal Teichmüller theory, the rising sea has already swallowed entire continents. (Disclaimer: I don’t understand a single word of any of these things!) What I am writing now is a manifesto for something different: the rising sea in applied mathematics.</p>
+<p>Of course there is a wide overlap between applied mathematics, differential equations and analysis, which certainly holds plenty of seawater. But modern applied mathematics goes far beyond its traditional remit of differential equations and probability, encompassing large parts of discrete mathematics, computer science and economics for example.</p>
+<p>I give a conservative definition of ‘applied mathematics’ as the totality of mathematical modelling. The process of modelling is a feedback loop (actually a <a href="https://en.wikipedia.org/wiki/Strange_loop">strange loop</a>) between mathematical methods, domain specific knowledge, and data. There is no a priori reason why <em>the rising sea</em> should not be applicable to these mathematical methods. Clearly it won’t be <a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/StealthPun">smooth sailing</a> though: graph theory is famously resistant to abstract methods, and economics as an academic subject somehow became stuck on nineteenth-century mathematics. Computer science is a mixed bag, but the part of it descended from programming language semantics (e.g. domain theory) is very mathematical, including direct use of categories. (It counts as <em>mathematical modelling</em> insofar as a semantics is a model of the real-world language, although this is stretching the usual spirit of ‘modelling’ as a <em>problem-solving activity</em>.)</p>
+<p>There are two related but distinct aspects to my proposal for making sea levels rise. The first is that if an applied problem proves resistant to direct attack, we should take a step back, look at the problem from many different angles, and search for the right abstraction to describe it. <a href="https://julesh.com/2017/09/29/a-first-look-at-open-games/">Open games</a> are my attempt at finding a better abstraction for economic systems. <a href="https://ieeexplore.ieee.org/document/4384643">The behavioural approach</a> in control theory is another example. Certain problems that were born from applications and are known to be very hard, for example the <a href="https://www.claymath.org/millennium/navier-stokes-equation/">Navier-Stokes problem</a>, are surely being attacked with all the tools available, but that is cheating because problems like this make the transition from applied to pure maths.</p>
+<p>This relates to the <a href="https://www.dpmms.cam.ac.uk/~wtg10/2cultures.pdf">two cultures</a> view of pure mathematics as being split between theory builders (exemplified by Grothendieck) and problem solvers (exemplified by Nash). These are also called <a href="https://www.ams.org/notices/200902/rtx090200212p.pdf">birds and frogs</a>. Applied mathematicians are nearly always problem solvers or frogs, at least until they hit a barrier as hard as Navier-Stokes. My view is that any problem that has resisted repeated direct attack from problem solvers, should naturally be of interest to theory builders. If you can’t solve a problem directly, then grow a crystal of theory around the problem and then hope that the solution you are looking for can be located somewhere inside the crystal.</p>
+<p>The second part of my proposal is the specific use of category theory in mathematical modelling. This is harder to justify, and probably depends on the problem domain. The emerging field of <a href="https://www.appliedcategorytheory.org/">applied category theory</a> is attempting to close the gap from both sides between category theory and (certain) applications. This is hard because the same person needs to know about both category theory and the problem domain, which is quite a heavy demand on a human brain. One part of this is to present category theory itself in more down-to-earth terms that emphasise intuition over structure. If you want to prove theorems it might be useful to know that something is <a href="https://x.com/_julesh_/status/926132380489998336">just</a> a left Kan extension in the category of who-knows-what, but if you want to apply it to a problem domain that has never heard of category theory, something different is needed. Category theory has really grown to fit the boots of <a href="https://en.wikipedia.org/wiki/Abstract_nonsense">abstract nonsense</a>, and now those boots are worn out.</p>
+<p>All I have to speak from here is personal anecdote. Open games form a symmetric monoidal category, which is viewed as a process theory and a formal underpinning of string diagrams. This view of monoidal categories has been used very effectively by <a href="https://www.cs.ox.ac.uk/people/bob.coecke/">Bob Coecke</a> and his (many) collaborators, and I learned it from a steady stream of seminar speakers coming from Oxford to Queen Mary. In the months before the discovery of open games in late January 2015, I was thinking about the question “How to make game theory compositional?”, and searching for the right tool for the job. At the time I was mainly looking at tools from concurrency theory and game semantics such as <a href="https://www.cs.ox.ac.uk/people/julian.gutierrez/web/lics14.pdf">event structures</a>, and category theory had to justify itself as much as any other tool. For several years I used category theory as a mere language, a point of view that I emphasised in my <a href="https://julesh.com/2018/01/16/towards-compositional-game-theory/">thesis</a>.</p>
+<p>Only much more recently, from around the time I moved to Oxford in mid-2016, I have been using genuinely non-trivial category theory. The results of this journey can be seen in my preprint <a href="https://arxiv.org/abs/1711.07059">Morphisms of open games</a>. The definition of morphisms between games is motivated by game-theoretic intuition, but it is easier to study it by using fibrations to split it into smaller, more manageable pieces. A good demonstration of the power of abstraction is the 1-line proof that a state (roughly, a Nash equilibrium) of an external choice is a tuple of states of the component subgames. I expect that this highly abstract point of view is going to continue to be a fruitful way to think about game theory, but this is only my gut feeling, and I think that the only way I can justify it will be through more results. So watch this space!</p>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </footer>
+    </body>
+</html>

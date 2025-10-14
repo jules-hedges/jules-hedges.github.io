@@ -1,0 +1,21 @@
+---
+title: "Categorical cybernetics: A manifesto"
+date: 29/11/2019
+---
+
+![](/assets/posts/2019-11-27-categorical-cybernetics-manifesto/img1.jpg)
+(Image credit: [H.R. Grant / SaurianDandy](https://www.tumblr.com/hrgrant-blog1/))
+
+I suddenly became obsessed with cybernetics (exactly) 2 weeks ago when I learned what the word actually means, closely followed by [this tweet](https://twitter.com/janetmsinger/status/1194693527889838080) bring my attention to the following line from the beginning of Kenneth Boulding's classic (1956) paper [General Systems Theory](https://www.panarchy.org/boulding/systems.1956.html): "The developments of a mathematics of quality and structure is already on the way, even though it is not as far advanced as the "classical" mathematics of quantity and number." Which sounds like category theory to me. (I think it's extremely unlikely Boulding had category theory in mind – Eilenberg and Mac Lane's *General* [Theory of Natural Equivalences](https://ncatlab.org/nlab/show/General+Theory+of+Natural+Equivalences) was published in 1945; for comparison the first textbook on graph theory [was published in 1936](https://en.wikipedia.org/wiki/Graph_theory#History).)
+
+"Cybernetics" is a very slippery term to pin down, and can mean whatever the writer wants it to mean, something it has in common with its superior officer, General Systems Theory. But for this purpose I'm going to pick a definition: cybernetics is the control theory *of* complex systems. It was characterised by being extremely interdisciplinary, and in the West ventured a lot into pseudo-scientific discussions of consciousness. My understanding is that historically it aimed far too high, missed its goals spectacularly, and has been living an unfashionable death ever since. (In the time since, the word *cyber* has been repurposed for a lot of unrelated things, so I'm conflicted between thinking recovering the name is a lost cause, and wanting to recover such an *inherently cool* name.)
+
+With this definition, plus the reasonable handwave of seeing *compositionality of open systems* as being about *complex systems*, which is to say a *complex* of open systems linked together. To some extent all of applied monoidal categories is about this (including [categorical quantum mechanics](https://www.cambridge.org/core/books/picturing-quantum-processes/1119568B3101F3A685BE832FEEC53E52), which is about *open quantum-mechanical systems*), with [decorated cospans](https://arxiv.org/abs/1502.00872) as the sledgehammer in the toolbox of "categorical systems theory".
+
+With this, there is certainly existing work in applied category theory that could reasonably be called "categorical cybernetics". The most obvious is [Categories In Control](https://arxiv.org/abs/1405.6881). The series of work by Bonchi, Sobocinski and Zanasi on linear relations (for example [this](https://arxiv.org/abs/1403.7048) and [this](https://www.ioc.ee/~pawel/papers/affinePaper.pdf)), also have quite a control-theoretic flavour.
+
+Then there are things where open systems do optimisation. My own [compositional game theory](https://arxiv.org/abs/1603.04641) is probably the biggest example of this done with categories.
+
+Compositional game theory belongs to an emerging common pattern of [things that look a bit like lenses if you squint a bit](https://julesh.com/2018/08/16/lenses-for-philosophers/). Also here can be found [backpropagation](https://arxiv.org/abs/1711.10455) (also [this](https://www.philipzucker.com/reverse-mode-differentiation-is-kind-of-like-a-lens-ii/)) the [Kalman filter](https://www.philipzucker.com/categorical-lqr-control-with-linear-relations/), and reinforcement learning (I have unpublished notes on reinforcement learning with open games, and I'll come back to it). There are plenty of other things that look a bit like lenses if you squint a bit, but these are the cybernetic ones.
+
+I just remembered that I promised a manifesto, not a literature review. Here is my manifesto: Categorical cybernetics (or CyberCat, to go with [DisCoCat](https://ncatlab.org/nlab/show/categorical+compositional+distributional+semantics)) should be identified as a subfield of applied category theory, and a rich source of applications for categorical methods. That's all I've got. (It's possible I'm not a natural at manifesto-writing.)

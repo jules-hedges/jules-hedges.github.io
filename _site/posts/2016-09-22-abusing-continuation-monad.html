@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>My Hakyll Blog - Abusing the continuation monad</title>
+        <link rel="stylesheet" href="../css/default.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">Jules Hedges</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../papers.html">Papers</a>
+                <a href="../links.html">Links</a>
+                <a href="../archive.html">Archive</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>Abusing the continuation monad</h1>
+            <article>
+    <section class="header">
+        Posted on September 22, 2016
+        
+    </section>
+    <section>
+        <p>(Recall that <a href="https://wiki.haskell.org/What_a_Monad_is_not">monads are not a good topic for your first blog post</a>.)</p>
+<p>I intend to bootstrap a blog by writing about 2 of my old papers, <a href="https://cgi.cse.unsw.edu.au/~eptcs/paper.cgi?MSFP2014.3">Monad Transformers for Backtracking Search</a> and <a href="https://arxiv.org/abs/1503.06061">The Selection Monad as a CPS Transformation</a>. (Wall Street will be spared for the time being.)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>I’m going to write about this little bit of Haskell code:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Control.Monad.Cont</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sat n <span class="ot">=</span> runCont <span class="op">$</span> <span class="fu">sequence</span> <span class="op">$</span> <span class="fu">replicate</span> n <span class="op">$</span> cont <span class="op">$</span> \k <span class="ot">-&gt;</span> k <span class="op">$</span> k <span class="dt">True</span></span></code></pre></div>
+<p>It’s a <a href="https://en.wikipedia.org/wiki/Boolean_satisfiability_problem">SAT solver</a>: you give it a boolean function, and the number of variables to search, and it decides whether that function will ever return true for any values of those variables.</p>
+<p>How does this work? Haven’t the foggiest. If anyone can explain what it does at runtime, there’s probably a research paper in it for you. If you can also predict how long it takes, that’s a big deal.</p>
+<p>So where does this come from? It’s a demonstration I wrote of the work of Martin Escardó and Paulo Oliva on selection functions. For Haskell programmers, good places to start are <a href="https://math.andrej.com/2007/09/28/seemingly-impossible-functional-programs/">Seemingly Impossible Functional Programs</a> and <a href="https://martinescardo.github.io/papers/msfp2010/">What Sequential Games, the Tychonoff Theorem and the Double-Negation Shift Have in Common</a>. I removed all traces of selection functions, using only the continuation monad that we all know and love, to make it as short and magical-looking as I could.</p>
+<p>The first bit of magic is the function <code>\k -&gt; k $ k True</code>. Let’s call it <code>e</code>, as in</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>e k <span class="ot">=</span> k <span class="op">$</span> k <span class="dt">True</span></span></code></pre></div>
+<p>This function <code>e</code> is an <a href="https://en.wikipedia.org/wiki/Existential_quantification">existential quantifier</a>. That is to say it takes a predicate (a function <code>k</code> into booleans), and decides whether there exists an input making the predicate true. For example, on natural numbers, applying an existential quantifier to the predicate <code>\n -&gt; n^2 == 4</code> should return <code>True</code>, but applying it to <code>\n -&gt; n^2 == 2</code> should return <code>False</code>.</p>
+<p>The function <code>e</code> can’t exactly do that. In fact, the existential quantifier for natural numbers isn’t computable. What it does is to compute the existential quantifier for <em>booleans</em>.</p>
+<p>I don’t have a slick way to demonstrate this counter-intuitive fact. There’s an awkward case-based argument, starting from the fact that <code>k True</code> is <a href="https://en.wikipedia.org/wiki/Law_of_excluded_middle">either true, or it’s false</a>. But this is only ε more enlightening than just brute-forcing it: there are precisely 4 (total) functions <code>Bool -&gt; Bool</code>, so it’s easy to just evaluate <code>e</code> on each of them and check that it does the right thing.</p>
+<p>So, we have the function <code>\k -&gt; k $ k True :: (Bool -&gt; Bool) -&gt; Bool</code>. We hit that with <code>cont</code> which, despite not beginning with a capital letter, is the constructor of the <code>Cont</code> monad. So it doesn’t actually do anything, except changing the type to <code>Cont Bool Bool</code>. (The <code>runCont</code> on the outside is the corresponding deconstructor, and also does nothing except change the type.)</p>
+<p>Next we use <code>replicate n</code>, which creates a list of <code>n</code> identical copies. So at this point, we have a list containing <code>n</code> instances of the existential quantifier, each one wrapped inside <code>Cont</code>, the whole thing having type <code>[Cont Bool Bool]</code>.</p>
+<p>The actual deep magic in the code snippet is the use of <code>sequence</code>, possibly the most magical function in Prelude.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> What <code>sequence</code> does, in general, is fold the monoidal product of a <a href="https://en.wikipedia.org/wiki/Monoidal_monad">monoidal monad</a>. For example, a useful little idiom in functional programming is to use <code>sequence</code> to find the cartesian product of lists (because cartesian product is the monoidal product of the list monad).</p>
+<p>It turns out that if you take the monoidal product of existential quantifiers in the <code>Cont</code> monad, you get one big existential quantifier for the product type. Which means, we get an existential quantifier for boolean lists of length <code>n</code>. Which is to say, if we give it a predicate <code>k :: [Bool] -&gt; Bool</code>, it will decide if there is an input of length <code>n</code> making the predicate true. Which is another way of saying, it is a SAT solver for boolean functions with <code>n</code> inputs.</p>
+<p>No, I’m not going to prove that here.</p>
+<p>There are some pretty big open questions about this code I alluded to earlier, of which the biggest is that there doesn’t seem to be any sort of complexity theory even capable of asking the question of what its runtime is. (The real difficulty is that <code>sequence</code> used this way is a third-order function, that is, its input is a function which itself takes a function as input.)</p>
+<p>Instead, I’m going to ask a more manageable and concrete question: Can this code be written in continuation-passing style? By that I mean, can it be written in a way that doesn’t use <code>cont</code>, but instead uses <code>call/cc</code>? Equivalently, can this code be translated to Scheme?<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Editor’s note: This post was written for a short-lived Wordpress blog I had called Obsolete Wall Street, which turned into <a href="https://julesh.com">julesh.com</a> after the first post.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Editor’s note: When I wrote this, <code>sequence</code> had type <code>(Monad m) =&gt; [m a] -&gt; m [a]</code>. Since writing it, its type in Prelude has been generalised to <code>(Foldable t, Monad m) =&gt; t (m a) -&gt; m (t a)</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Editor’s note: After migration my blog does not support comments, but I received a comment anwering both of these by Jesse McDonald:</p>
+<p>The code is basically in continuation-passing style already:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sat n <span class="ot">=</span> runCont <span class="op">$</span> replicateM n <span class="op">$</span> callCC <span class="op">$</span> \k <span class="ot">-&gt;</span> k <span class="op">=&lt;&lt;</span> k <span class="dt">True</span></span></code></pre></div>
+<p>The only difference between this and the version with <code>cont</code> is that plain function application must be replaced with monadic bind; <code>cont</code> is just the <code>callCC</code> for <code>ContT r Identity</code> plus automatic lifting of the function into the <code>Identity</code> monad.</p>
+<p>This code fundamentally depends on the fact that <code>Cont</code> provides <em>delimited</em> continuations, bounded in scope by <code>runCont</code>. The equivalent in Racket Scheme using the <code>shift</code> and <code>reset</code> operators would be:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(require racket/control)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>(<span class="ex">define</span><span class="fu"> </span>(sat n f) (reset (f (for/list <span class="op">[</span>(i (in-range <span class="dv">0</span> n))<span class="op">]</span> (shift k (k (k <span class="dv">#t</span>)))))))</span></code></pre></div>
+<p>There is a way to implement delimited continuations via undelimited continuations and mutation, but it isn’t trivial. With just <code>call/cc</code> in Scheme you can’t usefully write <code>(k (k #t))</code> because <code>k</code> represents the remainder of the entire <em>program</em>; the inner call would never return.</p>
+<p>As for runtime behavior, for each element in the input list this first inserts the value <code>True</code> or <code>#t</code>, due to inner <code>(k #t)</code>. The function is then applied to the resulting list, and the result (up to <code>runCont</code> or <code>reset</code>) becomes the input to the outer call to the continuation <code>(k (k #t))</code>. If <code>(k #t)</code> evaluates to <code>#t</code> then <code>(k (k #t))</code> reduces to <code>(k #t)</code> and finally just <code>#t</code>, which means that input remains “stuck” at <code>#t</code>; otherwise the function continues with the value <code>#f</code> in the manner of a normal nondeterministic depth-first exhaustive search.</p>
+<p>The function is always evaluated <code>2^n</code> times; there is no short-circuit evaluation. Replacing <code>(k (k #t))</code> with (or <code>(k #t) (k #f)</code>) gives the same result in fewer steps (unless the function only returns <code>#t</code> for all <code>#f</code> inputs) since it can immediately return <code>#t</code> as soon as the function produces <code>#t</code> for any input permutation and avoid calling the continuation again with the same input value.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </footer>
+    </body>
+</html>
