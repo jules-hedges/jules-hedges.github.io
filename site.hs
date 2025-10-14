@@ -19,6 +19,11 @@ myPandocCompiler = pandocCompilerWith ropt wopt
 
 main :: IO ()
 main = hakyllWith config $ do
+
+    match "CNAME" $ do
+        route   idRoute
+        compile copyFileCompiler
+
     match "assets/**" $ do
         route   idRoute
         compile copyFileCompiler
@@ -53,7 +58,6 @@ main = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
-
 
     match "index.html" $ do
         route idRoute
