@@ -3,6 +3,8 @@ title: "Dependent optics II: Optics via forcing costates"
 date: 16/10/2025
 ---
 
+([X-posted on the CyberCat Institute blog](https://cybercat.institute/2025/10/16/dependent-optics-ii/))
+
 I've been putting this series of posts off for a long time, although nowhere near as long as we've been putting off the corresponding paper.
 
 For anyone who knows anything about my research between 2021 and 2024, dependent optics need no introduction. A team consisting of (in alphabetical order) Dylan Braithwaite, Matteo Capucci, Bruno Gavranović, Eigil Rischel and me put everything we had into the problem of unifying dependent lenses and monoidal optics, for 2 years. We had so many false solutions that "we solved dependent optics!" became a meme, and then we solved it. But by then, time had caught up with us and between us we did not collectively have the ability, energy and motivation to write the paper.
