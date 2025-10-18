@@ -25,7 +25,7 @@ A system whose architecture has invariant preferences will act in a way to bring
 
 This post is essentially a pitch for this research project, which as of right now we don't have funding to do. We would have to begin with a deep study of the relationship between *preference* (the thing that actions optimise) and *loss* (the thing that machine learning optimises). This is a crossover that already exists: for example in the connection between softmax and Boltzmann distributions, where thermodynamics and entropy enter the picture uninvited yet again. But going forward I expect that categorical cybernetics, which has already built multiple new bridges between all of the involved fields (see this picture that I sketched a year ago), is going to have a lot to say about this, and we're going to listen carefully to it.
 
-![](/assets/posts/2024-03-18-learning-invariant-preferences/img1.jpg)
+<img src="/assets/posts/2024-03-18-learning-invariant-preferences/img1.jpg" width="100%">
 
 There's a few category-theoretic things I already have to say, but this post isn't the best place for it. To give a hint: I suspect that preferences should be *coalgebraic* rather than algebraic according to the structural invariant learning machinery, because they describe the *output* of a neural network, as opposed to things like geometric invariant which describe the *input*.
 

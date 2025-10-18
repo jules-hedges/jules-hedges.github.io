@@ -67,7 +67,7 @@ $$ \left< i | K (f) (k) \right> = f^\omega \left( \left< \mathrm{Iter} (f) (i) |
 
 where $f^\omega (-) : X^\omega \to Y^\omega$ means applying the forwards pass of $f$ to every element of the stream. As a commuting diagram,
 
-![](/assets/posts/2024-02-22-iteration-optics/img1.png)
+<img src="/assets/posts/2024-02-22-iteration-optics/img1.png" width="100%">
 
 Here's a tiny implementation of the iteration functor and the pairing operator in Haskell:
 
@@ -98,13 +98,13 @@ $$ \left( \binom{X}{X'}, i \right) \otimes \left( \binom{Y}{Y'}, j \right) = \le
 
 The category $\int \mathrm{Iter}$ can essentially already describe iteration with optics, although in a slightly awkward way. Suppose we draw a string diagram that not coincidentally resembles a control loop:
 
-![](/assets/posts/2024-02-22-iteration-optics/img2.png)
+<img src="/assets/posts/2024-02-22-iteration-optics/img2.png" width="100%">
 
 Here, $f$ and $f'$ denote some morphisms $f : X \to Y$ and $f' : Y \to X$ in our underlying category, and $x_0$ represents an initial state $x_0 : I \to X$.
 
 Normally string diagrams denote morphisms of a monoidal category, but we make a cut just to the right of the backwards-to-forwards turning point, and consider that everything left of that is describing a boundary object. Namely in this case, we have the object $\left( \binom{X}{X}, i \right)$ where the iteration data $i : \mathrm{Iter} \binom{X}{X}$ is given by the state space $I$, the initial state $x_0 : I \to I \otimes X$ and the iterator $\mathrm{id} : I \otimes X \to I \otimes X$.
 
-![](/assets/posts/2024-02-22-iteration-optics/img3.png)
+<img src="/assets/posts/2024-02-22-iteration-optics/img3.png" width="100%">
 
 The remainder of the string diagram to the right of the cut denotes an ordinary optic $f : \binom{X}{X} \to \binom{I}{I}$, namely the one given by $f = (Y, f, f')$, with forwards pass $f : X \to Y \otimes I$ and backwards pass $f' : Y \otimes I \to X$. This boils down to describing the composite morphism $f; f' : X \to X$.
 
@@ -128,13 +128,13 @@ Working things through: an object of $\mathbf{Para}^\mathrm{Iter} (\mathbf{Optic
 
 Now suppose we have a diagram of an open control loop, that is to say, a control loop that is open-as-in-systems (not to be confused with an [open loop controller](https://en.wikipedia.org/wiki/Open-loop_controller), which is unrelated):
 
-![](/assets/posts/2024-02-22-iteration-optics/img4.png)
+<img src="/assets/posts/2024-02-22-iteration-optics/img4.png" width="100%">
 
 Here the primitive morphisms in the diagram are $f : A \otimes X \to B \otimes Y$, $f' : B' \otimes Y \to A' \otimes X$, and an initial state $x_0 : I \to X$. The idea is that $f$ is the forwards pass, $f'$ is the backwards pass, and after the backwards pass comes another forwards pass but one time step in the future.
 
 To make formal sense of this diagram, we imagine that we deform the backwards-to-forwards bend upwards, treating the state as a parameter, and then cut the diagram as we did before:
 
-![](/assets/posts/2024-02-22-iteration-optics/img5.png)
+<img src="/assets/posts/2024-02-22-iteration-optics/img5.png" width="100%">
 
 Now we can read this off as a morphism $\binom{X}{X'} \to \binom{Y}{Y'}$ in $\mathbf{Para}^\mathrm{Iter} (\mathbf{Optic} (\mathcal C))$. The (weighted) Para construction makes everything go smoothly, so this is an entirely standard string diagram with no funny stuff.
 

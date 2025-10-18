@@ -137,22 +137,22 @@ Everything in this section is for 8 players and 8 moves, which is the largest th
 
 Here is a typical plot of each player's payoff over 100 stages of learning, with a temperature of 0.01 and a learning rate of 0.1:
 
-![](/assets/posts/2024-05-09-exploring-best-response-dynamics/img1.png)
+<img src="/assets/posts/2024-05-09-exploring-best-response-dynamics/img1.png" width="100%">
 
 With this temperature, the learning rate can be increased all the way to 1, and the dynamics visibly converges in just a few stages:
 
-![](/assets/posts/2024-05-09-exploring-best-response-dynamics/img2.png)
+<img src="/assets/posts/2024-05-09-exploring-best-response-dynamics/img2.png" width="100%">
 
 In fact, this is so robust that it makes me wonder whether there could be a good proof of the constructive Brouwer theorem using statistical physics methods.
 
 If the temperature is decreased further to 0.001, we lose convergence:
 
-![](/assets/posts/2024-05-09-exploring-best-response-dynamics/img3.png)
+<img src="/assets/posts/2024-05-09-exploring-best-response-dynamics/img3.png" width="100%">
 
 Although I haven't confirmed it, my assumption is that lower temperature will converge to an $\varepsilon$-equilibrium for smaller $\varepsilon$, so we want it to be as low as possible while still converging.
 
 Worst of all, if we decrease the learning rate to compensate we can get a sudden destabilisation after hundreds of stages:
 
-![](/assets/posts/2024-05-09-exploring-best-response-dynamics/img4.png)
+<img src="/assets/posts/2024-05-09-exploring-best-response-dynamics/img4.png" width="100%">
 
 That's all for now. I'll come back to this one I've figured out how to calculate the Nash error, which is the next thing I'm interested in finding out.

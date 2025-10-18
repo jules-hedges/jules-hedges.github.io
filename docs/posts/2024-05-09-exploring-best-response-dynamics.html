@@ -108,15 +108,15 @@
 <h2 id="results">Results</h2>
 <p>Everything in this section is for 8 players and 8 moves, which is the largest that my laptop can handle.</p>
 <p>Here is a typical plot of each player’s payoff over 100 stages of learning, with a temperature of 0.01 and a learning rate of 0.1:</p>
-<p><img src="../assets/posts/2024-05-09-exploring-best-response-dynamics/img1.png" /></p>
+<p><img src="../assets/posts/2024-05-09-exploring-best-response-dynamics/img1.png" width="100%"></p>
 <p>With this temperature, the learning rate can be increased all the way to 1, and the dynamics visibly converges in just a few stages:</p>
-<p><img src="../assets/posts/2024-05-09-exploring-best-response-dynamics/img2.png" /></p>
+<p><img src="../assets/posts/2024-05-09-exploring-best-response-dynamics/img2.png" width="100%"></p>
 <p>In fact, this is so robust that it makes me wonder whether there could be a good proof of the constructive Brouwer theorem using statistical physics methods.</p>
 <p>If the temperature is decreased further to 0.001, we lose convergence:</p>
-<p><img src="../assets/posts/2024-05-09-exploring-best-response-dynamics/img3.png" /></p>
+<p><img src="../assets/posts/2024-05-09-exploring-best-response-dynamics/img3.png" width="100%"></p>
 <p>Although I haven’t confirmed it, my assumption is that lower temperature will converge to an <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>-equilibrium for smaller <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>, so we want it to be as low as possible while still converging.</p>
 <p>Worst of all, if we decrease the learning rate to compensate we can get a sudden destabilisation after hundreds of stages:</p>
-<p><img src="../assets/posts/2024-05-09-exploring-best-response-dynamics/img4.png" /></p>
+<p><img src="../assets/posts/2024-05-09-exploring-best-response-dynamics/img4.png" width="100%"></p>
 <p>That’s all for now. I’ll come back to this one I’ve figured out how to calculate the Nash error, which is the next thing I’m interested in finding out.</p>
     </section>
 </article>
