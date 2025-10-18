@@ -4,8 +4,6 @@ title: Papers
 
 **Reinforcement learning in categorical cybernetics** (with Riu Rodríguez Sakamoto)
 
-To appear in proceedings of Applied Category Theory 2024
-
 In *Proceedings of Applied Category Theory 2024*, *Electronic Proceedings in Theoretical Computer Science* 429:270-236, 2025
 
 [[arXiv](https://arxiv.org/abs/2404.02688)]
