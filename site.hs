@@ -38,6 +38,13 @@ main = hakyllWith config $ do
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
+    -- The output of Forester is hardcoded to output/
+    -- so we need to just copy it into the right place
+    -- Because of this, we have to build Hakyll after building Forester in the makefile
+    match "output/**" $ do
+        route   (gsubRoute "output/" (const ""))
+        compile copyFileCompiler
+
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ myPandocCompiler
