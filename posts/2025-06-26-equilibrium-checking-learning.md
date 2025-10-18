@@ -19,7 +19,7 @@ Then came the paper [Value Iteration is Optic Composition](https://cgi.cse.unsw.
 
 The intuitive idea of how these things fit together can be explained with a diagram taken from Towards Foundations, the picture of a generic parametrised bidirectional process.
 
-![](/assets/posts/2025-06-26-equilibrium-checking-learning/img1.png)
+<img src="/assets/posts/2025-06-26-equilibrium-checking-learning/img1.png" width="100%">
 
 For a typical game-theoretic application the left and right boundaries have game states flowing forwards and payoff vectors flowing backwards, and they compose like bidirectional process, by backprop. The way we use this dimension for compositional modelling is unmodified from how we have always done it, so I will say nothing more about it here. For us, the interesting part is the top boundary. 
 
