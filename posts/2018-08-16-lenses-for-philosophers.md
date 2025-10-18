@@ -11,15 +11,15 @@ The dialectica interpretation translates a logical formula $\varphi$ to a double
 
 The definition of $|\varphi|^{x : X}_{s : S}$ from $\varphi$ is defined by structural recursion on formulas $\varphi$. For example, if we already know $|\varphi|^{x : X}_{s : S}$ and $|\psi|^{y : Y}_{r : R}$ then the interpretation of the conjunction $\varphi \wedge \psi$ is defined by
 
-$$|\varphi \wedge \psi|^{x : X, y : Y}_{s : S, r : R} = |\varphi|^x_s \wedge |\psi|^y_r$$
+$$ |\varphi \wedge \psi|^{x : X, y : Y}_{s : S, r : R} = |\varphi|^x_s \wedge |\psi|^y_r $$
 
 Formally this is really a product type $|\varphi \wedge \psi|^{(x, y) : X \times Y}_{(s, r) : S \times R}$, but it looks nicer to write tuples of variables instead.
 
 The most interesting thing about the dialectica interpretation (and this is a universal opinion, not just me) is how it interprets (intuitionistic) implication. Suppose we already know $|\varphi|^{x : X}_{s : S}$ and $|\psi|^{y : Y}_{r : R}$. Then $\varphi \to \psi$ is interpreted as
 
-$$|\varphi \to \psi|^{v : X \to Y, u : X \times R \to S}_{x : X, r : R} = |\varphi|^x_{u (x, r)} \to |\psi|^{v (x)}_r$$
+$$ |\varphi \to \psi|^{v : X \to Y, u : X \times R \to S}_{x : X, r : R} = |\varphi|^x_{u (x, r)} \to |\psi|^{v (x)}_r $$
 
- A proof of $\varphi \to \psi$ is a lens from proofs of $\varphi$ to proofs of $\psi$! Crucially, if we cut together a proof of $\varphi \to \psi$ and a proof of $\psi \to \chi$, the resulting proof of $\varphi \to \chi$ is obtained by ordinary lens composition. But is it reasonable to call them lenses, though?
+A proof of $\varphi \to \psi$ is a lens from proofs of $\varphi$ to proofs of $\psi$! Crucially, if we cut together a proof of $\varphi \to \psi$ and a proof of $\psi \to \chi$, the resulting proof of $\varphi \to \chi$ is obtained by ordinary lens composition. But is it reasonable to call them lenses, though?
 
 What is a lens *actually*? A lens consists of two parts. The first part is an ordinary function $f : X \to Y$. We also have some sort of data floating [over](https://ncatlab.org/nlab/show/Grothendieck+fibration) $X$ and $Y$. These might be, for example, sets of [update actions](https://danel.ahman.ee/papers/bx17.pdf), or it could be possible amounts of profit, or it could be counter-proofs as in the dialectica interpretation. The last thing that defines a lens is a *backpropagation* rule, which takes a value $x$ and the data associated to $f (x)$, and gives the data associated to $x$. For example if you know $x$ and you are given an update action on $f (x)$, the lens tells you the corresponding update action on $x$. Similarly, if you know $x$ and you know the monetary value of $f (x)$, then the lens tells you the monetary value of $x$.
 

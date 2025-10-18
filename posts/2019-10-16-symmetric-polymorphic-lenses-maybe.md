@@ -17,7 +17,6 @@ With this, I can give my proposed definition in a maximally slick way: a symmetr
 
 Here's an unpacked definition. A symmetric bimorphic lens between $(S, T)$ and $(A, B)$ consists of 6 things:
 
-
 - A type $X$ (thought of as the type of initial sources)
 - A type $Y$ dependent on $X$ (thought of as the types of updated sources)
 - Left-view and right-view functions $X \to S$ and $X \to A$
@@ -26,7 +25,6 @@ Here's an unpacked definition. A symmetric bimorphic lens between $(S, T)$ and $
 I think that the types really should be bound by an existential quantifier, and not by a $\Sigma$ — in category theory I think of them as bound by a coend. But probably nothing will go seriously wrong if it's implemented as a $\Sigma$ type.
 
 The remaining thing is how to compose them. Suppose we have symmetric lenses between $(S, T)$ and $(A, B)$ with internal state $(X, Y)$, and another between $(A, B)$ and $(P, Q)$ with internal state $(V, W)$. Then:
-
 
 - The type of initial sources is $X \times_A V$, in other words, the pairs of initial sources which agree on their common view
 - The updated sources indexed by $(x, v) : X \times_A V$ is the pushout $Y (x) +_B W (v)$

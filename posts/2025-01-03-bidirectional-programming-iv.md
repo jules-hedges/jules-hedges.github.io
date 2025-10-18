@@ -353,6 +353,7 @@ example = Rename (Copy Z $ Insert Id Z $ Empty)
 And it works! We can use our testing function from before to verify that the backward pass gives the correct reverse derivative, which is $\frac{1}{dx} = (\sin x^2 + 2 x^2 \cos x^2) \cdot \frac{1}{dy}$.
 
 In conclusion, everything works but is absolutely horrendous to program in. In principle this is fine because Aptwe is explicitly intended to be a kernel language and not to be written by humans. But after this experience I have decided to prioritise working towards a prototype frontend language, for demonstration purposes and for the sake of my own sanity. My plan is to build a series of elaboration passes in reverse order of the compiler pipeline:
+
 - Replace elimination forms with patterns (this is particularly important because Aptwe is substructural, so we can't take the easy option of adding primitives for projection out of products)
 - Type inference (which is very straightforward right now because Aptwe is still simply typed)
 - Scope checking and kind inference (uniquely to Aptwe, I expect these to be interconnected in an interesting way)
