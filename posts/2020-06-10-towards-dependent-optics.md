@@ -33,7 +33,7 @@ Finally on to optics. If $\mathcal C$ is a monoidal category and $s$, $t$, $a$, 
 
 $$ \displaystyle \int^{x \in \mathcal C} \mathcal C (s, x \otimes a) \times \mathcal C (x \otimes b, t) $$
 
-They form a category $\mathbf{Optic} (\mathcal C)$. When the monoidal product of $\mathcal C$ is a categorical product, then $\mathbf{Optic} (\mathcal C)$ is equivalent to $\mathbf{Lens} (\mathcal C)$, by an argument involving the [Ninja Yoneda Lemma](https://arxiv.org/abs/1501.02503$) (which says that $\hom$ behaves like a Dirac measure for the integral). Optics have many interesting special cases and also can be generalised further to *mixed optics*, see [A categorical update](https://arxiv.org/abs/2001.07488).
+They form a category $\mathbf{Optic} (\mathcal C)$. When the monoidal product of $\mathcal C$ is a categorical product, then $\mathbf{Optic} (\mathcal C)$ is equivalent to $\mathbf{Lens} (\mathcal C)$, by an argument involving the [Ninja Yoneda Lemma](https://arxiv.org/abs/1501.02503) (which says that $\hom$ behaves like a Dirac measure for the integral). Optics have many interesting special cases and also can be generalised further to *mixed optics*, see [A categorical update](https://arxiv.org/abs/2001.07488).
 
 One nice thing about the previous cases breaks down: there is no longer a view functor $\mathbf{Optic} (\mathcal C) \to \mathcal C$, let alone a fibration.
 
