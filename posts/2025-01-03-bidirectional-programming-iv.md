@@ -194,7 +194,7 @@ eval (TensorElim {cs = (_ ** _ ** s)} t1 t2) xs
 
 The case for `TensorIntro` is nothing but the tensor product of two lenses, and the elimination rule is extremely similar to `Let` but binds two variables at once, namely the two halves of the product being eliminated.
 
-This marks the dividing line between the cases I was able to understand before writing them, and the ones for which I really relied on the Idris type checker for help. What remains is the unit elimination rule, and the rules for negation. In an ordinary language the tensor elimination rule is very easy: any term that returns a unit can be completely discarded. But for us, a term that returns a unit can still produce output backwards:
+This marks the dividing line between the cases I was able to understand before writing them, and the ones for which I really relied on the Idris type checker for help. What remains is the unit elimination rule, and the rules for negation. In an ordinary language the unit elimination rule is very easy: any term that returns a unit can be completely discarded. But for us, a term that returns a unit can still produce output backwards:
 
 ```haskell
 eval (UnitElim {cs = (_ ** _ ** s)} t1 t2) xs 
