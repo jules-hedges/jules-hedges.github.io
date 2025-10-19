@@ -60,7 +60,16 @@ main = hakyllWith config $ do
     route $ setExtension "html"
     compile $ do
       pandoc          <- getPandocCompiler
-      defaultTemplate <- loadAndApplyTemplate "templates/default.html" postContext pandoc
+      defaultTemplate <- loadAndApplyTemplate "templates/default.html" defaultContext pandoc
+      relativizeUrls defaultTemplate
+
+  -- The "about this site" page has its source at README.md to trick Github into displaying it
+  -- We need to rename it to something more reasonable
+  match "README.md" $ do
+    route $ constRoute "about.html"
+    compile $ do
+      pandoc          <- getPandocCompiler
+      defaultTemplate <- loadAndApplyTemplate "templates/default.html" defaultContext pandoc
       relativizeUrls defaultTemplate
 
   -- All blog posts
