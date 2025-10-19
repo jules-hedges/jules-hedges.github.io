@@ -73,26 +73,26 @@ main = hakyllWith config $ do
       relativizeUrls defaultTemplate
 
   -- Blog posts page
-  create ["blog.html"] $ do
-    route idRoute
+  match "blog.md" $ do
+    route $ setExtension "html"
     compile $ do
-      allPosts        <- loadAll "posts/*"
-      sortedPosts     <- recentFirst allPosts
-      let context = listField "posts" postContext (pure sortedPosts) <> constField "title" "Blog" <> defaultContext
-      newPage         <- makeItem ""
-      blogTemplate    <- loadAndApplyTemplate "templates/blog.html"    context newPage
-      defaultTemplate <- loadAndApplyTemplate "templates/default.html" context blogTemplate
+      allPosts         <- loadAll "posts/*"
+      sortedPosts      <- recentFirst allPosts
+      let postListContext = listField "posts" postContext (pure sortedPosts) <> defaultContext
+      pandoc           <- getPandocCompiler
+      postListTemplate <- applyAsTemplate postListContext pandoc
+      defaultTemplate  <- loadAndApplyTemplate "templates/default.html" postListContext postListTemplate
       relativizeUrls defaultTemplate
 
   -- Index page
   match "index.md" $ do
     route $ setExtension "html"
     compile $ do
-      allPosts        <- loadAll "posts/*"
-      sortedPosts     <- recentFirst allPosts
+      allPosts         <- loadAll "posts/*"
+      sortedPosts      <- recentFirst allPosts
       let recentPosts = take 10 sortedPosts
-      let context = listField "posts" postContext (pure recentPosts) <> defaultContext
-      pandoc          <- getPandocCompiler
-      indexTemplate   <- applyAsTemplate context pandoc
-      defaultTemplate <- loadAndApplyTemplate "templates/default.html" context indexTemplate
+      let postListContext = listField "posts" postContext (pure recentPosts) <> defaultContext
+      pandoc           <- getPandocCompiler
+      postListTemplate <- applyAsTemplate postListContext pandoc
+      defaultTemplate  <- loadAndApplyTemplate "templates/default.html" postListContext postListTemplate
       relativizeUrls defaultTemplate
