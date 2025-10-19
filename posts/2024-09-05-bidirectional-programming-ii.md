@@ -11,17 +11,17 @@ In this post we'll begin designing a kernel language in which all programs are o
 
 My first design choice is that *object language types denote pairs of metalanguage types*, with one denoting the forward part (sometimes I might call it the *covariant denotation*) and the other denoting the backward part (the *contravariant denotation*).
 
-```haskell
+```idris
 Cov : Ty -> Type
 Con : Ty -> Type
 ```
 
 The interpretation of a term will be a lens:
-```haskell
+```idris
 eval : Term xs y -> All Cov xs -> (Cov y, Con y -> All Con xs)
 ```
 Here `All` is an Idris standard library function that combines a type-level map with cartesian product:
-```haskell
+```idris
 data All : (a -> Type) -> List a -> Type where
   Nil : All p []
   (::) : p x -> All p xs -> All p (x :: xs)
@@ -38,7 +38,7 @@ My third design choice is that I want negation to be interpreted as swapping the
 
 At this point we have enough to build a term language and its interpretation. I will add a single ground type which will be interpreted as purely covariant.
 
-```haskell
+```idris
 data Ty : Type where
   Unit : Ty
   Ground : Ty
@@ -68,15 +68,15 @@ Our interpretation of negation is strictly involutive - swapping twice is a no-o
 The *principle of explosion* says that $p$ and $\neg p$ together entail falsity, for every proposition $p$. Since falsity and truth coincide, for us the principle of explosion says that $p$ and $\neg p$ together entail truth. This is a valid principle in our semantics. Suppose $p$ is interpreted as $(X, X')$, then $p \otimes \neg p$ is interpreted as $(X \times X', X' \times X)$. There is indeed a canonical lens $(X \times X', X' \times X) \to (1, 1)$, namely the "turnaround" lens, which I normally call a *counit*.
 
 In Idris, suppose we have
-```haskell
+```idris
 explosion : {a : Ty} -> Term [a, Not a] Unit
 ```
 Then we must have
-```haskell
+```idris
 eval explosion : {a : Ty} -> All Cov [a, Not a] -> (Unit, Unit -> All Con [a, Not a])
 ```
 which up to isomorphism reduces to
-```haskell
+```idris
 eval explosion : {a : Ty} -> (Cov a, Con a) -> (Con a, Cov a)
 ```
 Of course, we want to implement `eval` so that this gives us the swap function.
@@ -84,15 +84,15 @@ Of course, we want to implement `eval` so that this gives us the swap function.
 The de Morgan dual of the principle of explosion is the *principle of excluded middle*, which says that truth entails $p$ or $\neg p$. Remembering that our conjunction and disjunction coincide, if $p$ has interpretation $(X, X')$ then excluded middle would denote a lens $(1, 1) \to (X \times X', X' \times X)$. In general there is no lens of this type, so our semantics does not validate excluded middle.
 
 In Idris, suppose we had
-```haskell
+```idris
 lem : {a : Ty} -> Term [] (Tensor a (Not a))
 ```
 Then we must have
-```haskell
+```idris
 eval lem : {a : Ty} -> All Cov [] -> ((Cov a, Con a), (Con a, Cov a) -> All Con [])
 ```
 which up to isomorphism reduces to
-```haskell
+```idris
 eval lem : {a : Ty} -> (Cov a, Con a)
 ```
 which is impossible as soon as we introduce any types that are not pointed.
@@ -108,7 +108,7 @@ The system I designed was a 2-sided hybrid of a natural deduction calculus and a
 $$ \frac{\Gamma, \varphi \vdash}{\Gamma \vdash \neg \varphi} (RI) \qquad \frac{\Gamma, \neg \varphi \vdash}{\Gamma \vdash \varphi} (LE) \qquad \frac{\Gamma \vdash \varphi, \Delta \qquad \Gamma' \vdash \neg \varphi, \Delta'}{\Gamma, \Gamma' \vdash \Delta, \Delta'} (RE) $$
 
 In Idris:
-```haskell
+```idris
 data Term : List Ty -> List Ty -> Type where
   Var : Term [x] [x]
   LAct : Symmetric xs' xs -> Term xs ys -> Term xs' ys
@@ -122,7 +122,7 @@ data Term : List Ty -> List Ty -> Type where
 `Symmetric` is the structure for permutations that I introduced in the [previous post](/posts/2024-08-26-bidirectional-programming-i.html).
 
 Here are what our principles look like, together with some non-proofs that are ruled out by the restrictions on right-introduction and left-elimination:
-```haskell
+```idris
 dni : {a : Ty} -> Term [a] [Not (Not a)]
 dni = NotIntroR (LAct (Insert (There Here) (Insert Here Empty)) 
                       (NotElimR (Left Right) Right Var Var))
@@ -143,7 +143,7 @@ lem : {a : Ty} -> Term [] [Not a, a]
 ```
 
 Unfortunately, although my restricted left-elimination and right-introduction rules can be used to prove the semantically valid principles of double negation introduction and elimination, they are themselves not semantically valid. The problems start to appear once we add back in the rules for tensor, which in this 2-sided calculus are
-```haskell
+```idris
   TensorIntro : Simplex xs1 xs2 xs3 -> Simplex ys1 ys2 ys3
              -> Term xs1 (y1 :: ys1) -> Term xs2 (y2 :: ys2) 
              -> Term xs3 (Tensor y1 y2 :: ys3)
@@ -153,7 +153,7 @@ Unfortunately, although my restricted left-elimination and right-introduction ru
 ```
 
 Now we can write a bad term:
-```haskell
+```idris
 bad : {a : Ty} -> Term [] [Not (Tensor a (Not a))]
 bad = NotIntroR (TensorElim (Left Right) Right Var explosion)
 ```
@@ -164,7 +164,7 @@ Although these rules don't seem to be strong enough to prove the distributive la
 Although I would love to come up with a calculus that fulfills my requirements using pure logic, I currently believe that it's impossible. So instead I will bring out the big guns, and use a `Structure`. The methodology I introduced in the previous post yields a clean conceptual separation into *syntax* and *logic*. If we want to say that two things are syntactically identical, for example permutations of contexts, we use a `Structure` to encode that. So what we are about to do is to encode a principle that $p$ and $\neg \neg p$ are not merely *logically equivalent* but *syntactically identical*.
 
 This is how we do it:
-```haskell
+```idris
 data Parity : Ty -> Ty -> Type where
   Id : Parity x x
   Raise : Parity x y -> Parity x (Not (Not y))
@@ -179,7 +179,7 @@ An element of `Involutive xs ys` is a witness that `ys` is a permutation of `xs`
 
 With double negation introduction and elimination taken care of, all we have to do is to make a logic that validates the principle of explosion and not excluded middle, which is easy: it's an ordinary 1-sided natural deduction calculus with the negation introduction rule omitted.
 
-```haskell
+```idris
 data Term : List Ty -> Ty -> Type where
   Var : Term [x] x
   Act : Involutive xs ys -> Term ys t -> Term xs t
@@ -192,7 +192,7 @@ data Term : List Ty -> Ty -> Type where
 ```
 
 We can write exactly the terms that we want to:
-```haskell
+```idris
 dni : {a : Ty} -> Term [a] (Not (Not a))
 dni = Act (Insert (Raise Id) Here Empty) Var
 

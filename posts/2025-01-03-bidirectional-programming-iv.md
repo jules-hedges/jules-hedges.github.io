@@ -11,14 +11,14 @@ We are now at the point where we can write an interpreter to run some programs. 
 
 Continuing our well-typed-by-construction methodology we will build a *well typed interpreter*. This means that we first interpret types of our language into Idris types, and then these give the type of the corresponding interpreted program. For languages less weird than ours, such as one of the example languages from the [first post](/posts/2024-08-26-bidirectional-programming-i.html), we would interpret terms as Idris functions, resulting in signatures like this:
 
-```haskell
+```idris
 EvalType : Ty -> Type
 eval : Term xs x -> All EvalType xs -> EvalType x
 ```
 
 Instead of interpreting to Idris functions, terms of Aptwe will be interpreted as *lenses*. For this we need to give 2 different interpretations of each type, one covariant and the other contravariant:
 
-```haskell
+```idris
 Cov : Ty -> Type
 Con : Ty -> Type
 eval : Term xs x -> Lens (All Cov xs) (All Con xs) (Cov x) (Con x)
@@ -28,7 +28,7 @@ eval : Term xs x -> Lens (All Cov xs) (All Con xs) (Cov x) (Con x)
 
 We need to start by defining `Cov` and `Con`, which is completely straightforward. This is the point at which we upgrade our type language to have a proper mechanism for base types (source code is [here](https://github.com/CyberCat-Institute/Aptwe/blob/main/src/Builtins/Types.idr) and [here](https://github.com/CyberCat-Institute/Aptwe/blob/main/src/Kernel/Types.idr)):
 
-```haskell
+```idris
 data BaseTy : Kind -> Type where
   Nat : BaseTy (True, False)
   Bool : BaseTy (True, True)
@@ -44,7 +44,7 @@ These choices come from key applications: for reals it will be addition which is
 
 Base types are also responsible for the only non-obvious part of our interpreter for types:
 
-```haskell
+```idris
 data Echo : Type where
   X : Echo
 
@@ -68,7 +68,7 @@ The type `Echo` is an isomorphic copy of `Unit`. The choice I have made is that 
 
 The next thing we need to do is to interpret *structure*, that is, the data structure [here](https://github.com/CyberCat-Institute/Aptwe/blob/main/src/Kernel/Structure.idr) that is used in the `Rename` case of terms. In principle a renaming could be interpreted as a lens, but it transpires that renamings only ever mean lenses whose backwards pass does not use its forwards input (I call these *adaptors*). This means that we actually need to write 2 functions:
 
-```haskell
+```idris
 structureCov : Structure xs ys -> IxAll Cov xs -> IxAll Cov ys
 structureCon : Structure xs ys -> IxAll Con ys -> IxAll Con xs
 ```
@@ -77,7 +77,7 @@ All of the source code from this section can be found in [this file](https://git
 
 The hard part of this is to interpret the 4 operations of *delete*, *copy*, *spawn* and *merge*. Interpreting delete and copy of covariant values is easy, since it ends up being delete and copy of Idris values. Similarly interpreting spawn and merge of contravariant values also ends up being delete and copy of Idris values. So what we need to do is to spawn and merge covariant values, and to delete and copy contravariant values, and this is where we need to make a choice of a monoid structure for each base type:
 
-```haskell
+```idris
 unit : {x : BaseTy (cov, True)} -> Cov (BaseTy x)
 unit {x = Bool} = True
 unit {x = Real} = 0
@@ -90,7 +90,7 @@ multiply {x = Real} p q = p + q
 
 Now we can delete and spawn because `unit` takes care of the missing base case for base types:
 
-```haskell
+```idris
 mutual
   spawnCov : {x : Ty (cov, True)} -> Cov x
   spawnCov {x = Unit} = ()
@@ -105,13 +105,13 @@ mutual
 
 The case for spawning or deleting a tensor product *should* be
 
-```haskell
+```idris
   spawnCov {x = Tensor x y} = (spawnCov, spawnCov)
 ```
 
 But instead this case takes us into a very unfortunate corner case of Idris syntax, which I'm not going to attempt to explain because I only partially understand what's going on:
 
-```haskell
+```idris
   spawnCov {x = Tensor {con = (True ** and)} x y} with (and)
     spawnCov {x = Tensor {con = (True ** and)} x y} | True 
       = (spawnCov, spawnCov)
@@ -119,7 +119,7 @@ But instead this case takes us into a very unfortunate corner case of Idris synt
 
 The cases for copy/merge are almost identical. Now we can write the functions we need, for which the interesting cases are as follows:
 
-```haskell
+```idris
 structureCov : Structure xs ys -> IxAll Cov xs -> IxAll Cov ys
 structureCov (Delete f) (x :: xs) = structureCov f xs
 structureCov (Copy e f) xs = ixSelect e xs :: structureCov f xs
@@ -139,13 +139,13 @@ Observe that the covariant delete case and the contravariant spawn case become a
 
 Now we come to the main thing: writing the function
 
-```haskell
+```idris
 eval : Term xs y -> IxAll Cov xs -> (Cov y, Con y -> IxAll Con xs)
 ```
 
 The complete implementation is [here](https://github.com/CyberCat-Institute/Aptwe/blob/main/src/Interpreter/Terms.idr). Let's start with a couple of very easy cases to warm up:
 
-```haskell
+```idris
 eval (BaseTerm t) xs = evalBaseTerm t xs
 eval Var [x] = (x, \y' => [y'])
 eval UnitIntro [] = ((), \() => [])
@@ -153,14 +153,14 @@ eval UnitIntro [] = ((), \() => [])
 
 The case for renaming is not much harder, since we spent the whole of the previous section writing the helper functions it needs:
 
-```haskell
+```idris
 eval (Rename f t) xs = let (y, k) = eval t (structureCov f xs)
                         in (y, \y' => structureCon f (k y'))
 ```
 
 Probably the most instructive case is the one for `Let`. When writing an ordinary interpreter of terms into functions `Let` becomes function composition, or slightly more precisely *substitution* into one input of a many-input function. For us, `Let` becomes lens composition. The one complication, which also happens in most of the remaining cases, is that we need to use the simplex carried by the proof rule to tell us how to pull apart the input list into two, and then stitch it back together.
 
-```haskell
+```idris
 eval (Let {cs = (_ ** _ ** s)} t1 t2) xs
   = let (y, k1) = eval t1 (ixUncatL s xs)
         (z, k2) = eval t2 (y :: ixUncatR s xs)
@@ -170,7 +170,7 @@ eval (Let {cs = (_ ** _ ** s)} t1 t2) xs
 
 The subtlety of this case is just the subtlety of lens composition: the first output of `t1` in the forwards direction becomes an input of `t2` in the forwards direction, and then the continuations are unwound in reverse order for the backwards direction. The helper functions
 
-```haskell
+```idris
 ixConcat : IxSimplex as bs cs -> IxAll q as -> IxAll q bs -> IxAll q cs
 ixUncatL : IxSimplex as bs cs -> IxAll q cs -> IxAll q as
 ixUncatR : IxSimplex as bs cs -> IxAll q cs -> IxAll q bs
@@ -180,7 +180,7 @@ which can be found in [IxUtils](https://github.com/CyberCat-Institute/Aptwe/blob
 
 Next let's look at the introduction and elimination rules for `Tensor`:
 
-```haskell
+```idris
 eval (TensorIntro {cs = (_ ** _ ** s)} t1 t2) xs 
   = let (y1, k1) = eval t1 (ixUncatL s xs)
         (y2, k2) = eval t2 (ixUncatR s xs)
@@ -196,7 +196,7 @@ The case for `TensorIntro` is nothing but the tensor product of two lenses, and 
 
 This marks the dividing line between the cases I was able to understand before writing them, and the ones for which I really relied on the Idris type checker for help. What remains is the unit elimination rule, and the rules for negation. In an ordinary language the unit elimination rule is very easy: any term that returns a unit can be completely discarded. But for us, a term that returns a unit can still produce output backwards:
 
-```haskell
+```idris
 eval (UnitElim {cs = (_ ** _ ** s)} t1 t2) xs 
   = let ((), k1) = eval t1 (ixUncatL s xs)
         (y, k2) = eval t2 (ixUncatR s xs)
@@ -205,7 +205,7 @@ eval (UnitElim {cs = (_ ** _ ** s)} t1 t2) xs
 
 Arguably, the most important rule in the entire language is negation elimination, because it is the only rule that directly allows communication from the forwards pass to the backwards pass. In traditional differentiable programming terminology, the implementation of this rule is to write to the tape. Here is its implementation:
 
-```haskell
+```idris
 eval (NotElim {cs = (_ ** _ ** s)} t1 t2) xs 
   = let (y1, k1) = eval t1 (ixUncatL s xs)
         (y2, k2) = eval t2 (ixUncatR s xs)
@@ -217,7 +217,7 @@ This leaves the 2 negation introdution rules that, as I wrote in the previous po
 In a sense the negation introduction rules are *scoping* rules rather than computational rules: they use the helper functions we developed for the interpretation of `Rename`, but themselves cannot be expressed in terms of `Rename`. My provisional conclusion is that these rules need to be in the language because I don't have any alternative, but they are very much on thin ice.
 
 Here is the code I wrote:
-```haskell
+```idris
 eval (NotIntroCov t) xs 
   = (deleteCon, \x' => let ((), k) = eval t (x' :: xs)
                            y' :: ys = k ()
@@ -240,14 +240,14 @@ There are essentially two main aspects to automatic differentiation. The first i
 
 For now, I have defined *base terms* to be terms that carry around an Idris lens, and the corresponding interpreter cases simply apply the forward and backward passes of that lens as functions:
 
-```haskell
+```idris
 data BaseTerm : All Ty ks -> Ty k -> Type where
   Builtin : (IxAll Cov xs -> (Cov y, Con y -> IxAll Con xs)) -> BaseTerm xs y
 ```
 
 This is temporary for as long as we are using the prototype interpreter; eventually something much more subtle will be needed here. Using this, we can for example lift functions between doubles into Aptwe terms:
 
-```haskell
+```idris
 sin : Term [BaseTy Real] (BaseTy Real)
 sin = BaseTerm $ Builtin $ \[x] => (sin x, \X => [X])
 
@@ -257,14 +257,14 @@ cos = BaseTerm $ Builtin $ \[x] => (cos x, \X => [X])
 
 These functions respectively apply sin and cos in the forward pass, and are trivial in the backward pass. Similarly, we can multiply two doubles in the forward pass with the function
 
-```haskell
+```idris
 times : Term [BaseTy Real, BaseTy Real] (BaseTy Real)
 times = BaseTerm $ Builtin $ \[x, y] => (x * y, \X => [X, X])
 ```
 
 It will be useful to have a shorthand for types of "monomorphic" lenses, ie. whose forwards and backwards types are the same, since autodiff functions all have this form:
 
-```haskell
+```idris
 Mono : Ty (True, True) -> Ty (True, True)
 Mono a = Tensor a (Not a)
 ```
@@ -273,7 +273,7 @@ Our main goal is to implement a combinator `diff` which takes a term representin
 
 The problem with the following code is that it's incomprehensible for (at least) 2 different reasons:
 
-```haskell
+```idris
 diff : Term [BaseTy Real] (BaseTy Real) -> Term [BaseTy Real] (BaseTy Real)
     -> Term [Mono (BaseTy Real)] (Mono (BaseTy Real))
 diff f df = TensorElim Var
@@ -292,14 +292,14 @@ It was suffering through writing this function (and debugging it, since on my fi
 
 Now, to write a differentiable sin function we just have to say what its derivative is:
 
-```haskell
+```idris
 dsin : Term [Mono (BaseTy Real)] (Mono (BaseTy Real))
 dsin = diff sin cos
 ```
 
 To run `dsin` we need to call `eval` on it, but also pack and unpack some boxes:
 
-```haskell
+```idris
 dtest : Term [Mono (BaseTy Real)] (Mono (BaseTy Real)) 
      -> Double -> (Double, Double -> Double)
 dtest t x = let ((y, X), k) = eval t [(x, X)]
@@ -311,7 +311,7 @@ dtest t x = let ((y, X), k) = eval t [(x, X)]
 
 Before we stop we should write a *slightly* less trivial function, just to make sure that we are doing autodiff correctly when we compose things together. Let's write the function $x \sin x^2$. Although Aptwe has the chain rule built in, we need to write a differentiable multiplication that contains the essence of the product rule. If you thought `diff` was painful, this one is worse:
 
-```haskell
+```idris
 dtimes : Term [Mono (BaseTy Real), Mono (BaseTy Real)] (Mono (BaseTy Real))
 dtimes = TensorElim Var
        $ Rename (Insert Id (S (S Z)) $ Copy Z $ Insert Id Z $ Insert Id Z $ Empty)
@@ -333,7 +333,7 @@ There are two pieces of good news. The first is that this function works (I even
 
 We can implement squaring in terms of multiplcation by copying the input:
 
-```haskell
+```idris
 dsquare : Term [Mono (BaseTy Real)] (Mono (BaseTy Real))
 dsquare = Rename (Copy Z $ Insert Id Z $ Empty)
          $ dtimes
@@ -343,7 +343,7 @@ Something important is happening here. This `Copy` is being applied to a variabl
 
 Now we have all the pieces for our slightly more complicated example of $x \sin x^2$, whose only difficulty is writing without variable names:
 
-```haskell
+```idris
 example : Term [Mono (BaseTy Real)] (Mono (BaseTy Real))
 example = Rename (Copy Z $ Insert Id Z $ Empty)
         $ Let (Let dsquare dsin)

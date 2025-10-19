@@ -25,7 +25,7 @@ Just as terms are classified by types, types are classified by *kinds*, which me
 
 Let's start with the easy parts:
 
-```haskell
+```idris
 Kind : Type
 Kind = (Bool, Bool)
 
@@ -41,14 +41,14 @@ There is an alternative way of implementing it, but it is much more tedious: ins
 
 Now we come to the hard part: tensor products. A tensor product is covariant if both parts are covariant, and is contravariant if both parts are contravariant. In a world with a sufficiently smart typechecker we would simply write this:
 
-```haskell
+```idris
   Tensor : Ty (covx, conx) -> Ty (covy, cony)
         -> Ty (covx && covy, conx && cony)
 ```
 
 But we already know how to handle this situation, it's the same idea as for list concatenation in the [first post](/posts/2024-08-26-bidirectional-programming-i.html). We define the relation corresponding to the boolean conjunction function, and a section of it:
 
-```haskell
+```idris
 data And : Bool -> Bool -> Bool -> Type where
   True  : And True b b
   False : And False b False
@@ -62,7 +62,7 @@ False && b = (False ** False)
 
 Now we can write the actual definition of tensor products, which is much more complicated looking than it should be, but this is just what we have to deal with until the day when somebody builds a typechecker that can handle trivial equational reasoning:
 
-```haskell
+```idris
   Tensor : {covx, covy, conx, cony : Bool}
         -> {default (covx && covy) cov : _} -> {default (conx && cony) con : _}
         -> Ty (covx, conx) -> Ty (covy, cony) -> Ty (cov.fst, con.fst)
@@ -78,7 +78,7 @@ Now that types are indexed by kinds, everything else becomes more complicated: e
 
 Let's start with the linear rules:
 
-```haskell
+```idris
 data Structure : All Ty kas -> All Ty kbs -> Type where
   Empty  : Structure [] []
   Insert : {a, b : Ty (cov, con)} -> {as : All Ty kas} -> {bs : All Ty kbs}
@@ -87,7 +87,7 @@ data Structure : All Ty kas -> All Ty kbs -> Type where
 
 Here `IxInsertion` is an indexed version of the `Insertion` datatype from the previous post, relationally defining insertions into an `All` type indexed by an underlying list:
 
-```haskell
+```idris
 data IxInsertion : {0 x : a} -> p x 
                 -> {0 xs : List a} -> All p xs 
                 -> {0 ys : List a} -> All p ys -> Type where
@@ -100,7 +100,7 @@ I'm not going to explain all of the syntax and semantics of Idris happening here
 
 The definition of `Parity`, which handles double negations, is unchanged from the previous post besides adding the kind indexes:
 
-```haskell
+```idris
 data Parity : Ty (cov, con) -> Ty (cov, con) -> Type where
   Id    : Parity a a
   Raise : Parity a b -> Parity a (Not (Not b))
@@ -113,7 +113,7 @@ One thing to note is that I reversed the polarity of the `Insert` constructor fr
 
 Next we have the rules for delete and copy, which can be applied only to covariant types. We don't care whether the type is also contravariant, ie. we can use it for both strictly covariant types and bivariant types. This is the other reason I define kinds to be pairs of booleans rather than their own dedicated language, because otherwise we would have twice as many constructors here.
 
-```haskell
+```idris
   Delete : {a : Ty (True, con)} -> Structure as bs -> Structure (a :: as) bs
   Copy   : {a : Ty (True, con)} -> {as : All Ty xs} 
         -> IxElem a as -> Structure as bs -> Structure as (a :: bs)
@@ -123,7 +123,7 @@ Here `IxElem` is, of course, an indexed version of the `Elem` datatype, which I 
 
 With that, defining the constructors for spawn and merge is easy, and completes our definition of `Structure` once and for all.
 
-```haskell
+```idris
   Spawn  : {b : Ty (cov, True)} -> Structure as bs -> Structure as (b :: bs)
   Merge  : {b : Ty (cov, True)} -> {bs : All Ty ys} 
         -> IxElem b bs -> Structure as bs -> Structure (b :: as) bs
@@ -135,7 +135,7 @@ We can now put the pieces together and make the first real definition of our ker
 
 Of course everything is kind indexed:
 
-```haskell
+```idris
 data Term : All Ty ks -> Ty k -> Type where
   Var : Term [x] x
   Rename : Structure as bs -> Term bs x -> Term as x
@@ -145,7 +145,7 @@ I renamed `Act` to `Rename` since the last post, since somebody pointed out that
 
 Unit introduction and elimination rules work as they did before:
 
-```haskell
+```idris
   UnitIntro : Term [] Unit
   UnitElim : {as : All Ty kas} -> {bs : All Ty kbs} -> {default (ixSimplex as bs) cs : _}
           -> Term as Unit -> Term bs x -> Term (cs.snd.fst) x
@@ -153,7 +153,7 @@ Unit introduction and elimination rules work as they did before:
 
 Here `ixSimplex` is the tactic corresponding to a datatype `IxSimplex` which is the relational version of the indexed version of `++`, operating on `All` rather than `List`. This one is worth writing down because it returns a twice-iterated Sigma type, so we have to extract the part we need with `.snd.fst`:
 
-```haskell
+```idris
 data IxSimplex : {0 xs : List a} -> All p xs 
               -> {0 ys : List a} -> All p ys 
               -> {0 zs : List a} -> All p zs -> Type where
@@ -174,7 +174,7 @@ Now we come to the negation rules, and the final twist of this post. In the lang
 
 It turns out that we have two not-introduction rules, one that is valid for covariant types and one that is valid for contravariant types. This introduces a sort of incompatibility between negation and tensor, since the tensor product of two variables with a valid not-introduction rule can fail to have one.
 
-```haskell
+```idris
   NotIntroCov : {a : Ty (True, con)} -> Term (a :: as) Unit -> Term as (Not a)
   NotIntroCon : {a : Ty (cov, True)} -> Term (a :: as) Unit -> Term as (Not a)
   NotElim : {as : All Ty kas} -> {bs : All Ty kbs} -> {default (ixSimplex as bs) cs : _}
@@ -187,7 +187,7 @@ If we have a bivariant type then both of these rules can be applied to produce t
 
 Now there's only the tensor rules, and for once there is nothing to say about them, they are the indexed versions of the tensor rules from the last 2 posts.
 
-```haskell
+```idris
   TensorIntro : {as : All Ty kas} -> {bs : All Ty kbs} -> {default (ixSimplex as bs) cs : _}
              -> Term as x -> Term bs y -> Term (cs.snd.fst) (Tensor x y)
   TensorElim : {as : All Ty kas} -> {bs : All Ty kbs} -> {default (ixSimplex as bs) cs : _}
