@@ -2,6 +2,6 @@
 title: Home
 ---
 
-<h2>Recent blog posts</h2>
+## Recent blog posts
 
 $partial("templates/post-list.html")$
