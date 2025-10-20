@@ -1,4 +1,5 @@
 [forest]
 trees = ["trees"]
 assets = ["forester-assets"]
+home = "index"
 url = "https://julesh.com/forest/"
