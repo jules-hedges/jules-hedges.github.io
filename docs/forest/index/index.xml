@@ -9,10 +9,47 @@
     <fr:title text="Forest">Forest</fr:title>
   </fr:frontmatter>
   <fr:mainmatter>
-    <html:p>This is the future location of my <fr:link href="https://www.forester-notes.org/" type="external">Forester</fr:link> site</html:p>
     <html:p>
       <fr:link href="https://julesh.com/" type="external">Back to home</fr:link>
     </html:p>
+    <html:p>This is my <fr:link href="https://www.forester-notes.org/index/index.xml" type="external">forest</fr:link>, a loosely structured collection of notes.</html:p>
+    <fr:tree show-metadata="false" toc="false">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Table of contents">Table of contents</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors />
+            <fr:date>
+              <fr:year>2025</fr:year>
+              <fr:month>10</fr:month>
+              <fr:day>20</fr:day>
+            </fr:date>
+            <fr:uri>https://julesh.com/forest/0001/</fr:uri>
+            <fr:display-uri>0001</fr:display-uri>
+            <fr:route>/forest/0001/</fr:route>
+            <fr:title text="Test tree">Test tree</fr:title>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>This tree exists to test table of contents generation.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors />
+            <fr:uri>https://julesh.com/forest/index/</fr:uri>
+            <fr:display-uri>index</fr:display-uri>
+            <fr:route>/forest/index/</fr:route>
+            <fr:title text="Forest">Forest</fr:title>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <fr:info>Transclusion loop detected, rendering stopped.</fr:info>
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
+    </fr:tree>
   </fr:mainmatter>
   <fr:backmatter>
     <fr:tree show-metadata="false" hidden-when-empty="true">

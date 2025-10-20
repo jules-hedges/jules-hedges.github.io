@@ -1,5 +1,15 @@
 \title{Forest}
 
-\p{This is the future location of my [Forester](https://www.forester-notes.org/) site}
-
 \p{[Back to home](https://julesh.com/)}
+
+\p{This is my [forest](https://www.forester-notes.org/index/index.xml), a loosely structured collection of notes.}
+
+\put\transclude/toc{false}
+
+\subtree{
+  \title{Table of contents}
+
+  \query\datalog{
+    ?X -: {\rel/is-node ?X}
+  }
+}
