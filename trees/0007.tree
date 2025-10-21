@@ -1,0 +1,12 @@
+\date{2025-10-21T20:15:38Z}
+\title{The golden theorem of actegories}
+
+\import{macros}
+
+\p{Let #{\cat{E}} be a symmetric monoidal category. Every #{\cat{E}}-[actegory](0004) that is also a symmetric monoidal category in a compatible way is necessarily [defined by a strong symmetric monoidal functor](0006) #{\cat{E} \to \cat{C}}, up to natural isomorphism.}
+
+\p{Specifically, if #{\bullet : \cat{C} \times \cat{E} \to \cat{C}} is a symmetric monoidal actegory then #{X \bullet M \cong X \otimes F (M)} where #{F : \cat{E} \to \cat{C}} is defined by #{F (M) = I \bullet M}.}
+
+\p{This means that in the vast majority of cases, actegories are redundant and strong symmetric monoidal functors suffice.}
+
+\p{Reference: [Actegories for the working amthematician](https://arxiv.org/abs/2203.16351), section 5}

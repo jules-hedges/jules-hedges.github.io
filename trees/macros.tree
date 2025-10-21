@@ -3,4 +3,6 @@
 \p{This tree exists to export Forester macros.}
 
 \def\cat[arg]{\mathcal \arg}
+\def\op{\mathrm{op}}
+\def\Set{\mathbf{Set}}
 \def\Para{\overset{\leftarrow}{\mathcal P}}

@@ -1,0 +1,8 @@
+\date{2025-10-21T20:12:35Z}
+\title{From strong monoidal functors to actegories}
+
+\import{macros}
+
+\p{Let #{\cat{E}} and #{\cat{C}} be monoidal categories, and let #{F : \cat{E} \to \cat{C}} be a strong monoidal functor. Then we can define an #{\cat{E}}-[actegory](0004) structure on #{\cat{C}} by #{X \bullet M = X \otimes F (M)}.}
+
+\transclude{0007}

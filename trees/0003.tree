@@ -7,6 +7,7 @@
 
 \ul{
   \li{An object #{M} of #{\cat{C}} called the \strong{parameter object}}
+
   \li{A morphism #{f : X \otimes M \to Y} of #{\cat{C}}}
 }
 
@@ -14,8 +15,11 @@
 
 \ul{
   \li{Objects of #{\Para (\cat{C})} are objects of #{\cat{C}}}
+
   \li{Morphisms #{X \to Y} of #{\Para (\cat{C})} are equivalence classes of parametrised morphisms #{X \to Y} in #{\cat{C}} modulo coherent isomorphisms of the objects #{M}
+
   \li{The identity morphism on #{X} is given by the parameter object #{I} and the canonical isomorphism #{X \otimes I \to X}}
+  
   \li{Composition of #{X \otimes M_1 \to Y} and #{Y \otimes M_2 \to Z} is given by the parameter object #{M_1 \otimes M_2} and the morphism ##{X \otimes (M_1 \otimes M_2) \to (X \otimes M_1) \otimes M_2 \to Y \otimes M_2 \to Z}}}
 }
 

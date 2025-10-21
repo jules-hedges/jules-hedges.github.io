@@ -1,0 +1,17 @@
+\date{2025-10-21T19:50:41Z}
+\title{Actegories}
+
+\import{macros}
+
+\p{Let #{\cat{E}} be a monoidal category and #{\cat{C}} a category. An \strong{action} of #{\cat{E}} on #{\cat{M}}, also called an #{\cat{E}}-\strong{actegory} structure on #{\cat{C}}, is given by a functor #{\bullet : \cat{C} \times \cat{E} \to \cat{C}}, together with the following coherence data:}
+
+\ul{
+  \li{A natural transformation #{X \bullet I \to X} called the \strong{unitor}}
+
+  \li{A natural transformation #{(X \bullet M_1) \bullet M_2 \to X \bullet (M_1 \otimes M_2)} called the \strong{actor}}
+
+  \li{Coherence equations}
+}
+
+\transclude{0006}
+\transclude{0008}

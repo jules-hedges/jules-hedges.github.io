@@ -1,0 +1,16 @@
+\date{2025-10-21T20:33:08Z}
+\title{From actegories to locally graded categories}
+
+\import{macros}
+
+\p{Let #{\cat{E}} be a monoidal category and #{\cat{C}} an #{\cat{E}}-[actegory](0004). We construct a [locally graded category](0005) called #{\Para (\cat{C})}, which we regard as a [Para construction](0002), as follows:}
+
+\ul{
+  \li{The objects of #{\Para (\cat{C})} are objects of #{\cat{C}}}
+
+  \li{For objects #{X, Y} of #{\Para (\cat{C})}, the hom-object #{\Para (\cat{C}) (X, Y) : \cat{E}^\op \to \Set} is given by #{\Para (\cat{C}) (X, Y) (M) = \cat{C} (X \bullet M, Y)}}
+
+  \li{The identity morphism in #{\Para (\cat{C})_I (X, X)} is given by the unitor #{X \bullet I \to X}}
+
+  \li{The composition of #{f : \Para (\cat{C})_{M_1} (X, Y)} and #{g : \Para (\cat{C})_{M_2} (Y, Z)} is #{fg : \Para (\cat{C})_{M_1 \otimes M_2} (X, Z)} given by ##{X \bullet (M_1 \otimes M_2) \to (X \bullet M_1) \bullet M_2 \to Y \bullet M_2 \to Z}}
+}

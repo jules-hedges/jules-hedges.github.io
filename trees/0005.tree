@@ -1,0 +1,22 @@
+\date{2025-10-21T19:58:11Z}
+\title{Locally graded categories}
+
+\import{macros}
+
+\p{Let #{\cat{E}} be a monoidal category. A category \strong{locally graded} in #{\cat{E}} is a category enriched in the monoidal category of presheaves #{[\cat{E}^\op, \Set]} with Day convolution.}
+
+\p{Unwinding the definition, a category #{\cat{C}} locally graded in #{\cat{E}} is given by the following data:}
+
+\ul{
+  \li{A class of objects}
+
+  \li{For each pair of objects #{X, Y} of #{\cat{C}} and each object #{M} of #{\cat{E}}, a set of morphisms #\cat{C} (X, Y) (M), which we also write #{\cat{C}_M (X, Y)}}
+
+  \li{For each object #{X} of #{\cat{C}}, an identity morphism in #{\cat{C}_I (X, X)}}
+
+  \li{For morphisms #{f : \cat{C}_{M_1} (X, Y)} and #{g : \cat{C}_{M_2} (Y, Z)}, a composite morphism #{fg : \cat{C}_{M_1 \otimes M_2} (X, Z)}}
+
+  \li{Coherence isomorphisms}
+}
+
+\transclude{0008}

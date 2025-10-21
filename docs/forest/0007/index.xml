@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/forest/default.xsl"?>
+<fr:tree xmlns:fr="http://www.forester-notes.org" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" root="false" base-url="/forest/">
+  <fr:frontmatter>
+    <fr:authors />
+    <fr:date>
+      <fr:year>2025</fr:year>
+      <fr:month>10</fr:month>
+      <fr:day>21</fr:day>
+    </fr:date>
+    <fr:uri>https://julesh.com/forest/0007/</fr:uri>
+    <fr:display-uri>0007</fr:display-uri>
+    <fr:route>/forest/0007/</fr:route>
+    <fr:title text="The golden theorem of actegories">The golden theorem of actegories</fr:title>
+  </fr:frontmatter>
+  <fr:mainmatter>
+    <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> be a symmetric monoidal category. Every <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex>-<fr:link href="/forest/0004/" title="Actegories" uri="https://julesh.com/forest/0004/" display-uri="0004" type="local">actegory</fr:link> that is also a symmetric monoidal category in a compatible way is necessarily <fr:link href="/forest/0006/" title="From strong monoidal functors to actegories" uri="https://julesh.com/forest/0006/" display-uri="0006" type="local">defined by a strong symmetric monoidal functor</fr:link> <fr:tex display="inline"><![CDATA[\mathcal  E \to  \mathcal  C]]></fr:tex>, up to natural isomorphism.</html:p>
+    <html:p>Specifically, if <fr:tex display="inline"><![CDATA[\bullet  : \mathcal  C \times  \mathcal  E \to  \mathcal  C]]></fr:tex> is a symmetric monoidal actegory then <fr:tex display="inline"><![CDATA[X \bullet  M \cong  X \otimes  F (M)]]></fr:tex> where <fr:tex display="inline"><![CDATA[F : \mathcal  E \to  \mathcal  C]]></fr:tex> is defined by <fr:tex display="inline"><![CDATA[F (M) = I \bullet  M]]></fr:tex>.</html:p>
+    <html:p>This means that in the vast majority of cases, actegories are redundant and strong symmetric monoidal functors suffice.</html:p>
+    <html:p>Reference: <fr:link href="https://arxiv.org/abs/2203.16351" type="external">Actegories for the working amthematician</fr:link>, section 5</html:p>
+  </fr:mainmatter>
+  <fr:backmatter>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="References">References</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Context">Context</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors />
+            <fr:date>
+              <fr:year>2025</fr:year>
+              <fr:month>10</fr:month>
+              <fr:day>21</fr:day>
+            </fr:date>
+            <fr:uri>https://julesh.com/forest/0006/</fr:uri>
+            <fr:display-uri>0006</fr:display-uri>
+            <fr:route>/forest/0006/</fr:route>
+            <fr:title text="From strong monoidal functors to actegories">From strong monoidal functors to actegories</fr:title>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> and <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be monoidal categories, and let <fr:tex display="inline"><![CDATA[F : \mathcal  E \to  \mathcal  C]]></fr:tex> be a strong monoidal functor. Then we can define an <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex>-<fr:link href="/forest/0004/" title="Actegories" uri="https://julesh.com/forest/0004/" display-uri="0004" type="local">actegory</fr:link> structure on <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> by <fr:tex display="inline"><![CDATA[X \bullet  M = X \otimes  F (M)]]></fr:tex>.</html:p>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2025</fr:year>
+                  <fr:month>10</fr:month>
+                  <fr:day>21</fr:day>
+                </fr:date>
+                <fr:uri>https://julesh.com/forest/0007/</fr:uri>
+                <fr:display-uri>0007</fr:display-uri>
+                <fr:route>/forest/0007/</fr:route>
+                <fr:title text="The golden theorem of actegories">The golden theorem of actegories</fr:title>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> be a symmetric monoidal category. Every <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex>-<fr:link href="/forest/0004/" title="Actegories" uri="https://julesh.com/forest/0004/" display-uri="0004" type="local">actegory</fr:link> that is also a symmetric monoidal category in a compatible way is necessarily <fr:link href="/forest/0006/" title="From strong monoidal functors to actegories" uri="https://julesh.com/forest/0006/" display-uri="0006" type="local">defined by a strong symmetric monoidal functor</fr:link> <fr:tex display="inline"><![CDATA[\mathcal  E \to  \mathcal  C]]></fr:tex>, up to natural isomorphism.</html:p>
+                <html:p>Specifically, if <fr:tex display="inline"><![CDATA[\bullet  : \mathcal  C \times  \mathcal  E \to  \mathcal  C]]></fr:tex> is a symmetric monoidal actegory then <fr:tex display="inline"><![CDATA[X \bullet  M \cong  X \otimes  F (M)]]></fr:tex> where <fr:tex display="inline"><![CDATA[F : \mathcal  E \to  \mathcal  C]]></fr:tex> is defined by <fr:tex display="inline"><![CDATA[F (M) = I \bullet  M]]></fr:tex>.</html:p>
+                <html:p>This means that in the vast majority of cases, actegories are redundant and strong symmetric monoidal functors suffice.</html:p>
+                <html:p>Reference: <fr:link href="https://arxiv.org/abs/2203.16351" type="external">Actegories for the working amthematician</fr:link>, section 5</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Backlinks">Backlinks</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Related">Related</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors />
+            <fr:date>
+              <fr:year>2025</fr:year>
+              <fr:month>10</fr:month>
+              <fr:day>21</fr:day>
+            </fr:date>
+            <fr:uri>https://julesh.com/forest/0006/</fr:uri>
+            <fr:display-uri>0006</fr:display-uri>
+            <fr:route>/forest/0006/</fr:route>
+            <fr:title text="From strong monoidal functors to actegories">From strong monoidal functors to actegories</fr:title>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> and <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be monoidal categories, and let <fr:tex display="inline"><![CDATA[F : \mathcal  E \to  \mathcal  C]]></fr:tex> be a strong monoidal functor. Then we can define an <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex>-<fr:link href="/forest/0004/" title="Actegories" uri="https://julesh.com/forest/0004/" display-uri="0004" type="local">actegory</fr:link> structure on <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> by <fr:tex display="inline"><![CDATA[X \bullet  M = X \otimes  F (M)]]></fr:tex>.</html:p>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2025</fr:year>
+                  <fr:month>10</fr:month>
+                  <fr:day>21</fr:day>
+                </fr:date>
+                <fr:uri>https://julesh.com/forest/0007/</fr:uri>
+                <fr:display-uri>0007</fr:display-uri>
+                <fr:route>/forest/0007/</fr:route>
+                <fr:title text="The golden theorem of actegories">The golden theorem of actegories</fr:title>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> be a symmetric monoidal category. Every <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex>-<fr:link href="/forest/0004/" title="Actegories" uri="https://julesh.com/forest/0004/" display-uri="0004" type="local">actegory</fr:link> that is also a symmetric monoidal category in a compatible way is necessarily <fr:link href="/forest/0006/" title="From strong monoidal functors to actegories" uri="https://julesh.com/forest/0006/" display-uri="0006" type="local">defined by a strong symmetric monoidal functor</fr:link> <fr:tex display="inline"><![CDATA[\mathcal  E \to  \mathcal  C]]></fr:tex>, up to natural isomorphism.</html:p>
+                <html:p>Specifically, if <fr:tex display="inline"><![CDATA[\bullet  : \mathcal  C \times  \mathcal  E \to  \mathcal  C]]></fr:tex> is a symmetric monoidal actegory then <fr:tex display="inline"><![CDATA[X \bullet  M \cong  X \otimes  F (M)]]></fr:tex> where <fr:tex display="inline"><![CDATA[F : \mathcal  E \to  \mathcal  C]]></fr:tex> is defined by <fr:tex display="inline"><![CDATA[F (M) = I \bullet  M]]></fr:tex>.</html:p>
+                <html:p>This means that in the vast majority of cases, actegories are redundant and strong symmetric monoidal functors suffice.</html:p>
+                <html:p>Reference: <fr:link href="https://arxiv.org/abs/2203.16351" type="external">Actegories for the working amthematician</fr:link>, section 5</html:p>
+              </fr:mainmatter>
+            </fr:tree>
+          </fr:mainmatter>
+        </fr:tree>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors />
+            <fr:date>
+              <fr:year>2025</fr:year>
+              <fr:month>10</fr:month>
+              <fr:day>21</fr:day>
+            </fr:date>
+            <fr:uri>https://julesh.com/forest/0004/</fr:uri>
+            <fr:display-uri>0004</fr:display-uri>
+            <fr:route>/forest/0004/</fr:route>
+            <fr:title text="Actegories">Actegories</fr:title>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> be a monoidal category and <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> a category. An <html:strong>action</html:strong> of <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> on <fr:tex display="inline"><![CDATA[\mathcal  M]]></fr:tex>, also called an <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex>-<html:strong>actegory</html:strong> structure on <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, is given by a functor <fr:tex display="inline"><![CDATA[\bullet  : \mathcal  C \times  \mathcal  E \to  \mathcal  C]]></fr:tex>, together with the following coherence data:</html:p>
+            <html:ul><html:li>A natural transformation <fr:tex display="inline"><![CDATA[X \bullet  I \to  X]]></fr:tex> called the <html:strong>unitor</html:strong></html:li>
+
+  <html:li>A natural transformation <fr:tex display="inline"><![CDATA[(X \bullet  M_1) \bullet  M_2 \to  X \bullet  (M_1 \otimes  M_2)]]></fr:tex> called the <html:strong>actor</html:strong></html:li>
+
+  <html:li>Coherence equations</html:li></html:ul>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2025</fr:year>
+                  <fr:month>10</fr:month>
+                  <fr:day>21</fr:day>
+                </fr:date>
+                <fr:uri>https://julesh.com/forest/0006/</fr:uri>
+                <fr:display-uri>0006</fr:display-uri>
+                <fr:route>/forest/0006/</fr:route>
+                <fr:title text="From strong monoidal functors to actegories">From strong monoidal functors to actegories</fr:title>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> and <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be monoidal categories, and let <fr:tex display="inline"><![CDATA[F : \mathcal  E \to  \mathcal  C]]></fr:tex> be a strong monoidal functor. Then we can define an <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex>-<fr:link href="/forest/0004/" title="Actegories" uri="https://julesh.com/forest/0004/" display-uri="0004" type="local">actegory</fr:link> structure on <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> by <fr:tex display="inline"><![CDATA[X \bullet  M = X \otimes  F (M)]]></fr:tex>.</html:p>
+                <fr:tree show-metadata="false">
+                  <fr:frontmatter>
+                    <fr:authors />
+                    <fr:date>
+                      <fr:year>2025</fr:year>
+                      <fr:month>10</fr:month>
+                      <fr:day>21</fr:day>
+                    </fr:date>
+                    <fr:uri>https://julesh.com/forest/0007/</fr:uri>
+                    <fr:display-uri>0007</fr:display-uri>
+                    <fr:route>/forest/0007/</fr:route>
+                    <fr:title text="The golden theorem of actegories">The golden theorem of actegories</fr:title>
+                  </fr:frontmatter>
+                  <fr:mainmatter>
+                    <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> be a symmetric monoidal category. Every <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex>-<fr:link href="/forest/0004/" title="Actegories" uri="https://julesh.com/forest/0004/" display-uri="0004" type="local">actegory</fr:link> that is also a symmetric monoidal category in a compatible way is necessarily <fr:link href="/forest/0006/" title="From strong monoidal functors to actegories" uri="https://julesh.com/forest/0006/" display-uri="0006" type="local">defined by a strong symmetric monoidal functor</fr:link> <fr:tex display="inline"><![CDATA[\mathcal  E \to  \mathcal  C]]></fr:tex>, up to natural isomorphism.</html:p>
+                    <html:p>Specifically, if <fr:tex display="inline"><![CDATA[\bullet  : \mathcal  C \times  \mathcal  E \to  \mathcal  C]]></fr:tex> is a symmetric monoidal actegory then <fr:tex display="inline"><![CDATA[X \bullet  M \cong  X \otimes  F (M)]]></fr:tex> where <fr:tex display="inline"><![CDATA[F : \mathcal  E \to  \mathcal  C]]></fr:tex> is defined by <fr:tex display="inline"><![CDATA[F (M) = I \bullet  M]]></fr:tex>.</html:p>
+                    <html:p>This means that in the vast majority of cases, actegories are redundant and strong symmetric monoidal functors suffice.</html:p>
+                    <html:p>Reference: <fr:link href="https://arxiv.org/abs/2203.16351" type="external">Actegories for the working amthematician</fr:link>, section 5</html:p>
+                  </fr:mainmatter>
+                </fr:tree>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2025</fr:year>
+                  <fr:month>10</fr:month>
+                  <fr:day>21</fr:day>
+                </fr:date>
+                <fr:uri>https://julesh.com/forest/0008/</fr:uri>
+                <fr:display-uri>0008</fr:display-uri>
+                <fr:route>/forest/0008/</fr:route>
+                <fr:title text="From actegories to locally graded categories">From actegories to locally graded categories</fr:title>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> be a monoidal category and <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> an <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex>-<fr:link href="/forest/0004/" title="Actegories" uri="https://julesh.com/forest/0004/" display-uri="0004" type="local">actegory</fr:link>. We construct a <fr:link href="/forest/0005/" title="Locally graded categories" uri="https://julesh.com/forest/0005/" display-uri="0005" type="local">locally graded category</fr:link> called <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C)]]></fr:tex>, which we regard as a <fr:link href="/forest/0002/" title="Para construction" uri="https://julesh.com/forest/0002/" display-uri="0002" type="local">Para construction</fr:link>, as follows:</html:p>
+                <html:ul><html:li>The objects of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C)]]></fr:tex> are objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li>
+
+  <html:li>For objects <fr:tex display="inline"><![CDATA[X, Y]]></fr:tex> of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C)]]></fr:tex>, the hom-object <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C) (X, Y) : \mathcal  E^\mathrm {op} \to  \mathbf {Set}]]></fr:tex> is given by <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C) (X, Y) (M) = \mathcal  C (X \bullet  M, Y)]]></fr:tex></html:li>
+
+  <html:li>The identity morphism in <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C)_I (X, X)]]></fr:tex> is given by the unitor <fr:tex display="inline"><![CDATA[X \bullet  I \to  X]]></fr:tex></html:li>
+
+  <html:li>The composition of <fr:tex display="inline"><![CDATA[f : \overset {\leftarrow }{\mathcal  P} (\mathcal  C)_{M_1} (X, Y)]]></fr:tex> and <fr:tex display="inline"><![CDATA[g : \overset {\leftarrow }{\mathcal  P} (\mathcal  C)_{M_2} (Y, Z)]]></fr:tex> is <fr:tex display="inline"><![CDATA[fg : \overset {\leftarrow }{\mathcal  P} (\mathcal  C)_{M_1 \otimes  M_2} (X, Z)]]></fr:tex> given by <fr:tex display="block"><![CDATA[X \bullet  (M_1 \otimes  M_2) \to  (X \bullet  M_1) \bullet  M_2 \to  Y \bullet  M_2 \to  Z]]></fr:tex></html:li></html:ul>
+              </fr:mainmatter>
+            </fr:tree>
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Contributions">Contributions</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+  </fr:backmatter>
+</fr:tree>

@@ -5,8 +5,9 @@
 
 \p{The term "parameters construction" or "para construction" is used for several related constructions of categories of parametrised morphisms.}
 
-\p{For a category #{\cat{C}}, a parameters construction over it will be referred to as #{\Para (\cat{C})}, possibly with subscripts for other data used in the construction.}
+\p{For a category #{\cat{C}}, a para construction over it will be referred to as #{\Para (\cat{C})}, possibly with subscripts for other data used in the construction.}
 
 \p{Sometimes we think of these as 1-categories, they are better thought of as double categories.}
 
 \transclude{0003}
+\transclude{0005}
