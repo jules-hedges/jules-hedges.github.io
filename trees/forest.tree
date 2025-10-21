@@ -1,0 +1,11 @@
+\title{Forest}
+
+\p{[Back to home](https://julesh.com/)}
+
+\p{This is my [forest](https://www.forester-notes.org/index/index.xml), a loosely structured collection of notes.}
+
+\put\transclude/toc{false}
+\put\transclude/expanded{false}
+
+\transclude{index}
+\transclude{0002}

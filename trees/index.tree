@@ -1,15 +1,5 @@
-\title{Forest}
+\title{Index of all trees in reverse order of creation}
 
-\p{[Back to home](https://julesh.com/)}
-
-\p{This is my [forest](https://www.forester-notes.org/index/index.xml), a loosely structured collection of notes.}
-
-\put\transclude/toc{false}
-
-\subtree{
-  \title{Table of contents}
-
-  \query\datalog{
-    ?X -: {\rel/is-node ?X}
-  }
+\query\datalog{
+  ?X -: {\rel/is-node ?X}
 }
