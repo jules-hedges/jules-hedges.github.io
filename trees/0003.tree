@@ -1,0 +1,22 @@
+\date{2025-10-21T18:36:36Z}
+\title{Para construction, naively}
+
+\import{macros}
+
+\p{Let #{\cat{C}} be a monoidal category. For objects #{X, Y} of #{\cat{C}}, a \strong{parametrised morphism} #{f : X \to Y} in #{\cat{C}} consists of:}
+
+\ul{
+  \li{An object #{M} of #{\cat{C}} called the \strong{parameter object}}
+  \li{A morphism #{f : X \otimes M \to Y} of #{\cat{C}}}
+}
+
+\p{There is a category #{\Para (\cat{C})} where:}
+
+\ul{
+  \li{Objects of #{\Para (\cat{C})} are objects of #{\cat{C}}}
+  \li{Morphisms #{X \to Y} of #{\Para (\cat{C})} are equivalence classes of parametrised morphisms #{X \to Y} in #{\cat{C}} modulo coherent isomorphisms of the objects #{M}
+  \li{The identity morphism on #{X} is given by the parameter object #{I} and the canonical isomorphism #{X \otimes I \to X}}
+  \li{Composition of #{X \otimes M_1 \to Y} and #{Y \otimes M_2 \to Z} is given by the parameter object #{M_1 \otimes M_2} and the morphism ##{X \otimes (M_1 \otimes M_2) \to (X \otimes M_1) \otimes M_2 \to Y \otimes M_2 \to Z}}}
+}
+
+\p{However, in practice it is better to define this category as a quotient of a double category, and in greater generality.}

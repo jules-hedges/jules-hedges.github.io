@@ -1,0 +1,6 @@
+\title{Macros}
+
+\p{This tree exists to export Forester macros.}
+
+\def\cat[arg]{\mathcal \arg}
+\def\Para{\overset{\leftarrow}{\mathcal P}}

@@ -1,49 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="/forest/default.xsl"?>
-<fr:tree xmlns:fr="http://www.forester-notes.org" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" root="true" base-url="/forest/">
+<fr:tree xmlns:fr="http://www.forester-notes.org" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xml="http://www.w3.org/XML/1998/namespace" root="false" base-url="/forest/">
   <fr:frontmatter>
     <fr:authors />
-    <fr:uri>https://julesh.com/forest/index/</fr:uri>
-    <fr:display-uri>index</fr:display-uri>
-    <fr:route>/forest/index/</fr:route>
-    <fr:title text="Forest">Forest</fr:title>
+    <fr:date>
+      <fr:year>2025</fr:year>
+      <fr:month>10</fr:month>
+      <fr:day>21</fr:day>
+    </fr:date>
+    <fr:uri>https://julesh.com/forest/0003/</fr:uri>
+    <fr:display-uri>0003</fr:display-uri>
+    <fr:route>/forest/0003/</fr:route>
+    <fr:title text="Para construction, naively">Para construction, naively</fr:title>
   </fr:frontmatter>
   <fr:mainmatter>
-    <html:p>
-      <fr:link href="https://julesh.com/" type="external">Back to home</fr:link>
-    </html:p>
-    <html:p>This is my <fr:link href="https://www.forester-notes.org/index/index.xml" type="external">forest</fr:link>, a loosely structured collection of notes.</html:p>
-    <fr:tree show-metadata="false" toc="false">
-      <fr:frontmatter>
-        <fr:authors />
-        <fr:title text="Table of contents">Table of contents</fr:title>
-      </fr:frontmatter>
-      <fr:mainmatter>
-        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
-          <fr:frontmatter>
-            <fr:authors />
-            <fr:date>
-              <fr:year>2025</fr:year>
-              <fr:month>10</fr:month>
-              <fr:day>21</fr:day>
-            </fr:date>
-            <fr:uri>https://julesh.com/forest/0003/</fr:uri>
-            <fr:display-uri>0003</fr:display-uri>
-            <fr:route>/forest/0003/</fr:route>
-            <fr:title text="Para construction, naively">Para construction, naively</fr:title>
-          </fr:frontmatter>
-          <fr:mainmatter>
-            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a monoidal category. For objects <fr:tex display="inline"><![CDATA[X, Y]]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, a <html:strong>parametrised morphism</html:strong> <fr:tex display="inline"><![CDATA[f : X \to  Y]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> consists of:</html:p>
-            <html:ul><html:li>An object <fr:tex display="inline"><![CDATA[M]]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> called the <html:strong>parameter object</html:strong></html:li>
+    <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a monoidal category. For objects <fr:tex display="inline"><![CDATA[X, Y]]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, a <html:strong>parametrised morphism</html:strong> <fr:tex display="inline"><![CDATA[f : X \to  Y]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> consists of:</html:p>
+    <html:ul><html:li>An object <fr:tex display="inline"><![CDATA[M]]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> called the <html:strong>parameter object</html:strong></html:li>
   <html:li>A morphism <fr:tex display="inline"><![CDATA[f : X \otimes  M \to  Y]]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li></html:ul>
-            <html:p>There is a category <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C)]]></fr:tex> where:</html:p>
-            <html:ul><html:li>Objects of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C)]]></fr:tex> are objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li>
+    <html:p>There is a category <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C)]]></fr:tex> where:</html:p>
+    <html:ul><html:li>Objects of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C)]]></fr:tex> are objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li>
   <html:li>Morphisms <fr:tex display="inline"><![CDATA[X \to  Y]]></fr:tex> of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C)]]></fr:tex> are equivalence classes of parametrised morphisms <fr:tex display="inline"><![CDATA[X \to  Y]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> modulo coherent isomorphisms of the objects <fr:tex display="inline"><![CDATA[M]]></fr:tex>
   <html:li>The identity morphism on <fr:tex display="inline"><![CDATA[X]]></fr:tex> is given by the parameter object <fr:tex display="inline"><![CDATA[I]]></fr:tex> and the canonical isomorphism <fr:tex display="inline"><![CDATA[X \otimes  I \to  X]]></fr:tex></html:li>
   <html:li>Composition of <fr:tex display="inline"><![CDATA[X \otimes  M_1 \to  Y]]></fr:tex> and <fr:tex display="inline"><![CDATA[Y \otimes  M_2 \to  Z]]></fr:tex> is given by the parameter object <fr:tex display="inline"><![CDATA[M_1 \otimes  M_2]]></fr:tex> and the morphism <fr:tex display="block"><![CDATA[X \otimes  (M_1 \otimes  M_2) \to  (X \otimes  M_1) \otimes  M_2 \to  Y \otimes  M_2 \to  Z]]></fr:tex></html:li></html:li></html:ul>
-            <html:p>However, in practice it is better to define this category as a quotient of a double category, and in greater generality.</html:p>
-          </fr:mainmatter>
-        </fr:tree>
+    <html:p>However, in practice it is better to define this category as a quotient of a double category, and in greater generality.</html:p>
+  </fr:mainmatter>
+  <fr:backmatter>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="References">References</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter />
+    </fr:tree>
+    <fr:tree show-metadata="false" hidden-when-empty="true">
+      <fr:frontmatter>
+        <fr:authors />
+        <fr:title text="Context">Context</fr:title>
+      </fr:frontmatter>
+      <fr:mainmatter>
         <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
           <fr:frontmatter>
             <fr:authors />
@@ -88,64 +82,7 @@
             </fr:tree>
           </fr:mainmatter>
         </fr:tree>
-        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
-          <fr:frontmatter>
-            <fr:authors />
-            <fr:date>
-              <fr:year>2025</fr:year>
-              <fr:month>10</fr:month>
-              <fr:day>20</fr:day>
-            </fr:date>
-            <fr:uri>https://julesh.com/forest/0001/</fr:uri>
-            <fr:display-uri>0001</fr:display-uri>
-            <fr:route>/forest/0001/</fr:route>
-            <fr:title text="Test tree">Test tree</fr:title>
-          </fr:frontmatter>
-          <fr:mainmatter>
-            <html:p>This tree exists to test table of contents generation.</html:p>
-          </fr:mainmatter>
-        </fr:tree>
-        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
-          <fr:frontmatter>
-            <fr:authors />
-            <fr:uri>https://julesh.com/forest/index/</fr:uri>
-            <fr:display-uri>index</fr:display-uri>
-            <fr:route>/forest/index/</fr:route>
-            <fr:title text="Forest">Forest</fr:title>
-          </fr:frontmatter>
-          <fr:mainmatter>
-            <fr:info>Transclusion loop detected, rendering stopped.</fr:info>
-          </fr:mainmatter>
-        </fr:tree>
-        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
-          <fr:frontmatter>
-            <fr:authors />
-            <fr:uri>https://julesh.com/forest/macros/</fr:uri>
-            <fr:display-uri>macros</fr:display-uri>
-            <fr:route>/forest/macros/</fr:route>
-            <fr:title text="Macros">Macros</fr:title>
-          </fr:frontmatter>
-          <fr:mainmatter>
-            <html:p>This tree exists to export Forester macros.</html:p>
-          </fr:mainmatter>
-        </fr:tree>
       </fr:mainmatter>
-    </fr:tree>
-  </fr:mainmatter>
-  <fr:backmatter>
-    <fr:tree show-metadata="false" hidden-when-empty="true">
-      <fr:frontmatter>
-        <fr:authors />
-        <fr:title text="References">References</fr:title>
-      </fr:frontmatter>
-      <fr:mainmatter />
-    </fr:tree>
-    <fr:tree show-metadata="false" hidden-when-empty="true">
-      <fr:frontmatter>
-        <fr:authors />
-        <fr:title text="Context">Context</fr:title>
-      </fr:frontmatter>
-      <fr:mainmatter />
     </fr:tree>
     <fr:tree show-metadata="false" hidden-when-empty="true">
       <fr:frontmatter>
