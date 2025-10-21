@@ -1,0 +1,5 @@
+\title{Index of all trees in reverse order of creation}
+
+\query\datalog{
+  ?X -: {\rel/is-node ?X}
+}
