@@ -1,0 +1,11 @@
+\date{2025-10-24T18:29:16Z}
+\title{Colinks}
+
+\import{macros}
+
+\p{Colinks, usually called lenses, are pairs of morphisms with the backwards morphism also having an input in the forwards direction. Composition of colinks is an abstraction of the chain rule of calculus.}
+
+\p{There are many definitions of colinks that apply with different assumptions on the base category. In each of these cases, for a category #{\cat{C}} with the appropriate structure we will obtain a category #{\colink (\cat{C})} whose morphisms are colinks in #{\cat{C}}.}
+
+\transclude{000B}
+\transclude{000A}

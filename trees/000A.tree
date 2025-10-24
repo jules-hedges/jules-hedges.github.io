@@ -1,0 +1,30 @@
+\date{2025-10-24T18:32:06Z}
+\title{Colinks in a category with finite products}
+
+\import{macros}
+
+\p{Let #{\cat{C}} be a category with finite products, and let #{X, X', Y, Y'} be objects of #{\cat{C}}. A \strong{colink} #{f : \binom{X'}{X} \to \binom{Y'}{Y}} is given by:}
+
+\ul{
+  \li{A morphism #{f : X \to Y} called the \strong{forwards pass}}
+
+  \li{A morphism #{f' : X \times Y' \to X'} called the \strong{backwards pass}}
+}
+
+\p{Given colinks #{f : \binom{X'}{X} \to \binom{Y'}{Y}} and #{g : \binom{Y'}{Y} \to \binom{Z'}{Z}}, there is a \strong{composite colink} #{fg : \binom{X'}{X} \to \binom{Z'}{Z}} whose forwards pass is the composite morphism #{fg : X \to Z} and whose backwards pass #{(fg)'} is the composite
+
+##{X \times Z' \overset{\Delta_X \times Z'}\longrightarrow X \times X \times Z' \overset{X \times f \times Z'}\longrightarrow X \times Y \times Z' \overset{X \times g'}\longrightarrow X \times Y' \overset{f'}\longrightarrow X'}}
+
+\p{It is not obvious from this definition that colink composition is associative. A direct proof is possible but tedious, so we prefer to prove it using machinery of fibred categories.}
+
+\p{For a category #{\cat{C}} with finite products, there is a category #{\colink (\cat{C})} where:}
+
+\ul{
+  \li{Objects of #{\colink (\cat{C})} are pairs of objects of #{\cat{C}}, written #{\binom{X'}{X}}}
+
+  \li{Morphisms #{\binom{X'}{X} \to \binom{Y'}{Y}} of #{\colink (\cat{C})} are colinks #{\binom{X'}{X} \to \binom{Y'}{Y}} in #{\cat{C}}}
+  
+  \li{The identity morphism #{\binom{X'}{X} \to \binom{X'}{X}} has as forwards pass the identity morphism #{X \to X} in #{\cat{C}}, and as backwards pass the projection #{X \times X' \to X'}}
+
+  \li{Composite morphisms are given by colink composition}
+}

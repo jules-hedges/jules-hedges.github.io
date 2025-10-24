@@ -3,14 +3,14 @@
 
 \import{macros}
 
-\p{Let #{\cat{E}} be a monoidal category and #{\cat{C}} an #{\cat{E}}-[actegory](0004). We construct a [locally graded category](0005) called #{\Para_\cat{E} (\cat{C})}, which we regard as a [Para construction](0002), as follows:}
+\p{Let #{\cat{E}} be a monoidal category and #{\cat{C}} an #{\cat{E}}-[actegory](0004). We construct a [locally graded category](0005) called #{\para_\cat{E} (\cat{C})}, which we regard as a [Para construction](0002), as follows:}
 
 \ul{
-  \li{The objects of #{\Para_\cat{E} (\cat{C})} are objects of #{\cat{C}}}
+  \li{The objects of #{\para_\cat{E} (\cat{C})} are objects of #{\cat{C}}}
 
-  \li{For objects #{X, Y} of #{\Para_\cat{E} (\cat{C})}, the hom-object #{\Para_\cat{E} (\cat{C}) (X, Y) : \cat{E}^\op \to \Set} is given by #{\Para_\cat{E} (\cat{C})_M (X, Y) = \cat{C} (X \bullet M, Y)}}
+  \li{For objects #{X, Y} of #{\para_\cat{E} (\cat{C})}, the hom-object #{\para_\cat{E} (\cat{C}) (X, Y) : \cat{E}^\op \to \Set} is given by #{\para_\cat{E} (\cat{C})_M (X, Y) = \cat{C} (X \bullet M, Y)}}
 
-  \li{The identity morphism in #{\Para_\cat{E} (\cat{C})_I (X, X)} is given by the unitor #{X \bullet I \to X}}
+  \li{The identity morphism in #{\para_\cat{E} (\cat{C})_I (X, X)} is given by the unitor #{X \bullet I \to X}}
 
-  \li{The composition of #{f : \Para_\cat{E} (\cat{C})_{M_1} (X, Y)} and #{g : \Para_\cat{E} (\cat{C})_{M_2} (Y, Z)} is #{fg : \Para_\cat{E} (\cat{C})_{M_1 \otimes M_2} (X, Z)} given by ##{X \bullet (M_1 \otimes M_2) \to (X \bullet M_1) \bullet M_2 \to Y \bullet M_2 \to Z}}
+  \li{The composition of #{f : \para_\cat{E} (\cat{C})_{M_1} (X, Y)} and #{g : \para_\cat{E} (\cat{C})_{M_2} (Y, Z)} is #{fg : \para_\cat{E} (\cat{C})_{M_1 \otimes M_2} (X, Z)} given by ##{X \bullet (M_1 \otimes M_2) \to (X \bullet M_1) \bullet M_2 \to Y \bullet M_2 \to Z}}
 }

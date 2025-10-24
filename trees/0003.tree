@@ -11,12 +11,12 @@
   \li{A morphism #{f : X \otimes M \to Y} of #{\cat{C}}}
 }
 
-\p{There is a category #{\Para (\cat{C})} where:}
+\p{There is a category #{\para (\cat{C})} where:}
 
 \ul{
-  \li{Objects of #{\Para (\cat{C})} are objects of #{\cat{C}}}
+  \li{Objects of #{\para (\cat{C})} are objects of #{\cat{C}}}
 
-  \li{Morphisms #{X \to Y} of #{\Para (\cat{C})} are equivalence classes of parametrised morphisms #{X \to Y} in #{\cat{C}} modulo coherent isomorphisms of the objects #{M}
+  \li{Morphisms #{X \to Y} of #{\para (\cat{C})} are equivalence classes of parametrised morphisms #{X \to Y} in #{\cat{C}} modulo coherent isomorphisms of the objects #{M}
 
   \li{The identity morphism on #{X} is given by the parameter object #{I} and the canonical isomorphism #{X \otimes I \to X}}
   

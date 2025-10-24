@@ -1,0 +1,28 @@
+\date{2025-10-24T19:32:13Z}
+\title{Simple colinks in the category of sets}
+
+\import{macros}
+
+\p{Let #{X, X', Y, Y'} be sets. A \strong{simple colink} #{f : \binom{X'}{X} \to \binom{Y'}{Y}} is given by:}
+
+\ul{
+  \li{A function #{f : X \to Y} called the \strong{forwards pass}}
+
+  \li{A function #{f' : X \times Y' \to X'} called the \strong{backwards pass}}
+}
+
+\p{Simple colinks are so-called to distinguish them from indexed colinks, which also exist in the category of sets.}
+
+\p{Given simple colinks #{f : \binom{X'}{X} \to \binom{Y'}{Y}} and #{g : \binom{Y'}{Y} \to \binom{Z'}{Z}}, there is a \strong{compsite colink} #{fg : \binom{X'}{X} \to \binom{Z'}{Z}} whose forwards pass is the composite function #{(fg) (x) = g (f (x))} and whose backwards pass is the function #{(fg)' : X \times Z' \to X'} defined by the \strong{colink composition law}
+
+##{(fg)' (x, z') = f' (x, g' (f (x), z'))}}
+
+\p{In this case we can directly prove that colink composition is associative as follows:
+
+##{((fg)h)' (x, w') = (fg)' (x, h' ((fg) (x), w'))}
+
+##{= f' (x, g' (f (x), h' (g (f (x)), w')))}
+
+##{= f' (x, (gh)' (f (x), w')) = (f(gh))' (x, w')}}
+
+\p{Since the category of sets is cartesian closed, the category of colinks in the category of sets can be constructed either as a category of [colinks in a category with finite products](000A) or as a category of colinks in a monoidal closed category.}

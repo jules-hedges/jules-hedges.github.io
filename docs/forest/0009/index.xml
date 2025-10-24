@@ -6,44 +6,46 @@
     <fr:date>
       <fr:year>2025</fr:year>
       <fr:month>10</fr:month>
-      <fr:day>21</fr:day>
+      <fr:day>24</fr:day>
     </fr:date>
-    <fr:uri>https://julesh.com/forest/0002/</fr:uri>
-    <fr:display-uri>0002</fr:display-uri>
-    <fr:route>/forest/0002/</fr:route>
-    <fr:title text="Para construction">Para construction</fr:title>
+    <fr:uri>https://julesh.com/forest/0009/</fr:uri>
+    <fr:display-uri>0009</fr:display-uri>
+    <fr:route>/forest/0009/</fr:route>
+    <fr:title text="Colinks">Colinks</fr:title>
   </fr:frontmatter>
   <fr:mainmatter>
-    <html:p>The term "parameters construction" or "para construction" is used for several related constructions of categories of parametrised morphisms.</html:p>
-    <html:p>For a category <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, a para construction over it will be referred to as <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C)]]></fr:tex>, possibly with subscripts for other data used in the construction.</html:p>
-    <html:p>Sometimes we think of these as 1-categories, they are better thought of as double categories.</html:p>
+    <html:p>Colinks, usually called lenses, are pairs of morphisms with the backwards morphism also having an input in the forwards direction. Composition of colinks is an abstraction of the chain rule of calculus.</html:p>
+    <html:p>There are many definitions of colinks that apply with different assumptions on the base category. In each of these cases, for a category <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> with the appropriate structure we will obtain a category <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> whose morphisms are colinks in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>.</html:p>
     <fr:tree show-metadata="false">
       <fr:frontmatter>
         <fr:authors />
         <fr:date>
           <fr:year>2025</fr:year>
           <fr:month>10</fr:month>
-          <fr:day>21</fr:day>
+          <fr:day>24</fr:day>
         </fr:date>
-        <fr:uri>https://julesh.com/forest/0003/</fr:uri>
-        <fr:display-uri>0003</fr:display-uri>
-        <fr:route>/forest/0003/</fr:route>
-        <fr:title text="Para construction, naively">Para construction, naively</fr:title>
+        <fr:uri>https://julesh.com/forest/000B/</fr:uri>
+        <fr:display-uri>000B</fr:display-uri>
+        <fr:route>/forest/000B/</fr:route>
+        <fr:title text="Simple colinks in the category of sets">Simple colinks in the category of sets</fr:title>
       </fr:frontmatter>
       <fr:mainmatter>
-        <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a monoidal category. For objects <fr:tex display="inline"><![CDATA[X, Y]]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, a <html:strong>parametrised morphism</html:strong> <fr:tex display="inline"><![CDATA[f : X \to  Y]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> consists of:</html:p>
-        <html:ul><html:li>An object <fr:tex display="inline"><![CDATA[M]]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> called the <html:strong>parameter object</html:strong></html:li>
+        <html:p>Let <fr:tex display="inline"><![CDATA[X, X', Y, Y']]></fr:tex> be sets. A <html:strong>simple colink</html:strong> <fr:tex display="inline"><![CDATA[f : \binom {X'}{X} \to  \binom {Y'}{Y}]]></fr:tex> is given by:</html:p>
+        <html:ul><html:li>A function <fr:tex display="inline"><![CDATA[f : X \to  Y]]></fr:tex> called the <html:strong>forwards pass</html:strong></html:li>
 
-  <html:li>A morphism <fr:tex display="inline"><![CDATA[f : X \otimes  M \to  Y]]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li></html:ul>
-        <html:p>There is a category <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C)]]></fr:tex> where:</html:p>
-        <html:ul><html:li>Objects of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C)]]></fr:tex> are objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li>
+  <html:li>A function <fr:tex display="inline"><![CDATA[f' : X \times  Y' \to  X']]></fr:tex> called the <html:strong>backwards pass</html:strong></html:li></html:ul>
+        <html:p>Simple colinks are so-called to distinguish them from indexed colinks, which also exist in the category of sets.</html:p>
+        <html:p>Given simple colinks <fr:tex display="inline"><![CDATA[f : \binom {X'}{X} \to  \binom {Y'}{Y}]]></fr:tex> and <fr:tex display="inline"><![CDATA[g : \binom {Y'}{Y} \to  \binom {Z'}{Z}]]></fr:tex>, there is a <html:strong>compsite colink</html:strong> <fr:tex display="inline"><![CDATA[fg : \binom {X'}{X} \to  \binom {Z'}{Z}]]></fr:tex> whose forwards pass is the composite function <fr:tex display="inline"><![CDATA[(fg) (x) = g (f (x))]]></fr:tex> and whose backwards pass is the function <fr:tex display="inline"><![CDATA[(fg)' : X \times  Z' \to  X']]></fr:tex> defined by the <html:strong>colink composition law</html:strong>
 
-  <html:li>Morphisms <fr:tex display="inline"><![CDATA[X \to  Y]]></fr:tex> of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P} (\mathcal  C)]]></fr:tex> are equivalence classes of parametrised morphisms <fr:tex display="inline"><![CDATA[X \to  Y]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> modulo coherent isomorphisms of the objects <fr:tex display="inline"><![CDATA[M]]></fr:tex>
+<fr:tex display="block"><![CDATA[(fg)' (x, z') = f' (x, g' (f (x), z'))]]></fr:tex></html:p>
+        <html:p>In this case we can directly prove that colink composition is associative as follows:
 
-  <html:li>The identity morphism on <fr:tex display="inline"><![CDATA[X]]></fr:tex> is given by the parameter object <fr:tex display="inline"><![CDATA[I]]></fr:tex> and the canonical isomorphism <fr:tex display="inline"><![CDATA[X \otimes  I \to  X]]></fr:tex></html:li>
-  
-  <html:li>Composition of <fr:tex display="inline"><![CDATA[X \otimes  M_1 \to  Y]]></fr:tex> and <fr:tex display="inline"><![CDATA[Y \otimes  M_2 \to  Z]]></fr:tex> is given by the parameter object <fr:tex display="inline"><![CDATA[M_1 \otimes  M_2]]></fr:tex> and the morphism <fr:tex display="block"><![CDATA[X \otimes  (M_1 \otimes  M_2) \to  (X \otimes  M_1) \otimes  M_2 \to  Y \otimes  M_2 \to  Z]]></fr:tex></html:li></html:li></html:ul>
-        <html:p>However, in practice it is better to define this category as a quotient of a double category, and in greater generality.</html:p>
+<fr:tex display="block"><![CDATA[((fg)h)' (x, w') = (fg)' (x, h' ((fg) (x), w'))]]></fr:tex>
+
+<fr:tex display="block"><![CDATA[= f' (x, g' (f (x), h' (g (f (x)), w')))]]></fr:tex>
+
+<fr:tex display="block"><![CDATA[= f' (x, (gh)' (f (x), w')) = (f(gh))' (x, w')]]></fr:tex></html:p>
+        <html:p>Since the category of sets is cartesian closed, the category of colinks in the category of sets can be constructed either as a category of <fr:link href="/forest/000A/" title="Colinks in a category with finite products" uri="https://julesh.com/forest/000A/" display-uri="000A" type="local">colinks in a category with finite products</fr:link> or as a category of colinks in a monoidal closed category.</html:p>
       </fr:mainmatter>
     </fr:tree>
     <fr:tree show-metadata="false">
@@ -52,49 +54,30 @@
         <fr:date>
           <fr:year>2025</fr:year>
           <fr:month>10</fr:month>
-          <fr:day>21</fr:day>
+          <fr:day>24</fr:day>
         </fr:date>
-        <fr:uri>https://julesh.com/forest/0005/</fr:uri>
-        <fr:display-uri>0005</fr:display-uri>
-        <fr:route>/forest/0005/</fr:route>
-        <fr:title text="Locally graded categories">Locally graded categories</fr:title>
+        <fr:uri>https://julesh.com/forest/000A/</fr:uri>
+        <fr:display-uri>000A</fr:display-uri>
+        <fr:route>/forest/000A/</fr:route>
+        <fr:title text="Colinks in a category with finite products">Colinks in a category with finite products</fr:title>
       </fr:frontmatter>
       <fr:mainmatter>
-        <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> be a monoidal category. A category <html:strong>locally graded</html:strong> in <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> is a category enriched in the monoidal category of presheaves <fr:tex display="inline"><![CDATA[[\mathcal  E^\mathrm {op}, \mathbf {Set}]]]></fr:tex> with Day convolution.</html:p>
-        <html:p>Unwinding the definition, a category <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> locally graded in <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> is given by the following data:</html:p>
-        <html:ul><html:li>A class of objects</html:li>
+        <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products, and let <fr:tex display="inline"><![CDATA[X, X', Y, Y']]></fr:tex> be objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>. A <html:strong>colink</html:strong> <fr:tex display="inline"><![CDATA[f : \binom {X'}{X} \to  \binom {Y'}{Y}]]></fr:tex> is given by:</html:p>
+        <html:ul><html:li>A morphism <fr:tex display="inline"><![CDATA[f : X \to  Y]]></fr:tex> called the <html:strong>forwards pass</html:strong></html:li>
 
-  <html:li>For each pair of objects <fr:tex display="inline"><![CDATA[X, Y]]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and each object <fr:tex display="inline"><![CDATA[M]]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex>, a set of morphisms #\mathcal  C (X, Y) (M), which we also write <fr:tex display="inline"><![CDATA[\mathcal  C_M (X, Y)]]></fr:tex></html:li>
+  <html:li>A morphism <fr:tex display="inline"><![CDATA[f' : X \times  Y' \to  X']]></fr:tex> called the <html:strong>backwards pass</html:strong></html:li></html:ul>
+        <html:p>Given colinks <fr:tex display="inline"><![CDATA[f : \binom {X'}{X} \to  \binom {Y'}{Y}]]></fr:tex> and <fr:tex display="inline"><![CDATA[g : \binom {Y'}{Y} \to  \binom {Z'}{Z}]]></fr:tex>, there is a <html:strong>composite colink</html:strong> <fr:tex display="inline"><![CDATA[fg : \binom {X'}{X} \to  \binom {Z'}{Z}]]></fr:tex> whose forwards pass is the composite morphism <fr:tex display="inline"><![CDATA[fg : X \to  Z]]></fr:tex> and whose backwards pass <fr:tex display="inline"><![CDATA[(fg)']]></fr:tex> is the composite
 
-  <html:li>For each object <fr:tex display="inline"><![CDATA[X]]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, an identity morphism in <fr:tex display="inline"><![CDATA[\mathcal  C_I (X, X)]]></fr:tex></html:li>
+<fr:tex display="block"><![CDATA[X \times  Z' \overset {\Delta _X \times  Z'}\longrightarrow  X \times  X \times  Z' \overset {X \times  f \times  Z'}\longrightarrow  X \times  Y \times  Z' \overset {X \times  g'}\longrightarrow  X \times  Y' \overset {f'}\longrightarrow  X']]></fr:tex></html:p>
+        <html:p>It is not obvious from this definition that colink composition is associative. A direct proof is possible but tedious, so we prefer to prove it using machinery of fibred categories.</html:p>
+        <html:p>For a category <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> with finite products, there is a category <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> where:</html:p>
+        <html:ul><html:li>Objects of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> are pairs of objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, written <fr:tex display="inline"><![CDATA[\binom {X'}{X}]]></fr:tex></html:li>
 
-  <html:li>For morphisms <fr:tex display="inline"><![CDATA[f : \mathcal  C_{M_1} (X, Y)]]></fr:tex> and <fr:tex display="inline"><![CDATA[g : \mathcal  C_{M_2} (Y, Z)]]></fr:tex>, a composite morphism <fr:tex display="inline"><![CDATA[fg : \mathcal  C_{M_1 \otimes  M_2} (X, Z)]]></fr:tex></html:li>
+  <html:li>Morphisms <fr:tex display="inline"><![CDATA[\binom {X'}{X} \to  \binom {Y'}{Y}]]></fr:tex> of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> are colinks <fr:tex display="inline"><![CDATA[\binom {X'}{X} \to  \binom {Y'}{Y} in \mathcal  C]]></fr:tex></html:li>
+  
+  <html:li>The identity morphism <fr:tex display="inline"><![CDATA[\binom {X'}{X} \to  \binom {X'}{X}]]></fr:tex> has as forwards pass the identity morphism <fr:tex display="inline"><![CDATA[X \to  X]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, and as backwards pass the projection <fr:tex display="inline"><![CDATA[X \times  X' \to  X']]></fr:tex></html:li>
 
-  <html:li>Coherence isomorphisms</html:li></html:ul>
-        <fr:tree show-metadata="false">
-          <fr:frontmatter>
-            <fr:authors />
-            <fr:date>
-              <fr:year>2025</fr:year>
-              <fr:month>10</fr:month>
-              <fr:day>21</fr:day>
-            </fr:date>
-            <fr:uri>https://julesh.com/forest/0008/</fr:uri>
-            <fr:display-uri>0008</fr:display-uri>
-            <fr:route>/forest/0008/</fr:route>
-            <fr:title text="From actegories to locally graded categories">From actegories to locally graded categories</fr:title>
-          </fr:frontmatter>
-          <fr:mainmatter>
-            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> be a monoidal category and <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> an <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex>-<fr:link href="/forest/0004/" title="Actegories" uri="https://julesh.com/forest/0004/" display-uri="0004" type="local">actegory</fr:link>. We construct a <fr:link href="/forest/0005/" title="Locally graded categories" uri="https://julesh.com/forest/0005/" display-uri="0005" type="local">locally graded category</fr:link> called <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)]]></fr:tex>, which we regard as a <fr:link href="/forest/0002/" title="Para construction" uri="https://julesh.com/forest/0002/" display-uri="0002" type="local">Para construction</fr:link>, as follows:</html:p>
-            <html:ul><html:li>The objects of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)]]></fr:tex> are objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li>
-
-  <html:li>For objects <fr:tex display="inline"><![CDATA[X, Y]]></fr:tex> of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)]]></fr:tex>, the hom-object <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C) (X, Y) : \mathcal  E^\mathrm {op} \to  \mathbf {Set}]]></fr:tex> is given by <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)_M (X, Y) = \mathcal  C (X \bullet  M, Y)]]></fr:tex></html:li>
-
-  <html:li>The identity morphism in <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)_I (X, X)]]></fr:tex> is given by the unitor <fr:tex display="inline"><![CDATA[X \bullet  I \to  X]]></fr:tex></html:li>
-
-  <html:li>The composition of <fr:tex display="inline"><![CDATA[f : \overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)_{M_1} (X, Y)]]></fr:tex> and <fr:tex display="inline"><![CDATA[g : \overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)_{M_2} (Y, Z)]]></fr:tex> is <fr:tex display="inline"><![CDATA[fg : \overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)_{M_1 \otimes  M_2} (X, Z)]]></fr:tex> given by <fr:tex display="block"><![CDATA[X \bullet  (M_1 \otimes  M_2) \to  (X \bullet  M_1) \bullet  M_2 \to  Y \bullet  M_2 \to  Z]]></fr:tex></html:li></html:ul>
-          </fr:mainmatter>
-        </fr:tree>
+  <html:li>Composite morphisms are given by colink composition</html:li></html:ul>
       </fr:mainmatter>
     </fr:tree>
   </fr:mainmatter>
@@ -868,32 +851,7 @@
         <fr:authors />
         <fr:title text="Backlinks">Backlinks</fr:title>
       </fr:frontmatter>
-      <fr:mainmatter>
-        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
-          <fr:frontmatter>
-            <fr:authors />
-            <fr:date>
-              <fr:year>2025</fr:year>
-              <fr:month>10</fr:month>
-              <fr:day>21</fr:day>
-            </fr:date>
-            <fr:uri>https://julesh.com/forest/0008/</fr:uri>
-            <fr:display-uri>0008</fr:display-uri>
-            <fr:route>/forest/0008/</fr:route>
-            <fr:title text="From actegories to locally graded categories">From actegories to locally graded categories</fr:title>
-          </fr:frontmatter>
-          <fr:mainmatter>
-            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> be a monoidal category and <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> an <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex>-<fr:link href="/forest/0004/" title="Actegories" uri="https://julesh.com/forest/0004/" display-uri="0004" type="local">actegory</fr:link>. We construct a <fr:link href="/forest/0005/" title="Locally graded categories" uri="https://julesh.com/forest/0005/" display-uri="0005" type="local">locally graded category</fr:link> called <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)]]></fr:tex>, which we regard as a <fr:link href="/forest/0002/" title="Para construction" uri="https://julesh.com/forest/0002/" display-uri="0002" type="local">Para construction</fr:link>, as follows:</html:p>
-            <html:ul><html:li>The objects of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)]]></fr:tex> are objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li>
-
-  <html:li>For objects <fr:tex display="inline"><![CDATA[X, Y]]></fr:tex> of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)]]></fr:tex>, the hom-object <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C) (X, Y) : \mathcal  E^\mathrm {op} \to  \mathbf {Set}]]></fr:tex> is given by <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)_M (X, Y) = \mathcal  C (X \bullet  M, Y)]]></fr:tex></html:li>
-
-  <html:li>The identity morphism in <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)_I (X, X)]]></fr:tex> is given by the unitor <fr:tex display="inline"><![CDATA[X \bullet  I \to  X]]></fr:tex></html:li>
-
-  <html:li>The composition of <fr:tex display="inline"><![CDATA[f : \overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)_{M_1} (X, Y)]]></fr:tex> and <fr:tex display="inline"><![CDATA[g : \overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)_{M_2} (Y, Z)]]></fr:tex> is <fr:tex display="inline"><![CDATA[fg : \overset {\leftarrow }{\mathcal  P}_\mathcal  E (\mathcal  C)_{M_1 \otimes  M_2} (X, Z)]]></fr:tex> given by <fr:tex display="block"><![CDATA[X \bullet  (M_1 \otimes  M_2) \to  (X \bullet  M_1) \bullet  M_2 \to  Y \bullet  M_2 \to  Z]]></fr:tex></html:li></html:ul>
-          </fr:mainmatter>
-        </fr:tree>
-      </fr:mainmatter>
+      <fr:mainmatter />
     </fr:tree>
     <fr:tree show-metadata="false" hidden-when-empty="true">
       <fr:frontmatter>
