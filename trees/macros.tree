@@ -5,7 +5,12 @@
 \def\cat[arg]{\mathcal \arg}
 \def\op{\mathrm{op}}
 \def\Set{\mathbf{Set}}
+\def\Cat{\mathbf{Cat}}
 \def\para{\overset{\leftarrow}{\mathcal P}}
 \def\copara{\overset{\rightarrow}{\mathcal P}}
 \def\link{\overset{\rightarrow}{\mathcal L}}
 \def\colink{\overset{\leftarrow}{\mathcal L}}
+
+\def\parameter{\mathbb P}
+\def\forwards{\mathbb F}
+\def\continuation{\mathbb K}

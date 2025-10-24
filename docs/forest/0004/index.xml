@@ -109,6 +109,46 @@
             <fr:date>
               <fr:year>2025</fr:year>
               <fr:month>10</fr:month>
+              <fr:day>24</fr:day>
+            </fr:date>
+            <fr:uri>https://julesh.com/forest/000D/</fr:uri>
+            <fr:display-uri>000D</fr:display-uri>
+            <fr:route>/forest/000D/</fr:route>
+            <fr:title text="Costrong profunctors">Costrong profunctors</fr:title>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> be a monoidal category and let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and <fr:tex display="inline"><![CDATA[\mathcal  D]]></fr:tex> be <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex>-<fr:link href="/forest/0004/" title="Actegories" uri="https://julesh.com/forest/0004/" display-uri="0004" type="local">actegories</fr:link>. A <html:strong>costrong profunctor</html:strong> or <html:strong>Tambara comodule</html:strong> <fr:tex display="inline"><![CDATA[F : \mathcal  C \to  \mathcal  D]]></fr:tex> is a functor <fr:tex display="inline"><![CDATA[F : \mathcal  C \times  \mathcal  D^\mathrm {op} \to  \mathbf {Set}]]></fr:tex> equipped with a natural transformation called the <html:strong>costrength</html:strong>,
+
+<fr:tex display="block"><![CDATA[/ M : F (X \bullet  M, Y \bullet  M) \to  F (X, Y)]]></fr:tex></html:p>
+            <html:p>The dual concept of costrong profunctors is <fr:link href="/forest/000C/" title="Strong profunctors" uri="https://julesh.com/forest/000C/" display-uri="000C" type="local">strong profunctors</fr:link>.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors />
+            <fr:date>
+              <fr:year>2025</fr:year>
+              <fr:month>10</fr:month>
+              <fr:day>24</fr:day>
+            </fr:date>
+            <fr:uri>https://julesh.com/forest/000C/</fr:uri>
+            <fr:display-uri>000C</fr:display-uri>
+            <fr:route>/forest/000C/</fr:route>
+            <fr:title text="Strong profunctors">Strong profunctors</fr:title>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex> be a monoidal category and let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and <fr:tex display="inline"><![CDATA[\mathcal  D]]></fr:tex> be <fr:tex display="inline"><![CDATA[\mathcal  E]]></fr:tex>-<fr:link href="/forest/0004/" title="Actegories" uri="https://julesh.com/forest/0004/" display-uri="0004" type="local">actegories</fr:link>. A <html:strong>strong profunctor</html:strong> or <html:strong>Tambara module</html:strong> <fr:tex display="inline"><![CDATA[F : \mathcal  C \to  \mathcal  D]]></fr:tex> is a functor <fr:tex display="inline"><![CDATA[F : \mathcal  C^\mathrm {op} \times  \mathcal  D \to  \mathbf {Set}]]></fr:tex> equipped with a natural transformation called the <html:strong>strength</html:strong>,
+
+<fr:tex display="block"><![CDATA[\bullet  M : F (X, Y) \to  F (X \bullet  M, Y \bullet  M)]]></fr:tex></html:p>
+            <html:p>The dual of strong profunctors is <fr:link href="/forest/000D/" title="Costrong profunctors" uri="https://julesh.com/forest/000D/" display-uri="000D" type="local">costrong profunctors</fr:link>.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors />
+            <fr:date>
+              <fr:year>2025</fr:year>
+              <fr:month>10</fr:month>
               <fr:day>21</fr:day>
             </fr:date>
             <fr:uri>https://julesh.com/forest/0008/</fr:uri>

@@ -1,0 +1,10 @@
+\date{2025-10-24T20:19:59Z}
+\title{Costrong profunctors}
+
+\import{macros}
+
+\p{Let #{\cat{E}} be a monoidal category and let #{\cat{C}} and #{\cat{D}} be #{\cat{E}}-[actegories](0004). A \strong{costrong profunctor} or \strong{Tambara comodule} #{F : \cat{C} \to \cat{D}} is a functor #{F : \cat{C} \times \cat{D}^\op \to \Set} equipped with a natural transformation called the \strong{costrength},
+
+##{/ M : F (X \bullet M, Y \bullet M) \to F (X, Y)}}
+
+\p{The dual concept of costrong profunctors is [strong profunctors](000C).}

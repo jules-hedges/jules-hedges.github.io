@@ -1,0 +1,16 @@
+\date{2025-10-24T20:27:16Z}
+\title{The parameters comonad}
+
+\import{macros}
+
+\p{Let #{\cat{C}} be a category with finite products, and let #{X} be an object of #{\cat{C}}. The functor #{\parameter_X : \cat{C} \to \cat{C}} given by #{\parameter_X (Y) = X \times Y} can be given the structure of a commutative comonad, called the \strong{parameters comonad}, as follows:}
+
+\ul{
+  \li{The counit #{\parameter_X (Y) = X \times Y \to Y} is given by the projection}
+
+  \li{The comultiplication #{\parameter_X (Y) = X \times Y \to X \times X \times Y = \parameter_X^2 (Y)} is given by the diagonal}
+
+  \li{The commutative strength #{\parameter_X (Y) \times Z = (X \times Y) \times Z \to X \times (Y \times Z) = \parameter_X (Y \times Z)} is the natural isomorphism}
+}
+
+\p{Given a morphism #{X \to X'} of #{\cat{C}}, the natural transformation #{f \times : X \times - \to X' \times -} extends to a morphism of comonads #{f_* : \parameter_X \to \parameter_Y}.}

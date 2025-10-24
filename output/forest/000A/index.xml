@@ -25,7 +25,7 @@
     <html:p>For a category <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> with finite products, there is a category <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> where:</html:p>
     <html:ul><html:li>Objects of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> are pairs of objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, written <fr:tex display="inline"><![CDATA[\binom {X'}{X}]]></fr:tex></html:li>
 
-  <html:li>Morphisms <fr:tex display="inline"><![CDATA[\binom {X'}{X} \to  \binom {Y'}{Y}]]></fr:tex> of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> are colinks <fr:tex display="inline"><![CDATA[\binom {X'}{X} \to  \binom {Y'}{Y} in \mathcal  C]]></fr:tex></html:li>
+  <html:li>Morphisms <fr:tex display="inline"><![CDATA[\binom {X'}{X} \to  \binom {Y'}{Y}]]></fr:tex> of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> are colinks <fr:tex display="inline"><![CDATA[\binom {X'}{X} \to  \binom {Y'}{Y}]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li>
   
   <html:li>The identity morphism <fr:tex display="inline"><![CDATA[\binom {X'}{X} \to  \binom {X'}{X}]]></fr:tex> has as forwards pass the identity morphism <fr:tex display="inline"><![CDATA[X \to  X]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, and as backwards pass the projection <fr:tex display="inline"><![CDATA[X \times  X' \to  X']]></fr:tex></html:li>
 
@@ -118,7 +118,7 @@
                 <html:p>For a category <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> with finite products, there is a category <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> where:</html:p>
                 <html:ul><html:li>Objects of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> are pairs of objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, written <fr:tex display="inline"><![CDATA[\binom {X'}{X}]]></fr:tex></html:li>
 
-  <html:li>Morphisms <fr:tex display="inline"><![CDATA[\binom {X'}{X} \to  \binom {Y'}{Y}]]></fr:tex> of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> are colinks <fr:tex display="inline"><![CDATA[\binom {X'}{X} \to  \binom {Y'}{Y} in \mathcal  C]]></fr:tex></html:li>
+  <html:li>Morphisms <fr:tex display="inline"><![CDATA[\binom {X'}{X} \to  \binom {Y'}{Y}]]></fr:tex> of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> are colinks <fr:tex display="inline"><![CDATA[\binom {X'}{X} \to  \binom {Y'}{Y}]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li>
   
   <html:li>The identity morphism <fr:tex display="inline"><![CDATA[\binom {X'}{X} \to  \binom {X'}{X}]]></fr:tex> has as forwards pass the identity morphism <fr:tex display="inline"><![CDATA[X \to  X]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, and as backwards pass the projection <fr:tex display="inline"><![CDATA[X \times  X' \to  X']]></fr:tex></html:li>
 

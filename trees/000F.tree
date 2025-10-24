@@ -1,0 +1,25 @@
+\date{2025-10-24T20:51:41Z}
+\title{The simple slice category}
+
+\import{macros}
+
+\p{Let #{\cat{C}} be a category with finite products, and let #{X} be an object of #{\cat{C}}. We write #{\cat{C} \setminus X} for the Kleisli category of the [parameters comonad](000E) #{\parameter_X : \cat{C} \to \cat{C}}.}
+
+\p{Concretely, #{\cat{C} \setminus X} is given as follows:}
+
+\ul{
+  \li{Objects of #{\cat{C} \setminus X} are objects of #{\cat{C}}}
+
+  \li{Morphisms #{f : Y \to Z} in #{\cat{C} \setminus X} are morphisms #{f : X \times Y \to Z} in #{\cat{C}}}
+
+  \li{The identity morphism #{Y \to Y} in #{\cat{C} \setminus X} is the projection #{X \times Y \to Y} in #{\cat{C}}}
+
+  \li{The composition of #{f : X \times Y \to Z} and #{g : X \times Z \to W} is given by
+  
+  ##{X \times Y \overset\Delta\longrightarrow X \times X \times Y \overset{X \times f}\longrightarrow X \times Z \overset{g}\longrightarrow W}}
+}
+
+\p{Reference: [Categorical logic and type theory](https://pages.jh.edu/rrynasi1/FoundationsOFMath/Literature/Logic/Jacobs1999CategoricalLogic+TypeTheory.pdf)}
+
+\transclude{000H}
+\transclude{000G}

@@ -1,0 +1,10 @@
+\date{2025-10-24T20:12:04Z}
+\title{Strong profunctors}
+
+\import{macros}
+
+\p{Let #{\cat{E}} be a monoidal category and let #{\cat{C}} and #{\cat{D}} be #{\cat{E}}-[actegories](0004). A \strong{strong profunctor} or \strong{Tambara module} #{F : \cat{C} \to \cat{D}} is a functor #{F : \cat{C}^\op \times \cat{D} \to \Set} equipped with a natural transformation called the \strong{strength},
+
+##{\bullet M : F (X, Y) \to F (X \bullet M, Y \bullet M)}}
+
+\p{The dual of strong profunctors is [costrong profunctors](000D).}
