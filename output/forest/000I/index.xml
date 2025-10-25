@@ -59,7 +59,7 @@
   <html:li><fr:tex display="inline"><![CDATA[f : Y \to  Z]]></fr:tex> is taken to <fr:tex display="inline"><![CDATA[R (f) : X \times  Y \to  Z]]></fr:tex> given by precomposition with the projection</html:li></html:ul>
             <html:p>The hom-set isomorphism is proven as follows:
 
-<fr:tex display="block"><![CDATA[\mathcal  C (L (Y), Z) = \mathcal  C (X \times  Y, Z) = (\mathcal  C [X]) (Y, Z) = (\mathcal  C [X]) (Y, R (Z))]]></fr:tex></html:p>
+<fr:tex display="block"><![CDATA[\mathcal  C (L (Y), Z) = \mathcal  C (X \times  Y, Z) = \mathcal  C [X] (Y, Z) = \mathcal  C [X] (Y, R (Z))]]></fr:tex></html:p>
             <html:p>Since <fr:tex display="inline"><![CDATA[R]]></fr:tex> is a right adjoint it preserves limits. Since <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has the same objects as <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and since <fr:tex display="inline"><![CDATA[R]]></fr:tex> is identity on objects, this establishes that <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has finite products given by finite products in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>.</html:p>
             <fr:tree show-metadata="false">
               <fr:frontmatter>
@@ -124,7 +124,7 @@
   <html:li><fr:tex display="inline"><![CDATA[f : Y \to  Z]]></fr:tex> is taken to <fr:tex display="inline"><![CDATA[R (f) : X \times  Y \to  Z]]></fr:tex> given by precomposition with the projection</html:li></html:ul>
             <html:p>The hom-set isomorphism is proven as follows:
 
-<fr:tex display="block"><![CDATA[\mathcal  C (L (Y), Z) = \mathcal  C (X \times  Y, Z) = (\mathcal  C [X]) (Y, Z) = (\mathcal  C [X]) (Y, R (Z))]]></fr:tex></html:p>
+<fr:tex display="block"><![CDATA[\mathcal  C (L (Y), Z) = \mathcal  C (X \times  Y, Z) = \mathcal  C [X] (Y, Z) = \mathcal  C [X] (Y, R (Z))]]></fr:tex></html:p>
             <html:p>Since <fr:tex display="inline"><![CDATA[R]]></fr:tex> is a right adjoint it preserves limits. Since <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has the same objects as <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and since <fr:tex display="inline"><![CDATA[R]]></fr:tex> is identity on objects, this establishes that <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has finite products given by finite products in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>.</html:p>
             <fr:tree show-metadata="false">
               <fr:frontmatter>
@@ -200,7 +200,7 @@
   <html:li><fr:tex display="inline"><![CDATA[f : Y \to  Z]]></fr:tex> is taken to <fr:tex display="inline"><![CDATA[R (f) : X \times  Y \to  Z]]></fr:tex> given by precomposition with the projection</html:li></html:ul>
                 <html:p>The hom-set isomorphism is proven as follows:
 
-<fr:tex display="block"><![CDATA[\mathcal  C (L (Y), Z) = \mathcal  C (X \times  Y, Z) = (\mathcal  C [X]) (Y, Z) = (\mathcal  C [X]) (Y, R (Z))]]></fr:tex></html:p>
+<fr:tex display="block"><![CDATA[\mathcal  C (L (Y), Z) = \mathcal  C (X \times  Y, Z) = \mathcal  C [X] (Y, Z) = \mathcal  C [X] (Y, R (Z))]]></fr:tex></html:p>
                 <html:p>Since <fr:tex display="inline"><![CDATA[R]]></fr:tex> is a right adjoint it preserves limits. Since <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has the same objects as <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and since <fr:tex display="inline"><![CDATA[R]]></fr:tex> is identity on objects, this establishes that <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has finite products given by finite products in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>.</html:p>
                 <fr:tree show-metadata="false">
                   <fr:frontmatter>
