@@ -3,11 +3,11 @@
 
 \import{macros}
 
-\p{Let #{\cat{C}} be a category with finite products, and let #{X} be an object of #{\cat{C}}. Then the [simple slice category](000F) #{\cat{C} \setminus X} has finite products, given by the underlying products in #{\cat{C}}.}
+\p{Let #{\cat{C}} be a category with finite products, and let #{X} be an object of #{\cat{C}}. Then the [simple slice category](000F) #{\cat{C} [X]} has finite products, given by the underlying products in #{\cat{C}}.}
 
-\p{To prove this, we construct the Kleisli adjunction between #{\cat{C}} and #{\cat{C} \setminus X}.}
+\p{To prove this, we construct the Kleisli adjunction between #{\cat{C}} and #{\cat{C} [X]}.}
 
-\p{The left adjoint #{L : \cat{C} \setminus X \to \cat{C}} is given by:}
+\p{The left adjoint #{L : \cat{C} [X] \to \cat{C}} is given by:}
 
 \ul{
   \li{On objects, #{L (Y) = X \times Y}}
@@ -15,7 +15,7 @@
   \li{#{f : X \times Y \to Z} is taken to #{L (f) : X \times Y \to X \times Z} given by the pairing of the projection and #{f}}
 }
 
-\p{The right adjoint #{R : \cat{C} \to \cat{C} \setminus X} is given by:}
+\p{The right adjoint #{R : \cat{C} \to \cat{C} [X]} is given by:}
 
 \ul{
   \li{#{R} is identity on objects}
@@ -25,8 +25,8 @@
 
 \p{The hom-set isomorphism is proven as follows:
 
-##{\cat{C} (L (Y), Z) = \cat{C} (X \times Y, Z) = (\cat{C} \setminus X) (Y, Z) = (\cat{C} \setminus X) (Y, R (Z))}}
+##{\cat{C} (L (Y), Z) = \cat{C} (X \times Y, Z) = (\cat{C} [X]) (Y, Z) = (\cat{C} [X]) (Y, R (Z))}}
 
-\p{Since #{R} is a right adjoint it preserves limits. Since #{\cat{C} \setminus X} has the same objects as #{\cat{C}} and since #{R} is identity on objects, this establishes that #{\cat{C} \setminus X} has finite products given by finite products in #{\cat{C}}.}
+\p{Since #{R} is a right adjoint it preserves limits. Since #{\cat{C} [X]} has the same objects as #{\cat{C}} and since #{R} is identity on objects, this establishes that #{\cat{C} [X]} has finite products given by finite products in #{\cat{C}}.}
 
 \transclude{000I}

@@ -3,7 +3,7 @@
 
 \import{macros}
 
-\p{Let #{\cat{C}} be a category with finite products. A morphism #{f : X \to X'} of #{\cat{C}} induces a functor #{f^* : \cat{C} \setminus X' \to \cat{C} \setminus X} where:}
+\p{Let #{\cat{C}} be a category with finite products. A morphism #{f : X \to X'} of #{\cat{C}} induces a functor #{f^* : \cat{C} [X'] \to \cat{C} [X]} where:}
 
 \ul{
   \li{#{f^*} is identity on objects}
@@ -13,8 +13,8 @@
   ##{X \times Y \overset{f \times Y}\longrightarrow X' \times Y \overset{g}\longrightarrow Z}}
 }
 
-\p{This yields an indexed category #{\cat{C} \setminus - : \cat{C}^\op \to \Cat}.}
+\p{This yields an indexed category #{\cat{C} [-] : \cat{C}^\op \to \Cat}.}
 
 \p{This structure can also be seen as arising from the comonad morphisms #{f_* : \parameter_X \to \parameter_Y} between the [parameters comonads](000E), since morphisms of comonads lift contravariantly to functors between Kleisli categories.}
 
-\p{Since #{f^*} is identity on objects, it also preserves [products in simple slice categories](000H). Thus #{\cat{C} \setminus - : \cat{C}^\op \to \Cat} has indexed finite products.}
+\p{Since #{f^*} is identity on objects, it also preserves [products in simple slice categories](000H). Thus #{\cat{C} [-] : \cat{C}^\op \to \Cat} has indexed finite products.}

@@ -3,16 +3,16 @@
 
 \import{macros}
 
-\p{Let #{\cat{C}} be a category with finite products, and let #{X} be an object of #{\cat{C}}. We write #{\cat{C} \setminus X} for the Kleisli category of the [parameters comonad](000E) #{\parameter_X : \cat{C} \to \cat{C}}.}
+\p{Let #{\cat{C}} be a category with finite products, and let #{X} be an object of #{\cat{C}}. We write #{\cat{C} [X]} for the Kleisli category of the [parameters comonad](000E) #{\parameter_X : \cat{C} \to \cat{C}}.}
 
-\p{Concretely, #{\cat{C} \setminus X} is given as follows:}
+\p{Concretely, #{\cat{C} [X]} is given as follows:}
 
 \ul{
-  \li{Objects of #{\cat{C} \setminus X} are objects of #{\cat{C}}}
+  \li{Objects of #{\cat{C} [X]} are objects of #{\cat{C}}}
 
-  \li{Morphisms #{f : Y \to Z} in #{\cat{C} \setminus X} are morphisms #{f : X \times Y \to Z} in #{\cat{C}}}
+  \li{Morphisms #{f : Y \to Z} in #{\cat{C} [X]} are morphisms #{f : X \times Y \to Z} in #{\cat{C}}}
 
-  \li{The identity morphism #{Y \to Y} in #{\cat{C} \setminus X} is the projection #{X \times Y \to Y} in #{\cat{C}}}
+  \li{The identity morphism #{Y \to Y} in #{\cat{C} [X]} is the projection #{X \times Y \to Y} in #{\cat{C}}}
 
   \li{The composition of #{f : X \times Y \to Z} and #{g : X \times Z \to W} is given by
   

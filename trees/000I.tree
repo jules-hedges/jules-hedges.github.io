@@ -3,10 +3,10 @@
 
 \import{macros}
 
-\p{Let #{\cat{C}} be a category with finite products and #{X} an object of #{\cat{C}}. Recall that the [simple slice category](000F) #{\cat{C} \setminus X} [has finite products](000H).}
+\p{Let #{\cat{C}} be a category with finite products and #{X} an object of #{\cat{C}}. Recall that the [simple slice category](000F) #{\cat{C} [X]} [has finite products](000H).}
 
 \p{We can universally characterise #{\cat{C}} as the smallest category with finite products that contains #{\cat{C}} and another morphism #{x : 1 \to X}.}
 
-\p{Based on the analogous construction of polynomial rings, the simple slice #{\cat{C} \setminus X} is sometimes called a \strong{polynomial category} and denoted #{\cat{C} [x]}.}
+\p{Based on the analogous construction of polynomial rings, the simple slice #{\cat{C} [X]} is sometimes called a \strong{polynomial category}. This is the origin of its notation.}
 
 \p{Reference: Lambek & Scott, Introduction to higher-order categorical logic}
