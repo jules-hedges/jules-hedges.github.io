@@ -1,9 +1,9 @@
 \date{2025-10-24T18:32:06Z}
-\title{Colinks in a category with finite products}
+\title{Cartesian colinks}
 
 \import{macros}
 
-\p{Let #{\cat{C}} be a category with finite products, and let #{X, X', Y, Y'} be objects of #{\cat{C}}. A \strong{colink} #{f : \binom{X'}{X} \to \binom{Y'}{Y}} is given by:}
+\p{Let #{\cat{C}} be a category with finite products, and let #{X, X', Y, Y'} be objects of #{\cat{C}}. A \strong{cartesian colink} #{f : \binom{X'}{X} \to \binom{Y'}{Y}} is given by:}
 
 \ul{
   \li{A morphism #{f : X \to Y} called the \strong{forwards pass}}
@@ -28,3 +28,10 @@
 
   \li{Composite morphisms are given by colink composition}
 }
+
+\transclude{000F}
+\transclude{000J}
+\transclude{000L}
+\transclude{000K}
+\transclude{000O}
+\transclude{000N}

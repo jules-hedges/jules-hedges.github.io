@@ -25,7 +25,7 @@
 
 \p{The hom-set isomorphism is proven as follows:
 
-##{\cat{C} (L (Y), Z) = \cat{C} (X \times Y, Z) = (\cat{C} [X]) (Y, Z) = (\cat{C} [X]) (Y, R (Z))}}
+##{\cat{C} (L (Y), Z) = \cat{C} (X \times Y, Z) = \cat{C} [X] (Y, Z) = \cat{C} [X] (Y, R (Z))}}
 
 \p{Since #{R} is a right adjoint it preserves limits. Since #{\cat{C} [X]} has the same objects as #{\cat{C}} and since #{R} is identity on objects, this establishes that #{\cat{C} [X]} has finite products given by finite products in #{\cat{C}}.}
 

@@ -1,0 +1,12 @@
+\date{2025-10-25T15:33:12Z}
+\title{Construction of cartesian colinks from simple slices}
+
+\import{macros}
+
+\p{Let #{\cat{C}} be a category with finite products, and let #{\cat{C} [-] : \cat{C}^\op \to \Cat} be the [indexed category](000G) of [simple slices](000F).}
+
+\p{We define the \strong{category of cartesian colinks} #{\colink (\cat{C})} as the total category of the opposite indexed category:
+
+##{\colink (\cat{C}) = \int_{X : \cat{C}} \cat{C} [X]^\op}}
+
+\p{Notice that since the simple slice categories #{\cat{C} [X]} all have the same class of objects, namely the objects of #{\cat{C}}, an object of #{\colink (\cat{C})} is a pair #{\binom{X'}{X}} of objects of #{\cat{C}}.}

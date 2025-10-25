@@ -1,0 +1,22 @@
+\date{2025-10-25T16:10:11Z}
+\title{The continuation functor for cartesian colinks}
+
+\import{macros}
+
+\p{Let #{\cat{C}} be a category with finite products, and let #{\colink (\cat{C})} be the [category of cartesian colinks](000A).}
+
+\p{We define the \strong{continuation functor} #{\continuation : \colink (\cat{C})^\op \to \Set} as the contravariant functor represesented by the [tensor unit](000K) #{I = \binom{1}{1}}.}
+
+\p{Concretely, #{\continuation} is given as follows:}
+
+\ul{
+  \li{On objects, #{\continuation \binom{X'}{X} = \cat{C} (X, X')}}
+
+  \li{Given a cartesian colink #{f} with forwards pass #{f : X \to Y} and backwards pass #{f' : X \times Y' \to X'}, the function #{\continuation (f) : \cat{C} (Y, Y') \to \cat{C} (X, X')} takes a morphism #{k : Y \to Y'} to the composite
+  
+  ##{X \overset\Delta\longrightarrow X \times X \overset{X \times f}\longrightarrow X \times Y \overset{X \times k}\longrightarrow X \times Y' \overset{f'}\longrightarrow X'}}
+}
+
+\p{We use the term \strong{continuation} to refer to a morphism #{X \to X'} of #{\cat{C}} when regarded as an element of #{\continuation \binom{X'}{X}}.}
+
+\p{The dual of the continuation functor is the [history functor](000O).}

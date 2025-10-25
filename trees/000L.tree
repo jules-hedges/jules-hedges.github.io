@@ -1,0 +1,24 @@
+\date{2025-10-25T15:56:52Z}
+\title{The forwards fibration for cartesian colinks}
+
+\import{macros}
+
+\p{Let #{\cat{C}} be a category with finite products, and let #{\colink (\cat{C})} be the [category of cartesian colinks](000A).}
+
+\p{Since #{\colink (\cat{C})} [is constructed](000J) as the total category of an indexed category
+
+##{\colink (\cat{C}) = \int_{X : \cat{C}} \cat{C} [X]^\op}
+
+it is equipped with a fibration #{\forwards : \colink (\cat{C}) \to \cat{C}} called the \strong{forwards fibration}.}
+
+\p{Concretely, #{\forwards} is given as follows:}
+
+\ul{
+  \li{On objects, #{\forwards \binom{X'}{X} = X}}
+
+  \li{On morphisms, #{\forwards} takes each cartesian colink to its forwards pass}
+
+  \li{Given an object #{\binom{Y'}{Y}} of #{\colink (\cat{C})} and a morphism #{f : X \to Y} of #{\cat{C}}, the cartesian lifting #{f^* \binom{Y'}{Y} : \binom{Y'}{X} \to \binom{Y}{Y'}} is the colink with forwards pass #{f} and backwards pass the projection #{X \times Y' \to Y'}}
+}
+
+\p{The forwards fibration is closely related to the [history functor](000O). They coincide for [simple colinks in the category of sets](000B).}

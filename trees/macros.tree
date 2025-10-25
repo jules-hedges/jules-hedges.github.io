@@ -13,4 +13,5 @@
 
 \def\parameter{\mathbb P}
 \def\forwards{\mathbb F}
+\def\history{\mathbb H}
 \def\continuation{\mathbb K}

@@ -1,0 +1,14 @@
+\date{2025-10-25T16:52:31Z}
+\title{The history functor for cartesian colinks}
+
+\import{macros}
+
+\p{Let #{\cat{C}} be a category with finite products and let #{\colink (\cat{C})} be the [category of cartesian colinks](000A).}
+
+\p{We define the \strong{history functor} #{\history : \colink (\cat{C}) \to \Set} to be the covariant functor represented by the [tensor unit](000K) #{I = \binom{1}{1}}.}
+
+\p{Concretely, on objects #{\history} is given by #{\history \binom{X'}{X} = \cat{C} (1, X)}.}
+
+\p{#{\history} factors through the [forwards fibration](000L) via the functor #{\cat{C} (1, -) : \cat{C} \to \Set}. For [simple colinks in the category of sets](000B), the history functor and the forwards fibration coincide.}
+
+\p{The dual of the history functor is the [continuation functor](000N).}

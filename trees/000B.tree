@@ -25,4 +25,4 @@
 
 ##{= f' (x, (gh)' (f (x), w')) = (f(gh))' (x, w')}}
 
-\p{Since the category of sets is cartesian closed, the category of colinks in the category of sets can be constructed either as a category of [colinks in a category with finite products](000A) or as a category of colinks in a monoidal closed category.}
+\p{Since the category of sets is cartesian closed, the category of colinks in the category of sets can be constructed either as a category of [cartesian colinks](000A) or as a category of colinks in a monoidal closed category.}

@@ -6,101 +6,19 @@
     <fr:date>
       <fr:year>2025</fr:year>
       <fr:month>10</fr:month>
-      <fr:day>24</fr:day>
+      <fr:day>25</fr:day>
     </fr:date>
-    <fr:uri>https://julesh.com/forest/000F/</fr:uri>
-    <fr:display-uri>000F</fr:display-uri>
-    <fr:route>/forest/000F/</fr:route>
-    <fr:title text="The simple slice category">The simple slice category</fr:title>
+    <fr:uri>https://julesh.com/forest/000J/</fr:uri>
+    <fr:display-uri>000J</fr:display-uri>
+    <fr:route>/forest/000J/</fr:route>
+    <fr:title text="Construction of cartesian colinks from simple slices">Construction of cartesian colinks from simple slices</fr:title>
   </fr:frontmatter>
   <fr:mainmatter>
-    <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products, and let <fr:tex display="inline"><![CDATA[X]]></fr:tex> be an object of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>. We write <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> for the Kleisli category of the <fr:link href="/forest/000E/" title="The parameters comonad" uri="https://julesh.com/forest/000E/" display-uri="000E" type="local">parameters comonad</fr:link> <fr:tex display="inline"><![CDATA[\mathbb  P_X : \mathcal  C \to  \mathcal  C]]></fr:tex>.</html:p>
-    <html:p>Concretely, <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> is given as follows:</html:p>
-    <html:ul><html:li>Objects of <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> are objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li>
+    <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products, and let <fr:tex display="inline"><![CDATA[\mathcal  C [-] : \mathcal  C^\mathrm {op} \to  \mathbf {Cat}]]></fr:tex> be the <fr:link href="/forest/000G/" title="Indexed category structure of simple slices" uri="https://julesh.com/forest/000G/" display-uri="000G" type="local">indexed category</fr:link> of <fr:link href="/forest/000F/" title="The simple slice category" uri="https://julesh.com/forest/000F/" display-uri="000F" type="local">simple slices</fr:link>.</html:p>
+    <html:p>We define the <html:strong>category of cartesian colinks</html:strong> <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> as the total category of the opposite indexed category:
 
-  <html:li>Morphisms <fr:tex display="inline"><![CDATA[f : Y \to  Z]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> are morphisms <fr:tex display="inline"><![CDATA[f : X \times  Y \to  Z]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li>
-
-  <html:li>The identity morphism <fr:tex display="inline"><![CDATA[Y \to  Y]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> is the projection <fr:tex display="inline"><![CDATA[X \times  Y \to  Y]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li>
-
-  <html:li>The composition of <fr:tex display="inline"><![CDATA[f : X \times  Y \to  Z]]></fr:tex> and <fr:tex display="inline"><![CDATA[g : X \times  Z \to  W]]></fr:tex> is given by
-  
-  <fr:tex display="block"><![CDATA[X \times  Y \overset \Delta \longrightarrow  X \times  X \times  Y \overset {X \times  f}\longrightarrow  X \times  Z \overset {g}\longrightarrow  W]]></fr:tex></html:li></html:ul>
-    <html:p>Reference: <fr:link href="https://pages.jh.edu/rrynasi1/FoundationsOFMath/Literature/Logic/Jacobs1999CategoricalLogic+TypeTheory.pdf" type="external">Categorical logic and type theory</fr:link></html:p>
-    <fr:tree show-metadata="false">
-      <fr:frontmatter>
-        <fr:authors />
-        <fr:date>
-          <fr:year>2025</fr:year>
-          <fr:month>10</fr:month>
-          <fr:day>24</fr:day>
-        </fr:date>
-        <fr:uri>https://julesh.com/forest/000H/</fr:uri>
-        <fr:display-uri>000H</fr:display-uri>
-        <fr:route>/forest/000H/</fr:route>
-        <fr:title text="Products in the simple slice category">Products in the simple slice category</fr:title>
-      </fr:frontmatter>
-      <fr:mainmatter>
-        <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products, and let <fr:tex display="inline"><![CDATA[X]]></fr:tex> be an object of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>. Then the <fr:link href="/forest/000F/" title="The simple slice category" uri="https://julesh.com/forest/000F/" display-uri="000F" type="local">simple slice category</fr:link> <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has finite products, given by the underlying products in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>.</html:p>
-        <html:p>To prove this, we construct the Kleisli adjunction between <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex>.</html:p>
-        <html:p>The left adjoint <fr:tex display="inline"><![CDATA[L : \mathcal  C [X] \to  \mathcal  C]]></fr:tex> is given by:</html:p>
-        <html:ul><html:li>On objects, <fr:tex display="inline"><![CDATA[L (Y) = X \times  Y]]></fr:tex></html:li>
-
-  <html:li><fr:tex display="inline"><![CDATA[f : X \times  Y \to  Z]]></fr:tex> is taken to <fr:tex display="inline"><![CDATA[L (f) : X \times  Y \to  X \times  Z]]></fr:tex> given by the pairing of the projection and <fr:tex display="inline"><![CDATA[f]]></fr:tex></html:li></html:ul>
-        <html:p>The right adjoint <fr:tex display="inline"><![CDATA[R : \mathcal  C \to  \mathcal  C [X]]]></fr:tex> is given by:</html:p>
-        <html:ul><html:li><fr:tex display="inline"><![CDATA[R]]></fr:tex> is identity on objects</html:li>
-
-  <html:li><fr:tex display="inline"><![CDATA[f : Y \to  Z]]></fr:tex> is taken to <fr:tex display="inline"><![CDATA[R (f) : X \times  Y \to  Z]]></fr:tex> given by precomposition with the projection</html:li></html:ul>
-        <html:p>The hom-set isomorphism is proven as follows:
-
-<fr:tex display="block"><![CDATA[\mathcal  C (L (Y), Z) = \mathcal  C (X \times  Y, Z) = (\mathcal  C [X]) (Y, Z) = (\mathcal  C [X]) (Y, R (Z))]]></fr:tex></html:p>
-        <html:p>Since <fr:tex display="inline"><![CDATA[R]]></fr:tex> is a right adjoint it preserves limits. Since <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has the same objects as <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and since <fr:tex display="inline"><![CDATA[R]]></fr:tex> is identity on objects, this establishes that <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has finite products given by finite products in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>.</html:p>
-        <fr:tree show-metadata="false">
-          <fr:frontmatter>
-            <fr:authors />
-            <fr:date>
-              <fr:year>2025</fr:year>
-              <fr:month>10</fr:month>
-              <fr:day>24</fr:day>
-            </fr:date>
-            <fr:uri>https://julesh.com/forest/000I/</fr:uri>
-            <fr:display-uri>000I</fr:display-uri>
-            <fr:route>/forest/000I/</fr:route>
-            <fr:title text="Simple slices as polynomial categories">Simple slices as polynomial categories</fr:title>
-          </fr:frontmatter>
-          <fr:mainmatter>
-            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products and <fr:tex display="inline"><![CDATA[X]]></fr:tex> an object of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>. Recall that the <fr:link href="/forest/000F/" title="The simple slice category" uri="https://julesh.com/forest/000F/" display-uri="000F" type="local">simple slice category</fr:link> <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> <fr:link href="/forest/000H/" title="Products in the simple slice category" uri="https://julesh.com/forest/000H/" display-uri="000H" type="local">has finite products</fr:link>.</html:p>
-            <html:p>We can universally characterise <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> as the smallest category with finite products that contains <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and another morphism <fr:tex display="inline"><![CDATA[x : 1 \to  X]]></fr:tex>.</html:p>
-            <html:p>Based on the analogous construction of polynomial rings, the simple slice <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> is sometimes called a <html:strong>polynomial category</html:strong>. This is the origin of its notation.</html:p>
-            <html:p>Reference: Lambek &amp; Scott, Introduction to higher-order categorical logic</html:p>
-          </fr:mainmatter>
-        </fr:tree>
-      </fr:mainmatter>
-    </fr:tree>
-    <fr:tree show-metadata="false">
-      <fr:frontmatter>
-        <fr:authors />
-        <fr:date>
-          <fr:year>2025</fr:year>
-          <fr:month>10</fr:month>
-          <fr:day>24</fr:day>
-        </fr:date>
-        <fr:uri>https://julesh.com/forest/000G/</fr:uri>
-        <fr:display-uri>000G</fr:display-uri>
-        <fr:route>/forest/000G/</fr:route>
-        <fr:title text="Indexed category structure of simple slices">Indexed category structure of simple slices</fr:title>
-      </fr:frontmatter>
-      <fr:mainmatter>
-        <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products. A morphism <fr:tex display="inline"><![CDATA[f : X \to  X']]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> induces a functor <fr:tex display="inline"><![CDATA[f^* : \mathcal  C [X'] \to  \mathcal  C [X]]]></fr:tex> where:</html:p>
-        <html:ul><html:li><fr:tex display="inline"><![CDATA[f^*]]></fr:tex> is identity on objects</html:li>
-
-  <html:li>For a morphism <fr:tex display="inline"><![CDATA[g : X' \times  Y \to  Z]]></fr:tex>, <fr:tex display="inline"><![CDATA[f^* (g) : X \times  Y \to  Z]]></fr:tex> is given by
-  
-  <fr:tex display="block"><![CDATA[X \times  Y \overset {f \times  Y}\longrightarrow  X' \times  Y \overset {g}\longrightarrow  Z]]></fr:tex></html:li></html:ul>
-        <html:p>This yields an indexed category <fr:tex display="inline"><![CDATA[\mathcal  C [-] : \mathcal  C^\mathrm {op} \to  \mathbf {Cat}]]></fr:tex>.</html:p>
-        <html:p>This structure can also be seen as arising from the comonad morphisms <fr:tex display="inline"><![CDATA[f_* : \mathbb  P_X \to  \mathbb  P_Y]]></fr:tex> between the <fr:link href="/forest/000E/" title="The parameters comonad" uri="https://julesh.com/forest/000E/" display-uri="000E" type="local">parameters comonads</fr:link>, since morphisms of comonads lift contravariantly to functors between Kleisli categories.</html:p>
-        <html:p>Since <fr:tex display="inline"><![CDATA[f^*]]></fr:tex> is identity on objects, it also preserves <fr:link href="/forest/000H/" title="Products in the simple slice category" uri="https://julesh.com/forest/000H/" display-uri="000H" type="local">products in simple slice categories</fr:link>. Thus <fr:tex display="inline"><![CDATA[\mathcal  C [-] : \mathcal  C^\mathrm {op} \to  \mathbf {Cat}]]></fr:tex> has indexed finite products.</html:p>
-      </fr:mainmatter>
-    </fr:tree>
+<fr:tex display="block"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C) = \int _{X : \mathcal  C} \mathcal  C [X]^\mathrm {op}]]></fr:tex></html:p>
+    <html:p>Notice that since the simple slice categories <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> all have the same class of objects, namely the objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, an object of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> is a pair <fr:tex display="inline"><![CDATA[\binom {X'}{X}]]></fr:tex> of objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>.</html:p>
   </fr:mainmatter>
   <fr:backmatter>
     <fr:tree show-metadata="false" hidden-when-empty="true">
@@ -391,87 +309,25 @@ it is equipped with a fibration <fr:tex display="inline"><![CDATA[\mathbb  F : \
               <fr:month>10</fr:month>
               <fr:day>25</fr:day>
             </fr:date>
-            <fr:uri>https://julesh.com/forest/000J/</fr:uri>
-            <fr:display-uri>000J</fr:display-uri>
-            <fr:route>/forest/000J/</fr:route>
-            <fr:title text="Construction of cartesian colinks from simple slices">Construction of cartesian colinks from simple slices</fr:title>
+            <fr:uri>https://julesh.com/forest/000L/</fr:uri>
+            <fr:display-uri>000L</fr:display-uri>
+            <fr:route>/forest/000L/</fr:route>
+            <fr:title text="The forwards fibration for cartesian colinks">The forwards fibration for cartesian colinks</fr:title>
           </fr:frontmatter>
           <fr:mainmatter>
-            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products, and let <fr:tex display="inline"><![CDATA[\mathcal  C [-] : \mathcal  C^\mathrm {op} \to  \mathbf {Cat}]]></fr:tex> be the <fr:link href="/forest/000G/" title="Indexed category structure of simple slices" uri="https://julesh.com/forest/000G/" display-uri="000G" type="local">indexed category</fr:link> of <fr:link href="/forest/000F/" title="The simple slice category" uri="https://julesh.com/forest/000F/" display-uri="000F" type="local">simple slices</fr:link>.</html:p>
-            <html:p>We define the <html:strong>category of cartesian colinks</html:strong> <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> as the total category of the opposite indexed category:
+            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products, and let <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> be the <fr:link href="/forest/000A/" title="Cartesian colinks" uri="https://julesh.com/forest/000A/" display-uri="000A" type="local">category of cartesian colinks</fr:link>.</html:p>
+            <html:p>Since <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> <fr:link href="/forest/000J/" title="Construction of cartesian colinks from simple slices" uri="https://julesh.com/forest/000J/" display-uri="000J" type="local">is constructed</fr:link> as the total category of an indexed category
 
-<fr:tex display="block"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C) = \int _{X : \mathcal  C} \mathcal  C [X]^\mathrm {op}]]></fr:tex></html:p>
-            <html:p>Notice that since the simple slice categories <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> all have the same class of objects, namely the objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, an object of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> is a pair <fr:tex display="inline"><![CDATA[\binom {X'}{X}]]></fr:tex> of objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>.</html:p>
-          </fr:mainmatter>
-        </fr:tree>
-        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
-          <fr:frontmatter>
-            <fr:authors />
-            <fr:date>
-              <fr:year>2025</fr:year>
-              <fr:month>10</fr:month>
-              <fr:day>24</fr:day>
-            </fr:date>
-            <fr:uri>https://julesh.com/forest/000I/</fr:uri>
-            <fr:display-uri>000I</fr:display-uri>
-            <fr:route>/forest/000I/</fr:route>
-            <fr:title text="Simple slices as polynomial categories">Simple slices as polynomial categories</fr:title>
-          </fr:frontmatter>
-          <fr:mainmatter>
-            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products and <fr:tex display="inline"><![CDATA[X]]></fr:tex> an object of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>. Recall that the <fr:link href="/forest/000F/" title="The simple slice category" uri="https://julesh.com/forest/000F/" display-uri="000F" type="local">simple slice category</fr:link> <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> <fr:link href="/forest/000H/" title="Products in the simple slice category" uri="https://julesh.com/forest/000H/" display-uri="000H" type="local">has finite products</fr:link>.</html:p>
-            <html:p>We can universally characterise <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> as the smallest category with finite products that contains <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and another morphism <fr:tex display="inline"><![CDATA[x : 1 \to  X]]></fr:tex>.</html:p>
-            <html:p>Based on the analogous construction of polynomial rings, the simple slice <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> is sometimes called a <html:strong>polynomial category</html:strong>. This is the origin of its notation.</html:p>
-            <html:p>Reference: Lambek &amp; Scott, Introduction to higher-order categorical logic</html:p>
-          </fr:mainmatter>
-        </fr:tree>
-        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
-          <fr:frontmatter>
-            <fr:authors />
-            <fr:date>
-              <fr:year>2025</fr:year>
-              <fr:month>10</fr:month>
-              <fr:day>24</fr:day>
-            </fr:date>
-            <fr:uri>https://julesh.com/forest/000H/</fr:uri>
-            <fr:display-uri>000H</fr:display-uri>
-            <fr:route>/forest/000H/</fr:route>
-            <fr:title text="Products in the simple slice category">Products in the simple slice category</fr:title>
-          </fr:frontmatter>
-          <fr:mainmatter>
-            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products, and let <fr:tex display="inline"><![CDATA[X]]></fr:tex> be an object of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>. Then the <fr:link href="/forest/000F/" title="The simple slice category" uri="https://julesh.com/forest/000F/" display-uri="000F" type="local">simple slice category</fr:link> <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has finite products, given by the underlying products in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>.</html:p>
-            <html:p>To prove this, we construct the Kleisli adjunction between <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex>.</html:p>
-            <html:p>The left adjoint <fr:tex display="inline"><![CDATA[L : \mathcal  C [X] \to  \mathcal  C]]></fr:tex> is given by:</html:p>
-            <html:ul><html:li>On objects, <fr:tex display="inline"><![CDATA[L (Y) = X \times  Y]]></fr:tex></html:li>
+<fr:tex display="block"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C) = \int _{X : \mathcal  C} \mathcal  C [X]^\mathrm {op}]]></fr:tex>
 
-  <html:li><fr:tex display="inline"><![CDATA[f : X \times  Y \to  Z]]></fr:tex> is taken to <fr:tex display="inline"><![CDATA[L (f) : X \times  Y \to  X \times  Z]]></fr:tex> given by the pairing of the projection and <fr:tex display="inline"><![CDATA[f]]></fr:tex></html:li></html:ul>
-            <html:p>The right adjoint <fr:tex display="inline"><![CDATA[R : \mathcal  C \to  \mathcal  C [X]]]></fr:tex> is given by:</html:p>
-            <html:ul><html:li><fr:tex display="inline"><![CDATA[R]]></fr:tex> is identity on objects</html:li>
+it is equipped with a fibration <fr:tex display="inline"><![CDATA[\mathbb  F : \overset {\leftarrow }{\mathcal  L} (\mathcal  C) \to  \mathcal  C]]></fr:tex> called the <html:strong>forwards fibration</html:strong>.</html:p>
+            <html:p>Concretely, <fr:tex display="inline"><![CDATA[\mathbb  F]]></fr:tex> is given as follows:</html:p>
+            <html:ul><html:li>On objects, <fr:tex display="inline"><![CDATA[\mathbb  F \binom {X'}{X} = X]]></fr:tex></html:li>
 
-  <html:li><fr:tex display="inline"><![CDATA[f : Y \to  Z]]></fr:tex> is taken to <fr:tex display="inline"><![CDATA[R (f) : X \times  Y \to  Z]]></fr:tex> given by precomposition with the projection</html:li></html:ul>
-            <html:p>The hom-set isomorphism is proven as follows:
+  <html:li>On morphisms, <fr:tex display="inline"><![CDATA[\mathbb  F]]></fr:tex> takes each cartesian colink to its forwards pass</html:li>
 
-<fr:tex display="block"><![CDATA[\mathcal  C (L (Y), Z) = \mathcal  C (X \times  Y, Z) = (\mathcal  C [X]) (Y, Z) = (\mathcal  C [X]) (Y, R (Z))]]></fr:tex></html:p>
-            <html:p>Since <fr:tex display="inline"><![CDATA[R]]></fr:tex> is a right adjoint it preserves limits. Since <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has the same objects as <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and since <fr:tex display="inline"><![CDATA[R]]></fr:tex> is identity on objects, this establishes that <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has finite products given by finite products in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>.</html:p>
-            <fr:tree show-metadata="false">
-              <fr:frontmatter>
-                <fr:authors />
-                <fr:date>
-                  <fr:year>2025</fr:year>
-                  <fr:month>10</fr:month>
-                  <fr:day>24</fr:day>
-                </fr:date>
-                <fr:uri>https://julesh.com/forest/000I/</fr:uri>
-                <fr:display-uri>000I</fr:display-uri>
-                <fr:route>/forest/000I/</fr:route>
-                <fr:title text="Simple slices as polynomial categories">Simple slices as polynomial categories</fr:title>
-              </fr:frontmatter>
-              <fr:mainmatter>
-                <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products and <fr:tex display="inline"><![CDATA[X]]></fr:tex> an object of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>. Recall that the <fr:link href="/forest/000F/" title="The simple slice category" uri="https://julesh.com/forest/000F/" display-uri="000F" type="local">simple slice category</fr:link> <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> <fr:link href="/forest/000H/" title="Products in the simple slice category" uri="https://julesh.com/forest/000H/" display-uri="000H" type="local">has finite products</fr:link>.</html:p>
-                <html:p>We can universally characterise <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> as the smallest category with finite products that contains <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and another morphism <fr:tex display="inline"><![CDATA[x : 1 \to  X]]></fr:tex>.</html:p>
-                <html:p>Based on the analogous construction of polynomial rings, the simple slice <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> is sometimes called a <html:strong>polynomial category</html:strong>. This is the origin of its notation.</html:p>
-                <html:p>Reference: Lambek &amp; Scott, Introduction to higher-order categorical logic</html:p>
-              </fr:mainmatter>
-            </fr:tree>
+  <html:li>Given an object <fr:tex display="inline"><![CDATA[\binom {Y'}{Y}]]></fr:tex> of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> and a morphism <fr:tex display="inline"><![CDATA[f : X \to  Y]]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, the cartesian lifting <fr:tex display="inline"><![CDATA[f^* \binom {Y'}{Y} : \binom {Y'}{X} \to  \binom {Y}{Y'}]]></fr:tex> is the colink with forwards pass <fr:tex display="inline"><![CDATA[f]]></fr:tex> and backwards pass the projection <fr:tex display="inline"><![CDATA[X \times  Y' \to  Y']]></fr:tex></html:li></html:ul>
+            <html:p>The forwards fibration is closely related to the <fr:link href="/forest/000O/" title="The history functor for cartesian colinks" uri="https://julesh.com/forest/000O/" display-uri="000O" type="local">history functor</fr:link>. They coincide for <fr:link href="/forest/000B/" title="Simple colinks in the category of sets" uri="https://julesh.com/forest/000B/" display-uri="000B" type="local">simple colinks in the category of sets</fr:link>.</html:p>
           </fr:mainmatter>
         </fr:tree>
       </fr:mainmatter>
@@ -490,19 +346,124 @@ it is equipped with a fibration <fr:tex display="inline"><![CDATA[\mathbb  F : \
               <fr:month>10</fr:month>
               <fr:day>24</fr:day>
             </fr:date>
-            <fr:uri>https://julesh.com/forest/000E/</fr:uri>
-            <fr:display-uri>000E</fr:display-uri>
-            <fr:route>/forest/000E/</fr:route>
-            <fr:title text="The parameters comonad">The parameters comonad</fr:title>
+            <fr:uri>https://julesh.com/forest/000G/</fr:uri>
+            <fr:display-uri>000G</fr:display-uri>
+            <fr:route>/forest/000G/</fr:route>
+            <fr:title text="Indexed category structure of simple slices">Indexed category structure of simple slices</fr:title>
           </fr:frontmatter>
           <fr:mainmatter>
-            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products, and let <fr:tex display="inline"><![CDATA[X]]></fr:tex> be an object of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>. The functor <fr:tex display="inline"><![CDATA[\mathbb  P_X : \mathcal  C \to  \mathcal  C]]></fr:tex> given by <fr:tex display="inline"><![CDATA[\mathbb  P_X (Y) = X \times  Y]]></fr:tex> can be given the structure of a commutative comonad, called the <html:strong>parameters comonad</html:strong>, as follows:</html:p>
-            <html:ul><html:li>The counit <fr:tex display="inline"><![CDATA[\mathbb  P_X (Y) = X \times  Y \to  Y]]></fr:tex> is given by the projection</html:li>
+            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products. A morphism <fr:tex display="inline"><![CDATA[f : X \to  X']]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> induces a functor <fr:tex display="inline"><![CDATA[f^* : \mathcal  C [X'] \to  \mathcal  C [X]]]></fr:tex> where:</html:p>
+            <html:ul><html:li><fr:tex display="inline"><![CDATA[f^*]]></fr:tex> is identity on objects</html:li>
 
-  <html:li>The comultiplication <fr:tex display="inline"><![CDATA[\mathbb  P_X (Y) = X \times  Y \to  X \times  X \times  Y = \mathbb  P_X^2 (Y)]]></fr:tex> is given by the diagonal</html:li>
+  <html:li>For a morphism <fr:tex display="inline"><![CDATA[g : X' \times  Y \to  Z]]></fr:tex>, <fr:tex display="inline"><![CDATA[f^* (g) : X \times  Y \to  Z]]></fr:tex> is given by
+  
+  <fr:tex display="block"><![CDATA[X \times  Y \overset {f \times  Y}\longrightarrow  X' \times  Y \overset {g}\longrightarrow  Z]]></fr:tex></html:li></html:ul>
+            <html:p>This yields an indexed category <fr:tex display="inline"><![CDATA[\mathcal  C [-] : \mathcal  C^\mathrm {op} \to  \mathbf {Cat}]]></fr:tex>.</html:p>
+            <html:p>This structure can also be seen as arising from the comonad morphisms <fr:tex display="inline"><![CDATA[f_* : \mathbb  P_X \to  \mathbb  P_Y]]></fr:tex> between the <fr:link href="/forest/000E/" title="The parameters comonad" uri="https://julesh.com/forest/000E/" display-uri="000E" type="local">parameters comonads</fr:link>, since morphisms of comonads lift contravariantly to functors between Kleisli categories.</html:p>
+            <html:p>Since <fr:tex display="inline"><![CDATA[f^*]]></fr:tex> is identity on objects, it also preserves <fr:link href="/forest/000H/" title="Products in the simple slice category" uri="https://julesh.com/forest/000H/" display-uri="000H" type="local">products in simple slice categories</fr:link>. Thus <fr:tex display="inline"><![CDATA[\mathcal  C [-] : \mathcal  C^\mathrm {op} \to  \mathbf {Cat}]]></fr:tex> has indexed finite products.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors />
+            <fr:date>
+              <fr:year>2025</fr:year>
+              <fr:month>10</fr:month>
+              <fr:day>24</fr:day>
+            </fr:date>
+            <fr:uri>https://julesh.com/forest/000F/</fr:uri>
+            <fr:display-uri>000F</fr:display-uri>
+            <fr:route>/forest/000F/</fr:route>
+            <fr:title text="The simple slice category">The simple slice category</fr:title>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products, and let <fr:tex display="inline"><![CDATA[X]]></fr:tex> be an object of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>. We write <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> for the Kleisli category of the <fr:link href="/forest/000E/" title="The parameters comonad" uri="https://julesh.com/forest/000E/" display-uri="000E" type="local">parameters comonad</fr:link> <fr:tex display="inline"><![CDATA[\mathbb  P_X : \mathcal  C \to  \mathcal  C]]></fr:tex>.</html:p>
+            <html:p>Concretely, <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> is given as follows:</html:p>
+            <html:ul><html:li>Objects of <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> are objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li>
 
-  <html:li>The commutative strength <fr:tex display="inline"><![CDATA[\mathbb  P_X (Y) \times  Z = (X \times  Y) \times  Z \to  X \times  (Y \times  Z) = \mathbb  P_X (Y \times  Z)]]></fr:tex> is the natural isomorphism</html:li></html:ul>
-            <html:p>Given a morphism <fr:tex display="inline"><![CDATA[X \to  X']]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, the natural transformation <fr:tex display="inline"><![CDATA[f \times  : X \times  - \to  X' \times  -]]></fr:tex> extends to a morphism of comonads <fr:tex display="inline"><![CDATA[f_* : \mathbb  P_X \to  \mathbb  P_Y]]></fr:tex>.</html:p>
+  <html:li>Morphisms <fr:tex display="inline"><![CDATA[f : Y \to  Z]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> are morphisms <fr:tex display="inline"><![CDATA[f : X \times  Y \to  Z]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li>
+
+  <html:li>The identity morphism <fr:tex display="inline"><![CDATA[Y \to  Y]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> is the projection <fr:tex display="inline"><![CDATA[X \times  Y \to  Y]]></fr:tex> in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex></html:li>
+
+  <html:li>The composition of <fr:tex display="inline"><![CDATA[f : X \times  Y \to  Z]]></fr:tex> and <fr:tex display="inline"><![CDATA[g : X \times  Z \to  W]]></fr:tex> is given by
+  
+  <fr:tex display="block"><![CDATA[X \times  Y \overset \Delta \longrightarrow  X \times  X \times  Y \overset {X \times  f}\longrightarrow  X \times  Z \overset {g}\longrightarrow  W]]></fr:tex></html:li></html:ul>
+            <html:p>Reference: <fr:link href="https://pages.jh.edu/rrynasi1/FoundationsOFMath/Literature/Logic/Jacobs1999CategoricalLogic+TypeTheory.pdf" type="external">Categorical logic and type theory</fr:link></html:p>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2025</fr:year>
+                  <fr:month>10</fr:month>
+                  <fr:day>24</fr:day>
+                </fr:date>
+                <fr:uri>https://julesh.com/forest/000H/</fr:uri>
+                <fr:display-uri>000H</fr:display-uri>
+                <fr:route>/forest/000H/</fr:route>
+                <fr:title text="Products in the simple slice category">Products in the simple slice category</fr:title>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products, and let <fr:tex display="inline"><![CDATA[X]]></fr:tex> be an object of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>. Then the <fr:link href="/forest/000F/" title="The simple slice category" uri="https://julesh.com/forest/000F/" display-uri="000F" type="local">simple slice category</fr:link> <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has finite products, given by the underlying products in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>.</html:p>
+                <html:p>To prove this, we construct the Kleisli adjunction between <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex>.</html:p>
+                <html:p>The left adjoint <fr:tex display="inline"><![CDATA[L : \mathcal  C [X] \to  \mathcal  C]]></fr:tex> is given by:</html:p>
+                <html:ul><html:li>On objects, <fr:tex display="inline"><![CDATA[L (Y) = X \times  Y]]></fr:tex></html:li>
+
+  <html:li><fr:tex display="inline"><![CDATA[f : X \times  Y \to  Z]]></fr:tex> is taken to <fr:tex display="inline"><![CDATA[L (f) : X \times  Y \to  X \times  Z]]></fr:tex> given by the pairing of the projection and <fr:tex display="inline"><![CDATA[f]]></fr:tex></html:li></html:ul>
+                <html:p>The right adjoint <fr:tex display="inline"><![CDATA[R : \mathcal  C \to  \mathcal  C [X]]]></fr:tex> is given by:</html:p>
+                <html:ul><html:li><fr:tex display="inline"><![CDATA[R]]></fr:tex> is identity on objects</html:li>
+
+  <html:li><fr:tex display="inline"><![CDATA[f : Y \to  Z]]></fr:tex> is taken to <fr:tex display="inline"><![CDATA[R (f) : X \times  Y \to  Z]]></fr:tex> given by precomposition with the projection</html:li></html:ul>
+                <html:p>The hom-set isomorphism is proven as follows:
+
+<fr:tex display="block"><![CDATA[\mathcal  C (L (Y), Z) = \mathcal  C (X \times  Y, Z) = (\mathcal  C [X]) (Y, Z) = (\mathcal  C [X]) (Y, R (Z))]]></fr:tex></html:p>
+                <html:p>Since <fr:tex display="inline"><![CDATA[R]]></fr:tex> is a right adjoint it preserves limits. Since <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has the same objects as <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and since <fr:tex display="inline"><![CDATA[R]]></fr:tex> is identity on objects, this establishes that <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> has finite products given by finite products in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>.</html:p>
+                <fr:tree show-metadata="false">
+                  <fr:frontmatter>
+                    <fr:authors />
+                    <fr:date>
+                      <fr:year>2025</fr:year>
+                      <fr:month>10</fr:month>
+                      <fr:day>24</fr:day>
+                    </fr:date>
+                    <fr:uri>https://julesh.com/forest/000I/</fr:uri>
+                    <fr:display-uri>000I</fr:display-uri>
+                    <fr:route>/forest/000I/</fr:route>
+                    <fr:title text="Simple slices as polynomial categories">Simple slices as polynomial categories</fr:title>
+                  </fr:frontmatter>
+                  <fr:mainmatter>
+                    <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products and <fr:tex display="inline"><![CDATA[X]]></fr:tex> an object of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>. Recall that the <fr:link href="/forest/000F/" title="The simple slice category" uri="https://julesh.com/forest/000F/" display-uri="000F" type="local">simple slice category</fr:link> <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> <fr:link href="/forest/000H/" title="Products in the simple slice category" uri="https://julesh.com/forest/000H/" display-uri="000H" type="local">has finite products</fr:link>.</html:p>
+                    <html:p>We can universally characterise <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> as the smallest category with finite products that contains <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> and another morphism <fr:tex display="inline"><![CDATA[x : 1 \to  X]]></fr:tex>.</html:p>
+                    <html:p>Based on the analogous construction of polynomial rings, the simple slice <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> is sometimes called a <html:strong>polynomial category</html:strong>. This is the origin of its notation.</html:p>
+                    <html:p>Reference: Lambek &amp; Scott, Introduction to higher-order categorical logic</html:p>
+                  </fr:mainmatter>
+                </fr:tree>
+              </fr:mainmatter>
+            </fr:tree>
+            <fr:tree show-metadata="false">
+              <fr:frontmatter>
+                <fr:authors />
+                <fr:date>
+                  <fr:year>2025</fr:year>
+                  <fr:month>10</fr:month>
+                  <fr:day>24</fr:day>
+                </fr:date>
+                <fr:uri>https://julesh.com/forest/000G/</fr:uri>
+                <fr:display-uri>000G</fr:display-uri>
+                <fr:route>/forest/000G/</fr:route>
+                <fr:title text="Indexed category structure of simple slices">Indexed category structure of simple slices</fr:title>
+              </fr:frontmatter>
+              <fr:mainmatter>
+                <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products. A morphism <fr:tex display="inline"><![CDATA[f : X \to  X']]></fr:tex> of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> induces a functor <fr:tex display="inline"><![CDATA[f^* : \mathcal  C [X'] \to  \mathcal  C [X]]]></fr:tex> where:</html:p>
+                <html:ul><html:li><fr:tex display="inline"><![CDATA[f^*]]></fr:tex> is identity on objects</html:li>
+
+  <html:li>For a morphism <fr:tex display="inline"><![CDATA[g : X' \times  Y \to  Z]]></fr:tex>, <fr:tex display="inline"><![CDATA[f^* (g) : X \times  Y \to  Z]]></fr:tex> is given by
+  
+  <fr:tex display="block"><![CDATA[X \times  Y \overset {f \times  Y}\longrightarrow  X' \times  Y \overset {g}\longrightarrow  Z]]></fr:tex></html:li></html:ul>
+                <html:p>This yields an indexed category <fr:tex display="inline"><![CDATA[\mathcal  C [-] : \mathcal  C^\mathrm {op} \to  \mathbf {Cat}]]></fr:tex>.</html:p>
+                <html:p>This structure can also be seen as arising from the comonad morphisms <fr:tex display="inline"><![CDATA[f_* : \mathbb  P_X \to  \mathbb  P_Y]]></fr:tex> between the <fr:link href="/forest/000E/" title="The parameters comonad" uri="https://julesh.com/forest/000E/" display-uri="000E" type="local">parameters comonads</fr:link>, since morphisms of comonads lift contravariantly to functors between Kleisli categories.</html:p>
+                <html:p>Since <fr:tex display="inline"><![CDATA[f^*]]></fr:tex> is identity on objects, it also preserves <fr:link href="/forest/000H/" title="Products in the simple slice category" uri="https://julesh.com/forest/000H/" display-uri="000H" type="local">products in simple slice categories</fr:link>. Thus <fr:tex display="inline"><![CDATA[\mathcal  C [-] : \mathcal  C^\mathrm {op} \to  \mathbf {Cat}]]></fr:tex> has indexed finite products.</html:p>
+              </fr:mainmatter>
+            </fr:tree>
           </fr:mainmatter>
         </fr:tree>
       </fr:mainmatter>

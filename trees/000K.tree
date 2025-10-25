@@ -1,0 +1,22 @@
+\date{2025-10-25T15:45:09Z}
+\title{Tensor product of cartesian colinks}
+
+\import{macros}
+
+\p{Recall the construction of the [category of cartesian colinks](000A) from the [indexed category of simple slices](000G),
+
+##{\colink (\cat{C}) = \int_{X : \cat{C}} \cat{C} [X]^\op}}
+
+\p{Recall that the simple slice categories #{\cat{C} [X]} [have finite products](000H) given by products in #{\cat{C}}, and that reindexing preserves them. Therefore the opposite categories #{\cat{C} [X]^\op} have finite coproducts given by products in #{\cat{C}}, and reindexing preserves them.}
+
+\p{This structure defines a symmetric monoidal product in #{\colink (\cat{C})}, called the \strong{tensor product}. In general the tensor product is neither cartesian nor cocartesian.}
+
+\p{Reference: [Shulman, Framed bicategories and monoidal fibrations](https://arxiv.org/abs/0706.1286)}
+
+\p{Concretely, on objects the tensor product is given by pairwise monoidal product:
+
+##{\binom{X'}{X} \otimes \binom{Y'}{Y} = \binom{X' \times Y'}{X \times Y}}}
+
+\p{The monoidal unit is denoted #{I = \binom{1}{1}}, where #{1} is the terminal object of #{\cat{C}}.}
+
+\p{The tensor product of cartesian colinks is fibrewise dual to the cartesian product of cartesian links.}

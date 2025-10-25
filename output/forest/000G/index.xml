@@ -148,7 +148,56 @@
         <fr:authors />
         <fr:title text="Backlinks">Backlinks</fr:title>
       </fr:frontmatter>
-      <fr:mainmatter />
+      <fr:mainmatter>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors />
+            <fr:date>
+              <fr:year>2025</fr:year>
+              <fr:month>10</fr:month>
+              <fr:day>25</fr:day>
+            </fr:date>
+            <fr:uri>https://julesh.com/forest/000K/</fr:uri>
+            <fr:display-uri>000K</fr:display-uri>
+            <fr:route>/forest/000K/</fr:route>
+            <fr:title text="Tensor product of cartesian colinks">Tensor product of cartesian colinks</fr:title>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>Recall the construction of the <fr:link href="/forest/000A/" title="Cartesian colinks" uri="https://julesh.com/forest/000A/" display-uri="000A" type="local">category of cartesian colinks</fr:link> from the <fr:link href="/forest/000G/" title="Indexed category structure of simple slices" uri="https://julesh.com/forest/000G/" display-uri="000G" type="local">indexed category of simple slices</fr:link>,
+
+<fr:tex display="block"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C) = \int _{X : \mathcal  C} \mathcal  C [X]^\mathrm {op}]]></fr:tex></html:p>
+            <html:p>Recall that the simple slice categories <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> <fr:link href="/forest/000H/" title="Products in the simple slice category" uri="https://julesh.com/forest/000H/" display-uri="000H" type="local">have finite products</fr:link> given by products in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, and that reindexing preserves them. Therefore the opposite categories <fr:tex display="inline"><![CDATA[\mathcal  C [X]^\mathrm {op}]]></fr:tex> have finite coproducts given by products in <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, and reindexing preserves them.</html:p>
+            <html:p>This structure defines a symmetric monoidal product in <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex>, called the <html:strong>tensor product</html:strong>. In general the tensor product is neither cartesian nor cocartesian.</html:p>
+            <html:p>Reference: <fr:link href="https://arxiv.org/abs/0706.1286" type="external">Shulman, Framed bicategories and monoidal fibrations</fr:link></html:p>
+            <html:p>Concretely, on objects the tensor product is given by pairwise monoidal product:
+
+<fr:tex display="block"><![CDATA[\binom {X'}{X} \otimes  \binom {Y'}{Y} = \binom {X' \times  Y'}{X \times  Y}]]></fr:tex></html:p>
+            <html:p>The monoidal unit is denoted <fr:tex display="inline"><![CDATA[I = \binom {1}{1}]]></fr:tex>, where <fr:tex display="inline"><![CDATA[1]]></fr:tex> is the terminal object of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>.</html:p>
+            <html:p>The tensor product of cartesian colinks is fibrewise dual to the cartesian product of cartesian links.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+        <fr:tree show-metadata="true" expanded="false" toc="false" numbered="false">
+          <fr:frontmatter>
+            <fr:authors />
+            <fr:date>
+              <fr:year>2025</fr:year>
+              <fr:month>10</fr:month>
+              <fr:day>25</fr:day>
+            </fr:date>
+            <fr:uri>https://julesh.com/forest/000J/</fr:uri>
+            <fr:display-uri>000J</fr:display-uri>
+            <fr:route>/forest/000J/</fr:route>
+            <fr:title text="Construction of cartesian colinks from simple slices">Construction of cartesian colinks from simple slices</fr:title>
+          </fr:frontmatter>
+          <fr:mainmatter>
+            <html:p>Let <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex> be a category with finite products, and let <fr:tex display="inline"><![CDATA[\mathcal  C [-] : \mathcal  C^\mathrm {op} \to  \mathbf {Cat}]]></fr:tex> be the <fr:link href="/forest/000G/" title="Indexed category structure of simple slices" uri="https://julesh.com/forest/000G/" display-uri="000G" type="local">indexed category</fr:link> of <fr:link href="/forest/000F/" title="The simple slice category" uri="https://julesh.com/forest/000F/" display-uri="000F" type="local">simple slices</fr:link>.</html:p>
+            <html:p>We define the <html:strong>category of cartesian colinks</html:strong> <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> as the total category of the opposite indexed category:
+
+<fr:tex display="block"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C) = \int _{X : \mathcal  C} \mathcal  C [X]^\mathrm {op}]]></fr:tex></html:p>
+            <html:p>Notice that since the simple slice categories <fr:tex display="inline"><![CDATA[\mathcal  C [X]]]></fr:tex> all have the same class of objects, namely the objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>, an object of <fr:tex display="inline"><![CDATA[\overset {\leftarrow }{\mathcal  L} (\mathcal  C)]]></fr:tex> is a pair <fr:tex display="inline"><![CDATA[\binom {X'}{X}]]></fr:tex> of objects of <fr:tex display="inline"><![CDATA[\mathcal  C]]></fr:tex>.</html:p>
+          </fr:mainmatter>
+        </fr:tree>
+      </fr:mainmatter>
     </fr:tree>
     <fr:tree show-metadata="false" hidden-when-empty="true">
       <fr:frontmatter>
