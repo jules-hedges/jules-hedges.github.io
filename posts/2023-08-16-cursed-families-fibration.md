@@ -23,7 +23,7 @@ This is fundamentally using the fact that $\mathbf{Set}$ is untyped, and we can 
 
 The intuition is that morphisms are not allowed to use their knowledge of the index, unless it can be deduced from the rest of their input. I'll go through a detailed example of this later.
 
-Just as there is an equivalence of categories $\mathbf{Fam} (\mathbf{Set}) \cong \mathbf{Set}^\to$, there is a cursed counterpart of $\mathbf{Set}^\to$ that is equivalent to $\mathfrak{Fam}$. I'll call this category$ \mathbf{Set}^\leftrightarrow$. An object of $\mathbf{Set}^\leftrightarrow$ is a pair of sets equipped with a binary relation $R \subseteq X \times X'$. A morphism from $R \subseteq X \times X'$ to $S \subseteq Y \times Y'$ is a pair of functions $f : X \to Y$ and $f' : X' \to Y'$ such that if $x R x'$ then $f (x) S f' (x')$.
+Just as there is an equivalence of categories $\mathbf{Fam} (\mathbf{Set}) \cong \mathbf{Set}^\to$, there is a cursed counterpart of $\mathbf{Set}^\to$ that is equivalent to $\mathfrak{Fam}$. I'll call this category $\mathbf{Set}^\leftrightarrow$. An object of $\mathbf{Set}^\leftrightarrow$ is a pair of sets equipped with a binary relation $R \subseteq X \times X'$. A morphism from $R \subseteq X \times X'$ to $S \subseteq Y \times Y'$ is a pair of functions $f : X \to Y$ and $f' : X' \to Y'$ such that if $x R x'$ then $f (x) S f' (x')$.
 
 One perspective on $\mathbf{Set}^\leftrightarrow$ is that it's the category of morphisms in the double category $\mathbf{Rel}$ whose proarrows are binary relations.
 
