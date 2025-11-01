@@ -51,6 +51,11 @@ main = hakyllWith config $ do
     route idRoute
     compile compressCssCompiler
 
+  -- Fonts
+  match "css/fonts/**" $ do
+    route idRoute
+    compile copyFileCompiler
+
   -- Hakyll templates
   match "templates/*" $ do
     compile templateBodyCompiler
