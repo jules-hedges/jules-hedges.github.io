@@ -2,6 +2,14 @@
 title: Papers
 ---
 
+**Canonical bidirectional typechecking** (with Zanzi Mihejevs)
+
+Preprint, 2025
+
+[[arXiv](https://arxiv.org/abs/2512.07511)]
+
+---
+
 **Reinforcement learning in categorical cybernetics** (with Riu Rodríguez Sakamoto)
 
 In *Proceedings of Applied Category Theory 2024*, *Electronic Proceedings in Theoretical Computer Science* 429:270-236, 2025
