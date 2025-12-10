@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+:root {
+    --proportional-fonts: "Source Sans 3", sans-serif;
+    --monospace-fonts: "Hopf Mono", monospace;
+    --sans-serif-fonts: "Source Sans 3", sans-serif;
+    --title-fonts: "Source Sans 3", sans-serif;
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
+    font-weight: normal;
+    font-style: normal;
+    src: url('fonts/Source_Sans_3/static/SourceSans3-Regular.ttf') format('truetype');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Source Sans 3';
+    font-weight: normal;
+    font-style: italic;
+    src: url('fonts/Source_Sans_3/static/SourceSans3-Italic.ttf') format('truetype');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Source Sans 3';
+    font-weight: bold;
+    font-style: normal;
+    src: url('fonts/Source_Sans_3/static/SourceSans3-Bold.ttf') format('truetype');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Hopf Mono';
+    font-weight: normal;
+    font-style: normal;
+    src: url('fonts/hopf-mono-Regular.woff2') format('woff2');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Hopf Mono';
+    font-weight: normal;
+    font-style: italic;
+    src: url('fonts/hopf-mono-Italic.woff2') format('woff2');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Hopf Mono';
+    font-weight: bold;
+    font-style: normal;
+    src: url('fonts/hopf-mono-Bold.woff2') format('woff2');
+    font-display: swap;
+}
