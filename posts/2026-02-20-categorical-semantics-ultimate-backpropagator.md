@@ -3,7 +3,7 @@ title: "Autodiff through function types: Categorical semantics the ultimate back
 date: 20/02/2026
 ---
 
-In this post we will see how to extend reverse mode automatic differentiation to a language with first class function types, function application and $\lambda$-abstraction. This method is not new, but we will give a new derivation of it by showing how it arises universally from noticing that the category of "additive lenses" is cartesian closed. In the end we will see that this idea sounds like it should revolutionise machine learning, but then doesn't. Everything in this post is joint work with [Bruno Gavranović](https://www.brunogavranovic.com/), who is now my colleague at [GLAIVe](https://glaive-research.org/).
+In this post we will see how to extend reverse mode automatic differentiation to a language with first class function types, function application and $\lambda$-abstraction. This method is not new, but we will give a new derivation of it by showing how it arises universally from noticing that the category of "additive lenses" is cartesian closed. In the end we will see that this idea sounds like it should revolutionise machine learning, but then doesn't. Everything in this post is joint work with [Bruno Gavranović](https://www.brunogavranovic.com/), who is now my colleague at [Glaive](https://glaive-research.org/).
 
 ## Additive containers and additive lenses
 
