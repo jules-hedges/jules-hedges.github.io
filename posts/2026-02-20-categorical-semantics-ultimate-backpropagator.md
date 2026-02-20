@@ -55,7 +55,7 @@ The connection between function types and lists of pairs seems to be credited to
 
 ## Abstraction and application
 
-Let's go through the semantics of $\lambda$-abtraction and function application, which introduce and eliminate function types respectively. To do this for real we need the *multi*categorical version which tracks how a term in a programming language is a function of all of the variables it refers to; but to keep things simple let's just do the version for categories, which is essentially the same.
+Let's go through the semantics of $\lambda$-abstraction and function application, which introduce and eliminate function types respectively. To do this for real we need the *multi*categorical version which tracks how a term in a programming language is a function of all of the variables it refers to; but to keep things simple let's just do the version for categories, which is essentially the same.
 
 Function application is an additive lens of type $\mathrm{ap} : (A \multimap B) \times A \to B$. Its forwards pass takes an additive lens $(f, f') : (A, A') \to (B, B')$ and a value $a : A$ to the value $f (a) : B$. Its backwards pass
 $$\mathrm{ap} : ((f, f') : (A, A') \to (B, B')) \times (a : A) \times B' (f (a)) \to ((A, A') \multimap (B, B'))' (f, f') \times A' (a) $$
