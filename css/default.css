@@ -55,6 +55,10 @@ article .header {
   text-decoration: none;
 }
 
+math {
+    font-family: 'Latin Modern Math', math, serif;
+}
+
 @media (max-width: 319px) {
   body {
     width: 90%;
