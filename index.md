@@ -16,6 +16,7 @@ I am affiliated with:
 
 ## News & recent posts
 
+- March 2026: New blog post: [Sequence for sequence II: Balancing the strangeness budget](/posts/2026-03-23-sequents-sequence-ii.html)
 - March 2026: New blog post: [Sequents for sequence](/posts/2026-03-13-sequents-sequence.html)
 - February 2026: New blog post: [Autodiff through function types: Categorical semantics the ultimate backpropagator](/posts/2026-02-20-categorical-semantics-ultimate-backpropagator.html)
 - December 2025: New preprint: [Canonical bidirectional typechecking](https://arxiv.org/abs/2512.07511), with Zanzi Mihejevs
@@ -25,4 +26,3 @@ I am affiliated with:
 - September 2025: [Reinforcement learning for categorical cybernetics](https://arxiv.org/abs/2404.02688) has been formally published in the [proceedings of ACT 2024](https://arxiv.org/html/2509.18357/)
 - July 2025: My PhD student [Riu Rodríguez Sakamoto](https://riurodsak.github.io/) has passed his viva with minor corrections
 - June 2025: New blog post: [From equilibrium checking to learning with the Open Game Engine](/posts/2025-06-26-equilibrium-checking-learning.html)
-- January 2025: New blog post: [Bidirectional typechecking is bidirectional](/posts/2025-01-28-bidirectional-typechecking.html)
