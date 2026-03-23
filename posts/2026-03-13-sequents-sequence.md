@@ -174,7 +174,7 @@ In System L, logical rules are split into introduction rules, which either combi
 ```idris
 data Term : Inputs -> Ty -> Outputs -> Type where
   UnitIntro : Term [<] Unit []
-  TensorIntro : Partition as1 as2 as -> Simplex bs1 bs2 bs
+  TensorIntro : Partition as1 as2 as -> Simplex bs2 bs1 bs
     -> Term as1 a bs1 -> Term as2 b bs1
     -> Term as (Tensor a b) bs
 
@@ -196,7 +196,7 @@ data Term : Inputs -> Ty -> Outputs -> Type where
 
 data Coterm : Inputs -> Ty -> Outputs -> Type where
   UnitCointro : Coterm [<] Unit []
-  ThenCointro : Partition as1 as2 as -> Simplex bs1 bs2 bs
+  ThenCointro : Partition as1 as2 as -> Simplex bs2 bs1 bs
     -> Coterm as1 a bs1 -> Coterm as2 b bs2
     -> Coterm as (Then a b) bs
 ```
