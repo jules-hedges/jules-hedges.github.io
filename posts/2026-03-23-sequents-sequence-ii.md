@@ -11,7 +11,7 @@ The first thing I looked at was $\lambda\mu$-calculus, a hybrid system that remo
 
 ## Computational $\lambda$-calculus
 
-My final design is based on the [computational $\lambda$-calculus](https://www.irif.fr/~mellies/mpri/mpri-ens/articles/moggi-computational-lambda-calculus-and-monads.pdf), the formal system behind Haskell's do-notation. It distinguishes pure *values* from *computations*, which live in a monad. I adapted this to work with a *graded monad*, specifically, the *graded writer* monad for the sequence product $T_p (a) = a; p$. Another closely related calculus is [fine grained call-by-value](https://www.sciencedirect.com/science/article/pii/S0890540103000889).
+My final design is based on the [computational $\lambda$-calculus](https://www.irif.fr/~mellies/mpri/mpri-ens/articles/moggi-computational-lambda-calculus-and-monads.pdf), the formal system behind Haskell's do-notation. It distinguishes pure *values* from *computations*, which live in a monad. I adapted this to work with a *graded monad*, specifically, the *graded writer* monad for the sequence product $T_p (a) = a \triangleright p$. Another closely related calculus is [fine grained call-by-value](https://www.sciencedirect.com/science/article/pii/S0890540103000889).
 
 For conoisseurs of categorical cybernetics, the graded writer monad is an equivalent perspective on the [co-para construction](https://arxiv.org/abs/2105.06332), and so this can be seen as a calculus for lenses that are right-coparametrised with the sequence product.
 
@@ -158,13 +158,13 @@ The *honest* reason for not writing the last section yet is that I'm myself stil
 
 Another reason is that the language fragment containing just tensor product and sequence product is quite limited in expressive power. Adding coproducts is easy (except for scopechecking them, which is extremely hard), but adding cartesian products requires a complex system of *quantities* inspired by [quantitative type theory](https://bentnib.org/quantitative-type-theory.pdf). This was worked out by [Dylan](https://dylanb.me/index.xml) and will be the topic of at least one future post by either him or me.
 
-And now for the reveal: At [Glaive](https://glaive-research.org/) we are developing a general purpose programming language around these ideas. Its working name is **polylang**, and the name has stuck enough that I want to name the langauge **Poly**.
+And now for the reveal: At [Glaive](https://glaive-research.org/) we are developing a general purpose programming language around these ideas. Its working name is **polylang**, and the name has stuck enough that I want to name the language **Poly**.
 
 The applications of polylang are exactly the applications of polynomial functors and lenses, which are *very* numerous. The first application that are developing is for implementing typed tactics for Lean as part of [our grant](https://www.renaissancephilanthropy.org/a-structured-representation-of-tactics-for-machine-assisted-theorem-proving), and the importance of the sequence product for tactics (where it describes actual sequencing of tactics) was the single biggest inspiration for the overall design.
 
 Other use cases for polylang that we have in mind are precisely the applications of [categorical cybernetics](https://cybercat.institute/2022/05/29/what-is-categorical-cybernetics/), which include (but are not limited to!) [statically typed autodiff](https://arxiv.org/abs/2103.01931), [reinforcement learning](https://arxiv.org/abs/2404.02688), [Bayesian learning](https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.MFCS.2023.24), [compositional game theory](https://github.com/CyberCat-Institute/open-game-engine/), and the trifecta of full stack programming: [frontend](https://cybercat.institute/2025/01/21/ui-para-optic/), [backend](https://arxiv.org/abs/2203.15633) and [databases](https://www.cs.ox.ac.uk/people/jeremy.gibbons/publications/ssbx-intro.pdf).
 
-There is nothing to release yet, nor can I give a release date, but we are likely to make a public release of an early version this year. Language development and compiler development are very hard, and we are not making things any easier for ourselves by using an experimental methdology, making as much as possible well typed and using Idris as an implementation language. Watch this space!
+There is nothing to release yet, nor can I give a release date, but we are likely to make a public release of an early version this year. Language development and compiler development are very hard, and we are not making things any easier for ourselves by using an experimental methodology, making as much as possible well typed and using Idris as an implementation language. Watch this space!
 
 ## Appendix: The well typed elaborator
 
