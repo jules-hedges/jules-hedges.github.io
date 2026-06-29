@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Jules Hedges - A first look at programming in Poly</title>
+        <link rel="stylesheet" href="../css/default.css" />
+        <link rel="stylesheet" href="../css/fonts.css" />
+        <link rel="stylesheet" href="../css/syntax.css" />
+        <link rel="me" href="https://mathstodon.xyz/@julesh" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">Jules Hedges</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../papers.html">Papers</a>
+                <a href="../blog.html">Blog</a>
+                <a href="../forest/index.html">Forest</a>
+                <a href="../links.html">Links</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>A first look at programming in Poly</h1>
+            <article>
+    <section class="header">
+        Posted on June 29, 2026
+        
+    </section>
+    <section>
+        <p>I ended <a href="../posts/2026-03-23-sequents-sequence-ii.html">my last post</a> with a teaser for what I have been working on for almost the last year now: a programming language called Poly in which types denote containers (aka polynomial functors) and functions denote lenses. It is an imperative language based on a computational <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math>-calculus for the noncommutative graded monad <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>p</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>a</mi><mo>⊳</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">T_p (a) = a \triangleright p</annotation></semantics></math>, whose algebraic theory is that of a stack.</p>
+<p>The compiler is still far from ready for a public release, but I’m still optimistic for a release this year. This post is part teaser and part update, where I will describe what has been done and a bit of the development roadmap. I want to show off a case study for a nontrivial program that the compiler is (almost) able to handle successfully: the “minimum” binary operation on the container of finite sets. This is a container that nontrivially involves dependent types, and yet Poly itself is simply-typed, so an accurate title for this post could be “Dependent types without dependent types, with dependent types”.</p>
+<h2 id="the-state-of-polylang">The state of Polylang</h2>
+<p>Here is a quick summary of the major components of the compiler Polylang, in almost reverse order:</p>
+<ul>
+<li>An intrinsically well typed core language based on a System L with folded tensor product on the left and folded sequence product on the right</li>
+<li>An intrinsically well typed interpreter from Core to Idris lenses</li>
+<li>A structurally recursive and intrinsically sound single-pass scopechecker and typechecker for System L, based on <a href="https://arxiv.org/abs/2512.07511">our paper</a> and many extensions that Zanzi and me have developed and not written down yet, particularly for the very difficult task of scopechecking in the presence of additive units (more on this later)</li>
+<li>An elaborator from the imperative surface language to System L following the design in my previous post</li>
+<li>A step called the “desugarer” that transforms raw abstract syntax into the post-composition order required by the elaborator</li>
+<li>Last and least, a parser which could charitably be described as “existing” but which throws a major wobbly if you put a single character out of place</li>
+</ul>
+<p>Now I will describe all of the features currently supported, and the features that are partially implemented or planned.</p>
+<ul>
+<li><p>Notably, currently all variables are linear. Most of the time this means that every variable in scope must be referenced exactly once, although it gets far more subtle in the presence of additives (cartesian products and products, and especially their units). I have a mostly but not completely implemented system of quantities allowing variables to become cartesian when they are under a linear exponential modality. I also plan a system where linear variables can be “demoted” and used multiple times at lower quantity, allowing for example implementation of the two natural lenses <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>→</mo><mi>a</mi><mo>⊗</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">a \to a \otimes a</annotation></semantics></math>.</p></li>
+<li><p>Binary and nullary tensor products, which have types, values and patterns all using the syntax <code>(x, y)</code> and <code>()</code>. For example, here is the concrete syntax for associativity of the tensor product:</p></li>
+</ul>
+<pre><code>function assoc (x : ((nat, nat), nat)) : (nat, (nat, nat)) {
+  (x12, x3) = x;
+  (x1, x2) = x12;
+  (x1, (x2, x3))
+}</code></pre>
+<p>Later this will be extended to unbiased <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>-ary tensor products. (The previous code snippet reveals that I still have no idea how to handle nested patterns.)</p>
+<ul>
+<li><p>Binary and nullary sequence products, which I talked about enough in my previous post that I’m not going to say any more about them in this post.</p></li>
+<li><p>Binary coproducts, currently using the syntax <code>|</code> for types, and <code>Left x</code> and <code>Right y</code> for values and patterns. For example, associativity of coproducts looks like this:</p></li>
+</ul>
+<pre><code>function assoc (x : (nat | nat) | nat) : nat | (nat | nat) {
+  match (x) {
+    Left x12 =&gt; match (x12) {
+      Left x1 =&gt; Left x1,
+      Right x2 =&gt; Right (Left x2)
+    },
+    Right x3 =&gt; Right (Right x3)
+  }
+}</code></pre>
+<p>Since only one branch of a coproduct match ever runs, every branch must consume the same set of linear variables - the first hint that linearity is going to get subtle. So far I am considering the nullary coproduct to not be useful enough to be worth the difficulty of scopechecking it. Later I expect to subsume all of this syntax into a general purpose mechanism for algebraic datatypes. (Poly is not whitespace-sensitive, which happens to be my personal preference, but I consider that concrete syntax is essentially trivial to change later.)</p>
+<ul>
+<li><p>Binary cartesian products. A binary product is eliminated by projection, with the syntax <code>x.first</code> and <code>x.second</code>. Notably projection counts as a use of the linear variable <code>x</code>, so it is not possible to extract both branches of a product. Binary products are creating using the syntax <code>{x, y}</code>. Since only one branch will ever be extracted, both branches must consume the same set of linear variables. So swap for a cartesian product is written <code>{x.second, x.first}</code> and that constitutes only a single consumtion of <code>x</code>.</p></li>
+<li><p>The nullary product, ie. the terminal object, which is created using the syntax <code>{}</code>. There is no general way to eliminate it: once you have a variable of type <code>{}</code> in scope you are often stuck with it permanently. Since there are very few lenses out of the cartesian unit (since the backwards pass must return an element of the empty set) this works as intended to prevent writing programs that could have no denotation. But much more subtle is the fact that creating the value <code>{}</code> can in general consume arbitrary linear variables, since it is the terminal object. This gives the scopechecker the difficult task of figuring out which variables must be consumed by <code>{}</code> because they are not consumed elsewhere. Doing this in a structurally recursive way was interesting enough that it will probably be the topic of a paper rather than a blog post. In theory <code>{}</code> should also be able to <em>produce</em> arbitrary values on the output stack, but this is currently not implemented because I still have no idea how to scopecheck it without help from a syntactic annotation.</p></li>
+<li><p>Toplevel functions, currently restricted to at most 1 input and at most 1 output (but multiple inputs and outputs can be easily simulated using the tensor and sequence products respectively.) Toplevel functions can be recursive, in an unrestricted way, with no form of termination checking planned - this is the only intended failure of soundness in the language. Right now I have an embarassing bug where toplevel recursion causes an exponential blowup in the interpreter, so that I can calculuate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2 + 2</annotation></semantics></math> with unary naturals but it takes about 20 seconds.</p></li>
+<li><p>IO is currently hacked in for demonstration purposes, but we have half-formed plans for a custom algebraic effect system making heavy use of the sequence product.</p></li>
+<li><p>By far the biggest piece of work to be done, which I expect to take the next several months, are the related tasks of adding parametric type variables (aka generics) and a general system for algebraic datatypes. Right now I have several specific recursive datatypes hacked in. For example, the type called <code>nat</code> (which I call the “flat naturals”), is the container whose forwards set is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℕ</mi><annotation encoding="application/x-tex">\mathbb N</annotation></semantics></math> and backwards set is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>, or as a polynomial functor <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℕ</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">\mathbb N y</annotation></semantics></math>. It can be defined “intrinsically” as the least fixpoint of <code>nat | ()</code>, or as a polynomial functor as the least fixpoint of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>y</mi><mo>+</mo><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N (y) = y + N (y)</annotation></semantics></math>. It is defined by two constructors <code>Zero</code> and <code>Succ n</code>, and a deconstructor that consumes a <code>nat</code> and produces a <code>() | nat</code>, which can then be matched on. A much more interesting example will be the topic of the next section.</p></li>
+</ul>
+<h2 id="the-fin-container">The Fin container</h2>
+<p>Now I’m going to talk through a nontrivial program in Poly. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐅</mi><mi>𝐢</mi><mi>𝐧</mi></mrow><annotation encoding="application/x-tex">\mathbf{Fin}</annotation></semantics></math> is the container whose forwards set is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℕ</mi><annotation encoding="application/x-tex">\mathbb N</annotation></semantics></math>, and whose backwards set over <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> is a finite set with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> labelled elements. As a polynomial functor this is the power series <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>0</mn></mrow><mi>∞</mi></msubsup><msup><mi>y</mi><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">F (y) = \sum_{n = 0}^\infty y^n</annotation></semantics></math>, which is naturally isomorphic to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi>𝐋</mi><mi>𝐢</mi><mi>𝐬</mi><mi>𝐭</mi></mrow><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{List} (y)</annotation></semantics></math>. For this reason <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐅</mi><mi>𝐢</mi><mi>𝐧</mi></mrow><annotation encoding="application/x-tex">\mathbf{Fin}</annotation></semantics></math> is usually called the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐋</mi><mi>𝐢</mi><mi>𝐬</mi><mi>𝐭</mi></mrow><annotation encoding="application/x-tex">\mathbf{List}</annotation></semantics></math> container, but I’m choosing to call it <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐅</mi><mi>𝐢</mi><mi>𝐧</mi></mrow><annotation encoding="application/x-tex">\mathbf{Fin}</annotation></semantics></math> because this really isolates the difference between “Set-centric thinking” and “Poly-centric thinking”: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐅</mi><mi>𝐢</mi><mi>𝐧</mi></mrow><annotation encoding="application/x-tex">\mathbf{Fin}</annotation></semantics></math> is used to define lists in the category of sets, but the category of containers has list monads of its own: André wrote about them <a href="https://glaive-research.org/2026/03/18/bootstrapping-data-structures.html">here</a>.</p>
+<p>Normally the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐅</mi><mi>𝐢</mi><mi>𝐧</mi></mrow><annotation encoding="application/x-tex">\mathbf{Fin}</annotation></semantics></math> container requires dependent types to define. For example in Idris, the fibres are defined like this:</p>
+<pre class="idris2"><code>data Fin : Nat -&gt; Type where
+  FZ : Fin (S n)
+  FS : Fin n -&gt; Fin (S n)</code></pre>
+<p>In Poly, we can define <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐅</mi><mi>𝐢</mi><mi>𝐧</mi></mrow><annotation encoding="application/x-tex">\mathbf{Fin}</annotation></semantics></math> intrinsically without requiring any use of dependent types: it is the least fixpoint of <code>Fin = {} | {(), Fin}</code>. In terms of polynomial functors this is the standard telescoping recurrence for the power series, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>1</mn><mo>+</mo><mi>y</mi><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">F (y) = 1 + y F (y)</annotation></semantics></math> (this is how Euler would do containers, radius of convergence is for cowards). As I said earlier I don’t have a general mechanism for defining recursive datatypes in Poly yet, but my idealised syntax is something like</p>
+<pre><code>data Fin = FinZero {} | FinSucc {(), Fin}</code></pre>
+<p>Let’s write a nontrivial program using <code>Fin</code>, and talk through in detail how its scoping works. There is a lens <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi>min</mi><mo>⁡</mo></mrow><mo>:</mo><mrow><mi>𝐅</mi><mi>𝐢</mi><mi>𝐧</mi></mrow><mo>⊗</mo><mrow><mi>𝐅</mi><mi>𝐢</mi><mi>𝐧</mi></mrow><mo>→</mo><mrow><mi>𝐅</mi><mi>𝐢</mi><mi>𝐧</mi></mrow></mrow><annotation encoding="application/x-tex">\min : \mathbf{Fin} \otimes \mathbf{Fin} \to \mathbf{Fin}</annotation></semantics></math> which takes the minimum of two natural numbers in the forwards pass, and in the backwards pass embeds a finite set with <code>min m n</code> elements into finite sets with <code>m</code> and <code>n</code> elements. In terms of extensions <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi>𝐅</mi><mi>𝐢</mi><mi>𝐧</mi></mrow><mo>⊗</mo><mrow><mi>𝐅</mi><mi>𝐢</mi><mi>𝐧</mi></mrow></mrow><annotation encoding="application/x-tex">\mathbf{Fin} \otimes \mathbf{Fin}</annotation></semantics></math> is the endofunctor that sends a set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> to the set of (rectangular) matrices of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>, and the extension of the lens <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>min</mi><annotation encoding="application/x-tex">\min</annotation></semantics></math> is the natural transformation from the matrix functor to the list functor that takes the diagonal starting from top left and stops when it hits the shortest dimension.</p>
+<p>Our starting point is the recursive definition of binary minimum of natural numbers, which in awkwardly verbose Idris looks like this:</p>
+<pre><code>min : Nat -&gt; Nat -&gt; Nat
+min m n = case m of
+  Z =&gt; Z
+  S pm =&gt; case n of
+    Z =&gt; Z
+    S pn =&gt; S (min pm pn)</code></pre>
+<p>(Here <code>pm</code> is mnemonic for “predecessor of <code>m</code>”.) We can write the minimum operator for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝐅</mi><mi>𝐢</mi><mi>𝐧</mi></mrow><annotation encoding="application/x-tex">\mathbf{Fin}</annotation></semantics></math> in Poly by following the same approximate structure, first matching on the first input and then in the successor case matching on the second input.</p>
+<p>We start like this:</p>
+<pre><code>function min (m : fin, n : fin) : fin {
+  match (m) {
+    FinZero zm =&gt; ?,
+    FinSucc pm =&gt; ?
+  }
+}</code></pre>
+<p>In the first branch we get a variable <code>zm : {}</code>, the cartesian unit. As I said earlier, normally this is bad because there is no general way to get rid of a cartesian unit in scope. But in this branch we want to return the zero constructor, and that itself takes a cartesian unit as a parameter. So we can just use <code>zm</code> as the parameter, but there’s also something else we can do: we can just write <code>{}</code> to introduce a cartesian unit, and the scopechecker will figure out that by creating the <code>{}</code> we must be consuming the variable <code>zm</code> because there is nowhere else for it to go.</p>
+<pre><code>function min (m : fin, n : fin) : fin {
+  match (m) {
+    FinZero zm =&gt; FinZero {},
+    FinSucc pm =&gt; match (n) {
+      FinZero zn =&gt; ?,
+      FinSucc pm =&gt; ?
+    }
+  }
+}</code></pre>
+<p>In the right branch of the match on <code>m</code> we gain <code>pm : {(), Fin}</code>, the cartesian product of a tensor unit and a <code>Fin</code>. The next thing we need to do is to match on <code>n</code>, and in its zero branch we need to return the zero constructor, while consuming both <code>pm</code> and <code>zn</code>. Once again we can do this by writing <code>FinZero {}</code> since the <code>{}</code> consumes anything we need it to.</p>
+<p>In the final branch we need to make a recursive call and wrap it in a <code>FinSucc</code> constructor. We have <code>pm</code> and <code>pn</code> both of type <code>{(), Fin}</code>, and we can take their right projections to get the inputs to the recursive call. What we would <em>like</em> to write is this:</p>
+<pre><code>      FinSucc pm =&gt; FinSucc {(), min (pm.right, pn.right)}</code></pre>
+<p>But this doesn’t scopecheck: both branches of the cartesian product must consume the same variables, but the left branch <code>()</code> doesn’t consume anything. What we need to do in the left branch is to left-project out of <code>pm</code> and <code>pn</code> and pattern match the resulting tensor units to consume them. This can be written</p>
+<pre><code>function min (m : fin, n : fin) : fin {
+  match (m) {
+    FinZero zm =&gt; FinZero {},
+    FinSucc pm =&gt; match (n) {
+      FinZero zn =&gt; FinZero {},
+      FinSucc pm =&gt; FinSucc {
+        let ((), ()) = (pm.left, pn.left) in (),
+        min (pm.right, pn.right)
+      }
+    }
+  }
+}</code></pre>
+<p>This is the point where I admit that I can’t <em>quite</em> compile this program yet. I didn’t anticipate that the subtle interaction of linearity and cartesian products would make it a hard requirement to write non-value terms in value position (aka the Moggi transformation), so I put it off for the future as a mere quality of life feature. For my first attempt I was working off a buggy version of the original Idris <code>min</code> function that omitted the successor constructor in the final case, making it a constant zero function with extra steps (the extension of the corresponding lens takes every matrix to the empty list). That function <em>can</em> be handled by my compiler right now, and I will show what it looks like with all of the syntactic workarounds I am currently working with:</p>
+<pre><code>function min (mn : (fin, fin)) : fin {
+  (m, n) = mn;
+  dm = deconsFin (m);
+  dn = deconsFin (n);
+  match (dm) {
+    Left zm =&gt; FinZero {},
+    Right pm =&gt; match (dn) {
+      Left zn =&gt; FinZero {},
+      Right pn =&gt; {
+        pmr = pm.right;
+        pnr = pn.right;
+        min ((pmr, pnr))
+      }
+    }
+  }
+}</code></pre>
+<h2 id="the-road-ahead">The road ahead</h2>
+<p>All of this was intended as a teaser, to give an idea of what I’ve already built and what it can already handle, and what is still to be done. The point of the last section is to give an impression of what it’s like to program <em>intrinsically</em> with containers and lenses. Of course Poly is actually intended not for this kind of category-theoretic exercise but for actually practical programming tasks in categorical cybernetics - the one I’m prioritising because of our grant is implementing typed tactics, so more on that in future.</p>
+<p>My big task for the next few months is going to be parametric polymorphism and user-definable datatypes, which will be a huge step up in expressive power. In particular, this will make it possible to define the three list monads: one each for tensor product, cartesian product and sequence product. The latter of these, lists for the sequence product, is equivalent to the <em>free monad monad</em> on the category of polynomial functors, an incredibly useful construction that shows up constantly in the world of tactics but also in many other places, probably including the hypothetical future implementation of effects.</p>
+<p>The other thing I haven’t mentioned at all is anything at the back end of the compiler. Aside from the Lean target this is a problem I’m leaving for myself in the future because I really know nothing about that side of things, but my intention is to target either Javascript or WASM (whichever turns out to be easier) implementing the backwards pass using the same mechanism as is used for callbacks.</p>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site proudly generated by <a href="http://jaspervdj.be/hakyll">Hakyll</a> - <a href="../about.html">About this site</a>
+        </footer>
+    </body>
+</html>
