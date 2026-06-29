@@ -16,7 +16,7 @@ I am affiliated with:
 
 ## News & recent posts
 
-- June 2026: New blog post: [A first look at programming in Poly](/posts/2026-06-26-first-look-programming-poly.html)
+- June 2026: New blog post: [A first look at programming in Poly](/posts/2026-06-29-first-look-programming-poly.html)
 - March 2026: New blog post: [Sequence for sequence II: Balancing the strangeness budget](/posts/2026-03-23-sequents-sequence-ii.html)
 - March 2026: New blog post: [Sequents for sequence](/posts/2026-03-13-sequents-sequence.html)
 - February 2026: New blog post: [Autodiff through function types: Categorical semantics the ultimate backpropagator](/posts/2026-02-20-categorical-semantics-ultimate-backpropagator.html)

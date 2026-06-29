@@ -1,6 +1,6 @@
 ---
 title: A first look at programming in Poly
-date: 26/06/2026
+date: 29/06/2026
 ---
 
 I ended [my last post](/posts/2026-03-23-sequents-sequence-ii.html) with a teaser for what I have been working on for almost the last year now: a programming language called Poly in which types denote containers (aka polynomial functors) and functions denote lenses. It is an imperative language based on a computational $\lambda$-calculus for the noncommutative graded monad $T_p (a) = a \triangleright p$, whose algebraic theory is that of a stack.
